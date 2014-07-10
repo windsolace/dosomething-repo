@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset= "UTF-8">
+		<link rel = "stylesheet" href = "assets/css/styles.css"/>
+		<link rel = "stylesheet" href = "assets/css/cells.css"/>
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
+		<title>Welcome to Do Something.sg</title>
+	</head>
+	<body>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+				  appId      : '337876719693977',
+				  xfbml      : true,
+				  version    : 'v2.0'
+				});
+
+				//on page load, check if fb logged in
+				FB.getLoginStatus(function(response) {
+				  if (response.status === 'connected') {
+				    console.log('Logged in.');
+				  }
+				  else {
+				  	console.log('not logged in');
+				    FB.login();
+				  }
+				});
+			};
+
+			(function(d, s, id){
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "https://connect.facebook.net/en_US/sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			function fb_login(){
+			    FB.login(function(response) {
+
+			        if (response.authResponse) {
+			            console.log('Welcome!  Fetching your information.... ');
+			            //console.log(response); // dump complete info
+			            access_token = response.authResponse.accessToken; //get access token
+			            user_id = response.authResponse.userID; //get FB UID
+
+			            FB.api('/me', function(response) {
+			                user_name = response.name; //get user email
+			                console.log(response);
+			      			console.log('Successful login for: ' + user_name );
+			            });
+
+			        } else {
+			            //user hit cancel button
+			            console.log('User cancelled login or did not fully authorize.');
+
+			        }
+			    }, {
+			        scope: 'public_profile'
+			    });
+			}
+	    </script>
+
+		<div id = "body-wrapper">
+			<div class = "s-left">
+				<h1>Do Something Now</h1>
+				<div class = "description">
+					<p>Loren ipsum</p>
+					<ul>
+						<li>astro gas ta</li>
+						<li>lotta ui tesa la</li>
+					</ul>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas semper, mauris et auctor pulvinar, erat massa dignissim neque, at sodales arcu ante dignissim magna. Sed a turpis arcu. Duis ac tellus et sapien auctor posuere. Nam ac ante et arcu dictum condimentum tempor et enim.</p>
+				</div>
+			</div>
+			<div class = "s-right">
+				<h1>Log In </h1>
+				<ul class = "login-btn-group">
+					<li><a href = "#" onclick = "fb_login();" class = "btn-col">
+						<div class = "btn-block"><span class = "fb-icon"></span>Facebook</div>
+					</a></li>
+				</ul>
+			</div>
+			<section class = "footer">
+				<footer>&copy; Copyright 2014 DoSomething.com </footer>
+			</section>			
+
+		</div>
+
+	</body>
+
+
+
+</html>
