@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset= "UTF-8">
+		<link rel = "stylesheet" href = "assets/css/styles.css"/>
+		<link rel = "stylesheet" href = "assets/css/cells.css"/>
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
+		<title>Welcome to Do Something.sg</title>
+	</head>
+	<body>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+				  appId      : '337876719693977',
+				  xfbml      : true,
+				  version    : 'v2.0'
+				});
+			};
+
+			(function(d, s, id){
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "https://connect.facebook.net/en_US/sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			function checkLoginState() {
+			  FB.getLoginStatus(function(response) {
+			    statusChangeCallback(response);
+			  });
+			  console.log("hi");
+			}
+	    </script>
+	    <div class = "login-banner">
+	    	<div class = "login-btn">
+	    		<a href = "www.google.com">Log In</a>
+	    	</div>
+	    </div>
+<div class="fb-login-button" data-size="large" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+		<div id = "body-wrapper">
+			<section id = "home-header">
+				<h1><span class = "home-logo">Do Something @ SG</span></h1>
+			</section>
+			<section id = "index-main">
+				<div id="index-menu">
+					<h2>What do you want to do today?</h2>
+					
+					<div class = "cell-container">
+						
+						<a href = "javascript:void(0)">
+							<div class = "homecell eat">
+								<div class = "cell-content">Eat</div>
+							</div>
+						</a>
+						<a href = "javascript:void(0)">
+							<div class = "homecell play">
+								<div class = "cell-content">Play</div>
+							</div>
+						</a>
+						<a href = "javascript:void(0)">
+							<div class = "homecell trend">
+								<div class = "cell-content">Trend</div>
+							</div>
+						</a>
+						<a href = "javascript:void(0)">
+							<div class = "homecell explore">
+								<div class = "cell-content">Explore</div>
+							</div>
+						</a>
+					</div>
+				</div>	
+			</section>
+			<section class = "footer">
+				<footer>&copy; Copyright 2014 DoSomething.com </footer>
+			</section>			
+
+		</div>
+
+	</body>
+
+
+
+</html>
