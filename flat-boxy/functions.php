@@ -1,86 +1,76 @@
-<?php 
-/**
-* Custom functions and definitions
-* Contains helper functions
-*
-* @package WordPress
-* @subpackage Twenty_Fourteen
-* @since Twenty Fourteen 1.0
-*/
+<?php
+/*
+Template Name: Landing Page
+ *
+ * @package WordPress
+ * @subpackage Flat_Boxy
+ * @since Flat_Boxy v1
+ */
 
-/**
-* Lists child pages
-*/
-function list_all_pages(){
-	$args = array(
-			'post_type' => 'page',
-			'orderby' => 'title',
-			'order' => 'ASC'
-	);
+get_header(); ?>
 
-	$all_pages = get_posts($args);
+<div id="body-wrapper">
 
-	return $all_pages;
-}
-
-/**
-*Get the id of a page by its name
-**/
-function get_page_id($page_name){
-	global $wpdb;
-	$page_name = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_name = '".$page_name."'");
-	return $page_name;
-}
-
-/**
-*Get the permalink of a page by its id
-**/
-function get_page_permalink($page_name){
-	$page_id = get_page_id($page_name);
-	$page_permalink = get_permalink($page_id);
-	return $page_permalink;
-}
-
-/**
-*Get the first image of a post
-**/
-function echo_first_image( $postID ) {
-	$args = array(
-		'numberposts' => 1,
-		'order' => 'ASC',
-		'post_mime_type' => 'image',
-		'post_parent' => $postID,
-		'post_status' => null,
-		'post_type' => 'attachment',
-	);
-
-	$attachments = get_children( $args );
-
-	if ( $attachments ) {
-		foreach ( $attachments as $attachment ) {
-
-			//echo wp_get_attachment_thumb_url( $attachment->ID );
-			echo wp_get_attachment_url( $attachment->ID, 'full');
-
+	<?php
+		if ( is_front_page() && twentyfourteen_has_featured_posts() ) {
+			// Include the featured content template.
+			get_template_part( 'featured-content' );
 		}
-	}
-}
+	?>
 
-/**
-*Get the parent page title
-**/
-function get_parent_title($post) {
-	$parent_title = get_the_title($post->post_parent);
-	return $parent_title;
-}
+	<!-- Start of navigation-->
+	<?php include(__DIR__."/../sidenav.php"); ?>
+	<!-- End of navigation -->
+	
+	<section id = "main" class = "full">
+		<div id = "main-content">
+			<h2><?php echo get_the_title() ?></h2>
+			<p>
+				<?php
+					//Start the Loop
+					while(have_posts()) : the_post();
+						//Include the content from editor
+						the_content();
+					endwhile
+				?>
+			</p>
+			<div id = "activity-list">
+				<div class = "cell-container">
+					<?php
+						$current_page = $post->ID;
+						//$children = get_page('child_of= '.$post->ID);
+						$all_pages = list_all_pages();
+						$children = get_page_children($current_page, $all_pages);
+						asort($children);
+						if(!empty($children)){
+							for($i = 0; $i < count($children); ++$i){
+								$child_page = $children[$i];
 
-/**
-*Get the parent page title
-**/
-function get_template_name() {
-	$page_template_path = get_page_template();
-	$extension_length = strlen(substr($page_template_path, strrpos($page_template_path, '.')));
-	$page_template_name = substr($page_template_path, strrpos($page_template_path, '/')+1, -$extension_length);
-	return $page_template_name;
-}
-?>
+								$parent_title = get_parent_title($child_page);
+								if($parent_title == get_the_title($current_page)){
+									$child_page_id = $child_page->ID;
+									$child_page_title =get_the_title($child_page_id);
+									$child_page_link = get_permalink($child_page_id);
+
+									?>
+									<div class = "cell">
+										<div class = "cell-content">
+											<a href = "<?php echo $child_page_link ?>">
+												<span><img class = "cell-img" src = "<?php echo_first_image($child_page_id); ?>" alt = ""/></span>
+												<div class = "cell-title"><?php echo $child_page_title ?></div>
+											</a>
+										</div>
+									</div>
+								<?php
+								}
+
+
+							
+							}	
+						}
+					?>
+				</div><!-- #cell-container -->					
+			</div><!-- #activity-list -->
+		</div><!-- #main-content -->		
+	</section><!-- #main -->
+	<?php get_footer();?>
