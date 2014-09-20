@@ -27,9 +27,9 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/css/style.css"/>
+	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/style.css"/>
 	<!--End different viewports -->
-	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/css/cells.css"/>
+	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/cells.css"/>
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
 

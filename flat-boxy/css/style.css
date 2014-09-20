@@ -245,7 +245,7 @@ span#mobile-menu-icon{
 	/*border: 3px solid black;*/
 }
 #mobile-menu-icon img{
-	content:url("../img/sprites/mobile-menu.png");
+	content:url("./img/sprites/mobile-menu.png");
 }
 #mobile-menu-icon:hover img{
 	-webkit-transform: translate(-50px, 0);
@@ -296,7 +296,7 @@ span#menu-icon{
 	height:50px;
 	border-radius: 5px;
 	display:block;
-	//background-image:url("../img/sprites/menu.png");
+	//background-image:url("./img/sprites/menu.png");
 	margin:0;
 	padding:0;
 	overflow:hidden;
@@ -305,7 +305,7 @@ span#menu-icon{
 }
 #menu-icon img{
 	z-index:1;
-	content:url("../img/sprites/menu.png");
+	content:url("./img/sprites/menu.png");
 }
 #menu-icon:hover img{
 	-webkit-transform: translate(-50px, 0);

@@ -41,8 +41,9 @@ div.cell a, div.cell-container a{ /*removes a dash for a tags*/
 	z-index:1;
 }
 .cell img.cell-img{
-	max-width:120%;
-	max-height:120%;
+	//max-width:100%;
+	overflow: hidden;
+	max-height:80%;
 }
 .cell .cell-title{
 	bottom:0px;

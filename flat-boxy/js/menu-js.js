@@ -72,9 +72,7 @@ $(document).ready(function(){
 	/*
 	*Sets when Log Out is clicked
 	*/
-	$('a').click(function(){
-		console.log("a is clicked");
-		
+	$('a').click(function(){		
 		//Logout
 		if($(this).find('.logout').length > 0){
 			fb_logout();

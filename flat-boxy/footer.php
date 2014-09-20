@@ -11,7 +11,7 @@
 ?>
 		<section class = "footer">
 			
-			<footer>&copy; Copyright 2014 DoSomething.com </footer>
+			<footer>&copy; Copyright 2014 hydi.voqux.com </footer>
 		</section>	
 
 	

@@ -19,7 +19,7 @@ get_header(); ?>
 	?>
 
 	<!-- Start of navigation-->
-	<?php include("/Applications/MAMP/htdocs/web/wordpress/wp-content/themes/flat-boxy/sidenav.php"); ?>
+	<?php include(__DIR__."/../sidenav.php"); ?>
 	<!-- End of navigation -->
 	
 	<section id = "main" class = "full">
@@ -39,7 +39,6 @@ get_header(); ?>
 					<?php
 						$current_page = $post->ID;
 						//$children = get_page('child_of= '.$post->ID);
-
 						$all_pages = list_all_pages();
 						$children = get_page_children($current_page, $all_pages);
 						asort($children);
@@ -47,19 +46,26 @@ get_header(); ?>
 							for($i = 0; $i < count($children); ++$i){
 								$child_page = $children[$i];
 
-								$child_page_title = $child_page->post_title;
-								$child_page_id = $child_page->ID;
-								$child_page_link = get_permalink($child_page_id);
-							?>
-							<div class = "cell">
-								<div class = "cell-content">
-									<a href = "<?php echo $child_page_link ?>">
-										<span><img class = "cell-img" src = "<?php echo_first_image($child_page_id); ?>" alt = ""/></span>
-										<div class = "cell-title"><?php echo $child_page_title ?></div>
-									</a>
-								</div>
-							</div>
-						<?php
+								$parent_title = get_parent_title($child_page);
+								if($parent_title == get_the_title($current_page)){
+									$child_page_id = $child_page->ID;
+									$child_page_title =get_the_title($child_page_id);
+									$child_page_link = get_permalink($child_page_id);
+
+									?>
+									<div class = "cell">
+										<div class = "cell-content">
+											<a href = "<?php echo $child_page_link ?>">
+												<span><img class = "cell-img" src = "<?php echo_first_image($child_page_id); ?>" alt = ""/></span>
+												<div class = "cell-title"><?php echo $child_page_title ?></div>
+											</a>
+										</div>
+									</div>
+								<?php
+								}
+
+
+							
 							}	
 						}
 					?>
