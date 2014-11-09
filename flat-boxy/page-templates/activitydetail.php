@@ -8,7 +8,7 @@
  */
 
 get_header(); ?>
-
+<?php the_breadcrumb(); ?>
 <div id="body-wrapper">
 
 	<?php

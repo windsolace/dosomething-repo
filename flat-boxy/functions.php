@@ -104,7 +104,8 @@ function the_breadcrumb() {
                 echo '</li><li class="separator"> / </li><li>';
                 the_title();
                 echo '</li>';
-            }
+            } ?><script>console.log("in breadcrumbs");</script><?php
+            return the_breadcrumb();
         } elseif (is_page()) {
             if($post->post_parent){
                 $anc = get_post_ancestors( $post->ID );
