@@ -19,38 +19,64 @@
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
+	<?php
+		header("Cache-Control: max-age=172800");
+	?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 
 	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<!--<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">-->
 
-	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/style.css"/>
 	<!--End different viewports -->
-	<link rel = "stylesheet" href = "<?php echo get_stylesheet_directory_uri(); ?>/cells.css"/>
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type = "text/javascript" src = "<?php echo get_stylesheet_directory_uri(); ?>/js/menu-js.js"></script>
+	<?php
+		//Load themes
+		function hydi_theme(){
+			wp_register_style('googleFont-Oxygen','http://fonts.googleapis.com/css?family=Oxygen');
+			wp_register_style('googleFont-Oregano','http://fonts.googleapis.com/css?family=Oregano');
+
+			wp_enqueue_style('hydi-style', get_stylesheet_directory_uri() . '/style.css');
+			wp_enqueue_style('hydi-cells', get_stylesheet_directory_uri() . '/cells.css');
+			wp_enqueue_style('googleFont-Oxygen');
+			wp_enqueue_style('googleFont-Oregano');
+		} 
+		//Load scripts
+		function hydi_scripts(){
+		    wp_deregister_script('jquery'); //Remove WP's default jQuery
+		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
+		    wp_register_script('menu-js', get_template_directory_uri() . '/js/menu-js.js', array('jquery'));
+		    wp_register_script('cells', get_template_directory_uri() . '/js/cells.js', array('jquery'));
+
+		    wp_enqueue_script('menu-js');
+		    wp_enqueue_script('cells');
+		}
+		add_action('wp_enqueue_scripts', 'hydi_theme');
+		add_action('wp_enqueue_scripts', 'hydi_scripts'); 
+	?>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
-
+	<?php include_once("analyticstracking.php") ?>
 </head>
 
 <body <?php body_class(); ?>>
+	<?php 
+
+		$site_home_url = get_blogaddress_by_id(get_current_blog_id()); 
+	?>
+
 	<script>
-		var home_url = "<?php echo esc_url( home_url( '/' ) ); ?>";
+		var home_url = "<?php echo $site_home_url ?>";
 
 		window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '337876719693977',
 			  xfbml      : true,
-			  version    : 'v2.0'
+			  version    : 'v2.0',
 			});
 
 			//on page load, check if fb logged in
@@ -59,13 +85,20 @@
 				if (response.status === 'connected') {
 					$('.login').addClass('logout');
 					$('.logout').removeClass('login').text('Log Out');
-					$('.logout').parent('a').attr("href", "#");
+					$('.logout').parent('a').attr("href", "#"); 
+
+					var fbuid = sessionStorage.getItem('fbuid');
+					if(!fbuid){
+						fbuid = FB.getUserID();
+						sessionStorage.setItem('fbuid',fbuid);
+					}
 
 					FB.api('/me', function(response) {
 						first_name = response.first_name;
 		                user_name = response.name; //get user email
 		                $('.login-banner .logout').removeClass('login').text(user_name + ' | Log Out');
 		      			$('#index-greeting').text("Hello " + first_name + "! What do you want to do today?");
+						
 		            });
 				}
 				//if logged out
@@ -91,9 +124,10 @@
 	<div id="page" class="hfeed site">
 		<?php if ( get_header_image() ) : ?>
 		<section id="site-header">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+			<a href="<?php echo $site_home_url ?>" rel="home">
 				<img src="<?php header_image(); ?>" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="">
 			</a>
+			<p>Adding social to life</p>
 		</section>
 		<?php endif; ?>
 
@@ -133,5 +167,7 @@
 		</section>
 		<!-- Mobile Nav -->
 		<section id="home-header" class="site-header" role="banner">
-			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<h1 class="site-title"><a href="<?php echo $site_home_url ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+				<p>Adding social to life</p>
+			</h1>
 		</section><!-- #masthead -->

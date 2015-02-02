@@ -41,8 +41,7 @@ div.cell a, div.cell-container a{ /*removes a dash for a tags*/
 	z-index:1;
 }
 .cell img.cell-img{
-	//max-width:100%;
-	overflow: hidden;
+	max-width:120%;
 	max-height:80%;
 }
 .cell .cell-title{
@@ -79,7 +78,7 @@ div.homecell:active{
 }
 
 div.homecell.eat{
-	background-color:#3498db;
+	background-color:#e74c3c;
 	height: 150px;
 	width:300px;
 	border-radius:0px;
@@ -100,7 +99,7 @@ div.homecell.trend{
 	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore{
-	background-color:#e74c3c;
+	background-color:#3498db;
 	height: 150px;
 	width:300px;
 	border-radius:0px;
@@ -108,7 +107,7 @@ div.homecell.explore{
 }
 
 div.homecell.eat:hover{
-	background-color:#2980b9;
+	background-color:#c0392b;
 	height: 150px;
 	width:300px;
 	border-radius:0px;
@@ -129,7 +128,7 @@ div.homecell.trend:hover{
 	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore:hover{
-	background-color:#c0392b;
+	background-color:#2980b9;
 	height: 150px;
 	width:300px;
 	border-radius:0px;
@@ -145,6 +144,85 @@ div.homecell:hover div.cell-content{
 	background-color:gray;
 }*/
 
+/*Cell effects*/
+@-webkit-keyframes cellclick{
+	0%		{}
+	100%	{background:white; }
+}
+@-keyframes cellclick{
+	0%		{}
+	100%	{background:white; visibility:hidden;}
+}
+/*End Cell effects*/
+
+/*************** Start cell media Queries ****************/
+
+@media only screen and (max-width:400px){
+	#index-main{
+		min-width:80%;
+	}
+	div.homecell.eat{
+		background-color:#e74c3c;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.play{
+		background-color:#1abc9c;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.trend{
+		background-color:#f1c40f;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.explore{
+		background-color:#3498db;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+
+	div.homecell.eat:hover{
+		background-color:#c0392b;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.play:hover{
+		background-color:#16a085;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.trend:hover{
+		background-color:#f39c12;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+	div.homecell.explore:hover{
+		background-color:#2980b9;
+		height: 150px;
+		width:100%;
+		border-radius:0px;
+	}
+
+	div.homecell:hover div.cell-content{
+		font-size: 300%;
+		color:white;
+
+	}
+}
+
+
+@media only screen and (max-height:395px){
+
+}
+/*************** End cell media Queries ****************/
 
 
 

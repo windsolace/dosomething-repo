@@ -80,6 +80,7 @@ span.fb-icon{
 	float:right;
 	text-decoration:none;
 	right:20px;
+	color:#34495E;
 }
 
 div.s-left{
@@ -138,6 +139,18 @@ ul.login-btn-group{
 .site-title{
 	width:70%;
 }
+.site-title a{
+	text-decoration:none;
+	color:#34495E;
+	font-size:32px;
+	letter-spacing:6px;
+}
+.site-title p{
+	font-size: 18px;
+	line-height: 15px;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
 /***************** End #header *****************/
 
 /***************** #index-menu *****************/
@@ -154,7 +167,7 @@ ul.login-btn-group{
 	min-width: 400px;
 	height:100%;
 	/*max-width: 1200px;*/
-	width: 90%;
+	/*width: 90%;*/
 	overflow:auto;
 
 }
@@ -206,7 +219,8 @@ ul.mobile-nav-list{
 	padding: 5px 5px 5px 5px;
 	border: solid 1px black;
 	border-radius: 5px;
-	background-color:#27AE60;
+	background-color:#34495E;
+	opacity:0.9;
 
 }
 ul.mobile-nav-list li{
@@ -344,6 +358,42 @@ span#menu-icon{
 	text-align:center;
 	line-height:30px;
 }
+
+/*** Breadcrumbs ***/
+#breadcrumbs{
+    list-style:none;
+    margin-left:5%;
+    overflow:hidden;
+}
+#breadcrumbs a{
+	text-decoration:none;
+	color:#34495E;
+}
+#breadcrumbs li{
+    float:left;
+    margin-right:15px;
+}
+
+#breadcrumbs li a{
+    text-decoration: none;
+    width:100%;
+}
+ 
+#breadcrumbs .separator{
+    font-weight:700;
+    /*font-size:20px;*/
+    color:#999;
+}
+
+#breadcrumbs .blk-arrow{
+	/*border-style:solid;*/
+	border-width:thin;
+}
+#breadcrumbs span{
+	padding-left:10px;
+	padding-right:10px
+}
+/*** End Breadcrumbs ***/
 /***************** End #navigation *****************/
 
 /***************** #main *****************/
@@ -407,6 +457,31 @@ h2{
 	width: 90%;
 	margin:20px 0 0 0;
 }
+
+input[type=text]{
+	padding: 10px;
+	border:solid 1px #dcdcdc;
+	width:50%;
+	max-width:377px;
+	transition: box-shadow 0.3s, border 0.3s;
+}
+input[type=text]:focus{
+	border:solid 1px #707070;
+	box-shadow: 0 0 5px 1px #969696;
+}
+input[type=submit]{
+	padding:10px;
+	font-weight:bold;
+	border: 1px solid #34495E;
+	color:#34495E;
+	background-color:white;
+	border:none;
+	transition: ease background-color 0.4s;
+}
+input[type=submit]:hover{
+	background-color:#d8d8d8;
+}
+
 /***************** End #main *****************/
 
 /***************** #footer *****************/
