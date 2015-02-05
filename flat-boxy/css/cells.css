@@ -57,10 +57,10 @@ div.cell a, div.cell-container a{ /*removes a dash for a tags*/
 div.homecell{
 	display: inline-block; /*this displays them side by side*/
 	//line-height:100px;
-	height: 100px;
-	width:100px;
+	height: 150px;
+	width:200px;
 	border: 1px solid WHITE;
-	border-radius:30px;
+	border-radius:0px;
 	margin: 10px 10px 10px 10px;
 	position:relative;
 	transition: ease background-color 0.4s;
@@ -79,60 +79,30 @@ div.homecell:active{
 
 div.homecell.eat{
 	background-color:#e74c3c;
-	height: 150px;
 	width:300px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.play{
 	background-color:#1abc9c;
-	height: 150px;
-	width:200px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.trend{
 	background-color:#f1c40f;
-	height: 150px;
-	width:200px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore{
 	background-color:#3498db;
-	height: 150px;
 	width:300px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 
 div.homecell.eat:hover{
 	background-color:#c0392b;
-	height: 150px;
-	width:300px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.play:hover{
 	background-color:#16a085;
-	height: 150px;
-	width:200px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.trend:hover{
 	background-color:#f39c12;
-	height: 150px;
-	width:200px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore:hover{
 	background-color:#2980b9;
-	height: 150px;
-	width:300px;
-	border-radius:0px;
-	margin: 10px 10px 10px 10px;
 }
 
 div.homecell:hover div.cell-content{
