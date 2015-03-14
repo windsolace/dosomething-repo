@@ -399,12 +399,12 @@ h2{
 	margin-top:20px;
 }
 .row .content{
-	padding-left:10px;
+	padding-left:15px;
 }
 .row .btn-transit{
 	text-align:center;
 	line-height:45px;
-	width:95%;
+	width:100%;
 }
 .row .btn-transit:hover{
 	background-color:#b8c6bf;
@@ -416,11 +416,25 @@ h2{
 .columns{
 	float:left;
 }
+.columns .grid-header{
+	height: 50px;
+	line-height:50px;
+	text-align: center;
+	background-color: #34495E;
+	color: white;
+	margin-bottom: 10px;
+}
+.columns .grid-header span{
+	vertical-align:middle;
+}
 .grid-2{
 	width:16.666667%;
 }
 .grid-3{
 	width:25%;
+}
+.grid-3 .content{
+	margin-bottom:15px;
 }
 .grid-6{
 	width:50%;
@@ -450,6 +464,12 @@ footer{
 /***************** End #footer *****************/
 
 /*************** Start media Queries ****************/
+@media only screen and (max-width:760px){
+	.columns{
+		float:none;
+		width:100%;
+	}
+}
 @media only screen and (min-width:680px){
 	section#mobile-nav{
 		display:none;
