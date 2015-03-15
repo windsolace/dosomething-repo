@@ -1,12 +1,23 @@
 //main.js
 $(document).ready(function(){
+	var CONST_MOBILE_WIDTH = 760;
+
 	//initialize
 	hydiInit();
+
+	//show all accordion contents that were hidden if width changes to > CONST_MOBILE_WIDTH
+	$(window).resize(function(){
+		if($(document).width() < CONST_MOBILE_WIDTH){
+			$('.columns .content').show();
+		}
+	});
 
 });
 
 //init
 var hydiInit = function(){
+	//add condition to detect when its mobile
+	activityDetailMobileFn();
 	activityDetailFn();
 };
 
@@ -32,3 +43,20 @@ var activityDetailFn = function(){
 		$(this).hide().prop('disabled', true);
 	});
 };
+
+var activityDetailMobileFn = function(){
+	$('.grid-header').on('click', function(){
+		if($(document).width() < CONST_MOBILE_WIDTH){
+			var thisAccordionContent = $(this).siblings('.content');
+
+			//check if this accordion is being displayed in mobile
+			var displayStatus = $(thisAccordionContent).css('display');
+			if(displayStatus == 'block'){
+				$(thisAccordionContent).slideUp();
+			}
+			else if(displayStatus == 'none'){
+				$(thisAccordionContent).slideDown();
+			}
+		}
+	});
+}
