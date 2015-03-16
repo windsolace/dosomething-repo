@@ -5,7 +5,7 @@
 		<link rel = "stylesheet" href = "assets/css/cells.css"/>
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
-		<title>Welcome to Do Something.sg</title>
+		<title>Welcome to H.Y.D.I</title>
 	</head>
 	<body>
 		<script>
@@ -29,18 +29,20 @@
 			  FB.getLoginStatus(function(response) {
 			    statusChangeCallback(response);
 			  });
-			  console.log("hi");
 			}
 	    </script>
+		<div class="fb-login-button" data-size="large" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
 	    <div class = "login-banner">
 	    	<div class = "login-btn">
 	    		<a href = "www.google.com">Log In</a>
 	    	</div>
 	    </div>
-<div class="fb-login-button" data-size="large" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
 		<div id = "body-wrapper">
-			<section id = "home-header">
-				<h1><span class = "home-logo">Do Something @ SG</span></h1>
+			<section id="home-header" class="site-header" role="banner">
+				<h1 class = "site-title">
+					<a href="http://hydi.voqux.com/" rel="home">H.Y.D.I</a>
+					<p>Adding social to life</p>
+				</h1>
 			</section>
 			<section id = "index-main">
 				<div id="index-menu">
