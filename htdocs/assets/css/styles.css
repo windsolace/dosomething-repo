@@ -11,9 +11,10 @@ html, body{
 	color: #34495E;
 	position: absolute;
 	height:100%;
+	min-height:96%;
 	width: 100%;
 	padding: 0;
-	margin: 0;
+	margin:0px 0px 0px 0px;
 }
 h1{
 	font-family: "Oregano", serif;
@@ -25,8 +26,9 @@ h1{
 	text-align:center;
 }
 #body-wrapper{ 
-	position: relative; /* Relative to html doc */
+	position: absolute; /* Relative to html doc */
 	min-height: 100%;
+	min-height: 90%;
 	overflow: auto; /* Make content conform to its size */
 }
 .btn-col{
@@ -93,6 +95,13 @@ span.fb-icon{
 .login-btn a{
 	text-decoration:none;
 }
+.login-banner a{
+	position:relative;
+	float:right;
+	text-decoration:none;
+	right:20px;
+	color:#34495E;
+}
 
 div.s-left{
 	position:relative;
@@ -149,6 +158,18 @@ ul.login-btn-group{
 .site-title{
 	width:70%;
 }
+.site-title a{
+	text-decoration:none;
+	color:#34495E;
+	font-size:32px;
+	letter-spacing:6px;
+}
+.site-title p{
+	font-size: 18px;
+	line-height: 15px;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
 /***************** End #header *****************/
 
 /***************** #index-menu *****************/
@@ -164,8 +185,7 @@ ul.login-btn-group{
 	position: relative;
 	min-width: 400px;
 	height:100%;
-	/*max-width: 1200px;*/
-	width: 90%;
+	/*width: 90%;*/
 	overflow:auto;
 
 }
@@ -215,17 +235,30 @@ div.mobile-nav-list-wrapper.closed{
 }
 ul.mobile-nav-list{
 	position:relative;
-	padding-left:0px;
+	padding: 5px 5px 5px 5px;
+	border: solid 1px black;
+	border-radius: 5px;
+	background-color:#34495E;
+	opacity:0.9;
 }
 ul.mobile-nav-list li{
 	list-style-type:none;
+	margin: 10px 10px 10px 10px;
+}
+ul.mobile-nav-list li a{
+	text-decoration:none;
+	color:white;
+	height:30px;
+	width:100%;
 }
 div.mobile-menu-button{
 	height:25px;
 	width:180px;
-	border: solid 1px black;
+	padding-top: 5px;
+	//border: solid 1px black;
 	//padding-left: 100px;
-	background-color:white;
+	background-color:transparent;
+	text-decoration:none;
 }
 div.nav-stick-right{
 	position:absolute;
@@ -278,6 +311,10 @@ span#mobile-menu-icon{
 	float:right;
 	
 }
+#navigation .nav-list a{
+	width:100%;
+	position:relative;
+}
 
 div.nav-wrap{
 	min-height: 100px;
@@ -296,7 +333,6 @@ span#menu-icon{
 	padding:0;
 	overflow:hidden;
 	z-index:2;
-	/*border: 3px solid black;*/
 }
 #menu-icon img{
 	z-index:1;
@@ -333,12 +369,47 @@ span#menu-icon{
 	color:white;
 }
 #navigation ul li div.menu-button:hover{
-
 	background-color:#2ECC71;
 	border-radius:5px;
 	text-align:center;
 	line-height:30px;
 }
+
+/*** Breadcrumbs ***/
+#breadcrumbs{
+    list-style:none;
+    margin-left:5%;
+    overflow:hidden;
+}
+#breadcrumbs a{
+	text-decoration:none;
+	color:#34495E;
+}
+#breadcrumbs li{
+    float:left;
+    margin-right:15px;
+}
+
+#breadcrumbs li a{
+    text-decoration: none;
+    width:100%;
+}
+ 
+#breadcrumbs .separator{
+    font-weight:700;
+    /*font-size:20px;*/
+    color:#999;
+}
+
+#breadcrumbs .blk-arrow{
+	/*border-style:solid;*/
+	border-width:thin;
+}
+#breadcrumbs span{
+	padding-left:10px;
+	padding-right:10px
+}
+/*** End Breadcrumbs ***/
 /***************** End #navigation *****************/
 
 /***************** #main *****************/
@@ -353,6 +424,19 @@ span#menu-icon{
 	transition: 0.5s ease;
 	right:0px;
 	overflow:auto;
+}
+#main.fade{
+	//background-color:black;
+	opacity:0.2;
+	right:180px;
+}
+
+#main-content{
+	position: relative;
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+	padding-bottom: 50px;
 }
 #main.fade{
 	//background-color:black;
@@ -390,7 +474,30 @@ span.logo{
 h2{
 	width: 70%;
 	margin:20px 0 0 0;
+}
 
+input[type=text]{
+	padding: 10px;
+	border:solid 1px #dcdcdc;
+	width:50%;
+	max-width:377px;
+	transition: box-shadow 0.3s, border 0.3s;
+}
+input[type=text]:focus{
+	border:solid 1px #707070;
+	box-shadow: 0 0 5px 1px #969696;
+}
+input[type=submit]{
+	padding:10px;
+	font-weight:bold;
+	border: 1px solid #34495E;
+	color:#34495E;
+	background-color:white;
+	border:none;
+	transition: ease background-color 0.4s;
+}
+input[type=submit]:hover{
+	background-color:#d8d8d8;
 }
 /***************** End #main *****************/
 
@@ -457,6 +564,7 @@ section.footer{
 }
 
 footer{
+	height:100%;
 	position:relative;
 	font: normal normal 12px Coming Soon;
 }
@@ -482,9 +590,27 @@ footer{
 	}
 	h1.site-title{
 		left:50px;
+		z-index:1;
 	}
 	header.site-header{
+		position:relative;
 		padding-top:50px;
+	}
+	section#mobile-nav{
+		width:100%;
+		height:50px;
+		position:fixed;
+		background-color: transparent;
+	}
+	#site-title a{
+		z-index:1;
+	}
+	.login-banner a{
+		display:none;
+		right:60px;
+	}
+	#navigation.open, #navigation.closed{
+		z-index:-1;
 	}
 }
 
@@ -497,4 +623,20 @@ footer{
 		left:33%;
 	}
 }
+@media only screen and (max-height:395px){
+	ul.mobile-nav-list{
+		height:100px;
+	}
+	ul.mobile-nav-list li{
+		display:inline;
+		width:30%;
+		margin: 0px 0px 0px 0px;
+		position:relative;
+		float:left;
+	}
+	div.mobile-nav-list-wrapper.open{
+		width:90%;
+	}
+}
+
 /*************** End media Queries ****************/
