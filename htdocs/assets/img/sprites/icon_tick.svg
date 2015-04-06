@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640"
+   height="480"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="icon_tick.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview18"
+     showgrid="false"
+     inkscape:zoom="0.49166667"
+     inkscape:cx="320"
+     inkscape:cy="243.45014"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <title
+     id="title4">green light tick mark</title>
+  <metadata
+     id="metadata7">image/svg+xml<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <defs
+     id="defs7">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2440">
+      <path
+         d="m114.666107,142.226669c0,12.529846 -9.303925,22.69899 -20.767708,22.69899c-11.463776,0 -20.767723,-10.169144 -20.767723,-22.69899c0,-12.529846 9.303947,-22.698997 20.767723,-22.698997c11.463783,0 20.767708,10.169151 20.767708,22.698997z"
+         id="path2442"
+         stroke-dashoffset="0"
+         stroke-miterlimit="4"
+         marker-end="none"
+         marker-mid="none"
+         marker-start="none"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="4"
+         fill-rule="nonzero"
+         fill="#ffcc00" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2504">
+      <path
+         id="path2506"
+         d="m115.666847,150.100052a20.767717,22.699011 0 1 1 -41.535431,0a20.767717,22.699011 0 1 1 41.535431,0z"
+         stroke-dashoffset="0"
+         stroke-miterlimit="4"
+         marker-end="none"
+         marker-mid="none"
+         marker-start="none"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="4"
+         fill-rule="nonzero"
+         fill="#808080"
+         opacity="0.71" />
+    </clipPath>
+  </defs>
+  <g
+     id="g13"
+     transform="matrix(2.6625906,0,0,2.029033,-614.97684,-184.09476)">
+    <title
+       id="title15">Layer 1</title>
+    <path
+       d="M 282.08594,218.40665 300.37787,264.56042 423.53427,96.903336 469.10284,92 C 414.14609,154.00659 363.4819,227.19653 318.58972,298.49655 279.18246,361.08508 281.41495,312.12045 233,239.86844 l 49.08594,-21.46179 z"
+       id="path2159"
+       inkscape:connector-curvature="0"
+       style="fill:#2ad62a;fill-rule:evenodd;stroke-width:1px" />
+  </g>
+</svg>
