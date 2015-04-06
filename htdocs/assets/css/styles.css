@@ -76,6 +76,45 @@ span.fb-icon{
 	position:absolute;
 	left:0px;
 }
+ul.no-list{
+	list-style:none;
+	padding-left:0px;
+}
+ul.rate-list{
+	width:100px;
+	margin-left:auto;
+	margin-right:auto;
+}
+ul.rate-list li{
+	text-align:left;
+	margin-top:10px;
+	margin-right:10px;
+}
+span.icon{
+	height:25px;
+	width:25px;
+	display:block;
+}
+span.up-arrow{
+	background: url('../img/sprites/icon_up_vote.png') no-repeat;
+}
+span.down-arrow{
+	background: url('../img/sprites/icon_down_vote.png') no-repeat;
+}
+span.tick-mark{
+	background: url('../img/sprites/icon_tick_mark.png') no-repeat;
+}
+span.icon:hover{
+	background-position: -25px;
+	cursor:pointer;
+}
+span.icon span{
+	line-height:25px;
+	margin-left:50px;
+}
+ul.icon-vote{
+	margin-right:25px;
+}
 .clear:after{
 	clear:both;
 	content:"";
@@ -91,6 +130,22 @@ span.fb-icon{
 	background-color:#d3d3d3;
 }
 /***************** Colours *****************/
+
+
+/***************** Shapes *****************/
+.circle{
+	border-radius:50%;
+}
+.up-arrow-single{
+	background: url('../img/sprites/icon_up_single.png') no-repeat;
+}
+.down-arrow-single{
+	background: url('../img/sprites/icon_down_single.png') no-repeat;
+}
+.tick-mark-single{
+	background: url('../img/sprites/icon_tick_single.png') no-repeat;
+}
+/***************** shapes *****************/
 
 /***************** .login *****************/
 .login-banner{
@@ -225,6 +280,27 @@ div#index-menu{
 	
 }
 /***************** End #index-menu *****************/
+
+/***************** Start Tables *****************/
+table{
+
+}
+table#past-activities{
+	margin-right:auto;
+	margin-left:auto;
+}
+table td{
+	padding-right:50px;
+	padding-top:20px;
+}
+#past-list h2{
+	margin-left:auto;
+	margin-right:auto;
+	width:25%;
+}
+
+/***************** End Tables *****************/
+
 
 /***************** Start mobile styles *****************/
 section#mobile-nav{
@@ -511,6 +587,22 @@ input[type=submit]{
 }
 input[type=submit]:hover{
 	background-color:#d8d8d8;
+}
+
+#profile-pic{
+	height: 110px;
+	width:110px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+#profile-pic img{
+	height:100%;
+	width:100%;
+}
+#profile-name{
+	font-weight:bold;
+	font-size:1.5em;
 }
 /***************** End #main *****************/
 

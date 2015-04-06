@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset= "UTF-8">
+		<link rel = "stylesheet" href = "assets/css/styles.css"/>
+   		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oxygen">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oregano">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type = "text/javascript" src = "assets/js/menu-js.js"></script>
+		<script type = "text/javascript" src = "assets/js/main.js"></script>
+		<title>Welcome to Do Something.sg</title>
+	</head>
+	<body>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+				  appId      : '337876719693977',
+				  xfbml      : true,
+				  version    : 'v2.0'
+				});
+			};
+
+			(function(d, s, id){
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "https://connect.facebook.net/en_US/sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+	    </script>
+		<!-- Mobile Nav -->
+		<section id = "mobile-nav">
+			<div class = "mobile-nav-list-wrapper closed">
+				<ul class = "mobile-nav-list">
+					<li>
+						<a href = ""><div class= "mobile-menu-button">Home</div></a>
+					</li>
+					<li>
+						<a href=""><div class= "mobile-menu-button">About</div></a>
+					</li>
+					<li>
+						<a href=""><div class= "mobile-menu-button">Contact</div></a>
+					</li>
+				</ul>
+			</div>
+			<div class = "nav-stick-right">
+				<a href = "javascript:void(0)">
+					<span id = "mobile-menu-icon" class = "mobile-nav-icon"><img class = "menu" alt ="menu"/></span>
+				</a>
+			</div>
+		</section>
+		<!-- Mobile Nav -->
+		<header id = "home-header" class = "site-header">
+			<h1 class = "site-title">Welcome to H.Y.D.I</h1>
+		</header>
+		<div id = "body-wrapper">
+			<section id = "navigation" class = "closed">
+				<div class = "nav-wrap">
+					<a href="javascript:void(0)">
+					  <span id = "menu-icon"><img class = "menu"/></span>
+					</a>
+					<ul class = "nav-list">
+						<li>
+							<div class= "menu-button">Home</div>
+						</li>
+						<li>
+							<div class= "menu-button">About</div>
+						</li>
+						<li>
+							<div class= "menu-button">Contact</div>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section id = "main">
+				<div id = "main-content">
+					<div class="row">
+						<div class = "grid-12 center">
+							<span id = "profile-pic">
+								<img class = "circle" src = "assets/img/profilepic1.jpg"/></span>
+							<div>
+								<span id = "profile-name">username</span><br/>
+								<span id = "profile-age">XX months</span>
+							</div>
+						</div>
+					</div>
+					<div class="row clear">
+						<div class="grid-12 columns">
+							<div class = "center" id = "upper-content">
+								<ul class="no-list rate-list">
+									<li><span class = "icon up-arrow"><span>50</span></span> </li>
+									<li><span class = "icon down-arrow"><span>5</span></span> </li>
+									<li><span class = "icon tick-mark"><span>23</span></span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- List content for type of vote --> 
+					<div class="row clear">
+						<div class="grid-12 columns">
+							<button id = "transit-up" class = "btn-transit light-gray" disabled style="display:none;">
+								<span class="up"></span>^
+							</button>
+							<div style="display:none;" id = "past-list">
+								<div><h2 class="tick-mark-single">LIKE</h2></div>
+								<table id = "past-activities">
+									<tbody>
+										<tr>
+											<td>The Minds Cafe</td>
+											<td>2 days ago</td>
+										</tr>
+										<tr>
+											<td>Marche</td>
+											<td>5 days ago</td>
+										</tr>
+										<tr>
+											<td>313 Somerset Cha Cafe @ The Basement</td>
+											<td>10 days ago</td>
+										</tr>
+										<tr>
+											<td>The Fat Boys</td>
+											<td>10 days ago</td>
+										</tr>
+										<tr>
+											<td>Astons Specialities @ Center Point</td>
+											<td>10 days ago</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- End list content -->
+					
+				</div>
+			</section>
+			<section class = "footer">
+				<footer>&copy; Copyright 2014 DoSomething.com </footer>
+			</section>
+		</div>
+
+
+	</body>
+
+</html>

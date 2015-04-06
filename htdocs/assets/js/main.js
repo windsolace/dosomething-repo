@@ -16,9 +16,11 @@ $(document).ready(function(){
 
 //init
 var hydiInit = function(){
-	//add condition to detect when its mobile
+	//TO-DO: add condition to detect when its mobile
 	activityDetailMobileFn();
 	activityDetailFn();
+
+	userProfileFn();
 };
 
 //Activity Detail related functions
@@ -60,3 +62,39 @@ var activityDetailMobileFn = function(){
 		}
 	});
 }
+
+//User Profile related functions
+var userProfileFn = function(){
+	//Clicked up
+	$('#transit-up').on('click', function(){
+		//hide lower
+		$('#past-list').slideUp();
+		//show upper
+		$('#upper-content').slideDown();
+		$('#transit-up').show().prop('disabled', false);
+		$(this).hide().prop('disabled', true);
+	});
+
+	//Clicked icon
+	$('.icon').on('click', function(){
+		var $this = $(this);
+		var clickedHeader = "";
+		if($this.hasClass('up-arrow')){
+			clickedHeader = "LIKES";
+			$('#past-list h2').removeClass().addClass('icon up-arrow-single');
+		}
+		else if($this.hasClass('down-arrow')){
+			clickedHeader = "DISLIKES";
+			$('#past-list h2').removeClass().addClass('icon down-arrow-single');
+		}
+		else if($this.hasClass('tick-mark')){
+			clickedHeader = "DONE";
+			$('#past-list h2').removeClass().addClass('icon tick-mark-single');
+		}
+		//hide user's past list of activities
+		$('#past-list').slideDown();
+
+		$('#past-list h2').text(clickedHeader);
+		$('#transit-up').show().prop('disabled', false);
+	});
+};
