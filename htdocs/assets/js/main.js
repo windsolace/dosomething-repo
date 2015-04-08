@@ -16,11 +16,12 @@ $(document).ready(function(){
 
 //init
 var hydiInit = function(){
-	//TO-DO: add condition to detect when its mobile
-	activityDetailMobileFn();
-	activityDetailFn();
+	//Moved to individual templates
+	//activityDetailMobileFn();
+	//activityDetailFn();
+	//userProfileFn();
 
-	userProfileFn();
+	//TO-DO: Get OBJECT-ID
 };
 
 //Activity Detail related functions
@@ -44,6 +45,44 @@ var activityDetailFn = function(){
 		$('#transit-down').show().prop('disabled', false);
 		$(this).hide().prop('disabled', true);
 	});
+
+	//Icon clicked : upvote/downvote/done
+	$('.icon').on('click', function(){
+		var $this = $(this);
+		//upvote
+		if($this.hasClass('up-arrow')){
+			/* TO-DO:
+			* 1) Write to activity (+1)
+			* 2) Write to user -> upvote (+1)
+			* 3) Hide and disable
+			* 4) Show/Enable downvote IF disabled
+			*/
+		}
+		//downvote
+		else if($this.hasClass('down-arrow')){
+			/* TO-DO:
+			* 1) Write to activity (+1)
+			* 2) Write to user -> downvote (+1)
+			* 3) Hide and disable
+			* 4) Show/Enable downvote IF disabled
+			*/
+		}
+		//done
+		else if($this.hasClass('tick-mark')){
+			/* TO-DO:
+			* 1) Write to activity (+1)
+			* 2) Write to user -> Done (+1)
+			* 3) Hide and disable
+			* 4) Show/Enable downvote IF disabled
+			*/
+		}
+	});
+
+	var writeVote = function(/*string*/ objectid, /*string*/ type){
+		//TO-DO: Write to activity table
+
+		//TO-DO: Write to User table
+	};
 };
 
 var activityDetailMobileFn = function(){

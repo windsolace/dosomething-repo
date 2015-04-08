@@ -85,7 +85,11 @@
 								<span>Ratings</span>
 							</div>
 							<div class = "content">
-								UPVOTE | DOWNVOTE | DONE
+								<ul class="no-list rate-list">
+									<li><span class = "icon up-arrow"><span>50</span></span> </li>
+									<li><span class = "icon down-arrow"><span>5</span></span> </li>
+									<li><span class = "icon tick-mark"><span>23</span></span></li>
+								</ul>
 							</div>
 							<div class = "content">
 								Operating hours
@@ -138,5 +142,13 @@
 
 
 	</body>
+
+	<script>
+	$(document).ready(function(){
+		//TO-DO: add condition to detect when its mobile
+		activityDetailMobileFn();
+		activityDetailFn();
+	});
+	</script>
 
 </html>

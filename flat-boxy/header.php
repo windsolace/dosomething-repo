@@ -61,6 +61,7 @@
 	<![endif]-->
 	<?php wp_head(); ?>
 	<?php include_once("analyticstracking.php") ?>
+	<?php include_once("hydi-functions.php") ?>
 </head>
 
 <body <?php body_class(); ?>>
