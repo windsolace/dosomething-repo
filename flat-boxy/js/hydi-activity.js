@@ -19,6 +19,11 @@ var HydiActivity = function(){
 	this.maxPax = 0;
 	this.averagePrice = 0.00;
 	this.timeRange = 0;
+	this.reviews = {
+		upvotes:0,
+		downvotes:0,
+		done:0,
+	};
 }
 
 HydiActivity['parse'] = function(json){
@@ -41,6 +46,12 @@ HydiActivity['parse'] = function(json){
 	result.maxPax = json.maxPax;
 	result.averagePrice = json.averagePrice;
 	result.timeRange = json.timeRange;
+
+	//reviews
+	var rawReviews = json.reviews;
+	result.reviews.upvotes = parseInt(rawReviews[0].upvotes);
+	result.reviews.downvotes = parseInt(rawReviews[0].downvotes);
+	result.reviews.done = parseInt(rawReviews[0].done);
 
 	return result;
 }

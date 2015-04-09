@@ -10,6 +10,7 @@
 function hydi_getActivity( $postID ){
 	global $wpdb;
 
+	//Call ACTIVITY Table
 	$activity_row = $wpdb->get_row("SELECT * FROM ".activity." WHERE object_id = '".$postID."'");
 
 	$activityName = $activity_row->name;
@@ -40,6 +41,15 @@ function hydi_getActivity( $postID ){
 	$obj->maxPax = $activityMaxPax;
 	$obj->averagePrice = $activityAveragePrice;
 	$obj->timeRange = $activityTimeRange;
+
+	//call FB_USER_LIKES Table
+	$sqlreviews = $wpdb->get_results("
+		SELECT 
+		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND review = '1') AS 'upvotes',
+		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND review = '0') AS 'downvotes',
+		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND activity_status = '1') AS 'done'"
+	);
+	$obj->reviews = $sqlreviews;
 
 	return json_encode($obj);
 }
