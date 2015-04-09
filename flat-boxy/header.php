@@ -49,9 +49,11 @@
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
 		    wp_register_script('menu-js', get_template_directory_uri() . '/js/menu-js.js', array('jquery'));
 		    wp_register_script('cells', get_template_directory_uri() . '/js/cells.js', array('jquery'));
+		    wp_register_script('hydi-activity', get_template_directory_uri() . '/js/hydi-activity.js', array('jquery'));
 
 		    wp_enqueue_script('menu-js');
 		    wp_enqueue_script('cells');
+		    wp_enqueue_script('hydi-activity');
 		}
 		add_action('wp_enqueue_scripts', 'hydi_theme');
 		add_action('wp_enqueue_scripts', 'hydi_scripts'); 
