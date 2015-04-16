@@ -53,4 +53,13 @@ function hydi_getActivity( $postID ){
 
 	return json_encode($obj);
 }
+
+function hydi_postVote($voteType){
+	//read JSON
+
+	//Write to database
+
+	echo "IN hydi postVote \n";
+	//die("End of hydi_postVote");
+}
 ?>

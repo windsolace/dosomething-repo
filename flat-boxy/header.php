@@ -55,24 +55,30 @@
 		    wp_enqueue_script('cells');
 		    wp_enqueue_script('hydi-activity');
 		}
+
+		//WP actions (JS/CSS ini)
 		add_action('wp_enqueue_scripts', 'hydi_theme');
 		add_action('wp_enqueue_scripts', 'hydi_scripts'); 
+
 	?>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
 	<?php include_once("analyticstracking.php") ?>
-	<?php include_once("hydi-functions.php") ?>
+	<?php include("hydi-functions.php") ?>
+	<?php include_once("ajaxHandler.php") ?>
+
 </head>
 
 <body <?php body_class(); ?>>
 	<?php 
 
-		$site_home_url = get_blogaddress_by_id(get_current_blog_id()); 
+		$site_home_url = "";//get_blogaddress_by_id(get_current_blog_id()); 
 	?>
 
 	<script>
+		var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
 		var home_url = "<?php echo $site_home_url ?>";
 
 		window.fbAsyncInit = function() {

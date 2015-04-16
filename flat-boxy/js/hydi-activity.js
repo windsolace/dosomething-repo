@@ -26,6 +26,9 @@ var HydiActivity = function(){
 	};
 }
 
+/*
+* Parse JSON object into HydiActivity object
+*/
 HydiActivity['parse'] = function(json){
 	var result = new HydiActivity();
 
@@ -54,4 +57,52 @@ HydiActivity['parse'] = function(json){
 	result.reviews.done = parseInt(rawReviews[0].done);
 
 	return result;
+}
+
+/*
+* Upvote for an activity
+* 0 = down, 1 = up
+*/
+HydiActivity['vote'] = function(type) {
+	switch(type) {
+		case 0:
+			//DOWNVOTE
+			break;
+		case 1: 
+			//UPVOTE
+			break;
+		default:
+			break;
+
+	}
+
+	//POST to PHP for backend verification
+	var data = {
+		'voteType' : 1
+	};
+	/*
+	$.post(ajaxurl, data, function(response){
+		console.log("response from server " + response);
+	});
+	*/
+	$.ajax({
+		url: ajaxurl,
+		type: 'POST',
+		data: {
+			requestPath: 'hydi/activity/reviews',
+			data: data,
+			voteType: data
+		},
+		success:
+			function(response){
+				console.log("Successful POST vote");
+				console.log(response);
+			},
+		error:
+			function(e){
+				console.log("Failed to POST vote.");
+				console.log(e);
+			}
+	});
+ 
 }
