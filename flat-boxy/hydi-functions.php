@@ -54,12 +54,43 @@ function hydi_getActivity( $postID ){
 	return json_encode($obj);
 }
 
-function hydi_postVote($voteType){
+function hydi_postVote($data){
+	//echo ../wordpress/wp-load.php();
+	//include(".../wordpress/wp-load.php");
+	global $wpdb;
+
+	$postid = "96";
+	$userid = "12317263743";
+	$auth = "";
+
 	//read JSON
 
-	//Write to database
+	//TO-DO: Check if user has liked this page before
+	$sqlPageReview = $wpdb->get_row("SELECT * FROM ".fb_user_likes." WHERE object_id = '".$postid."' AND fbuid = '".$userid."'");
 
-	echo "IN hydi postVote \n";
+	//TO-DO: Check authentication
+	if($sqlPageReview !=null){
+		//TO-DO: Update database
+		$wpdb->update(
+			'fb_user_likes',
+			array(
+				'review'=>0
+			),
+			array(
+				'fbuid'=>'12317263743',
+				'object_id'=>'96'
+			)
+		);
+		//echo "updated";
+	}
+	else {
+		//TO-DO: INSERT to database
+		//INSERT INTO `fb_user_likes`(`fbuid`, `object_id`, `review`, `activity_status`, `is_to_do`) VALUES ('12317263743','96','1','0','0')
+	}
+	//return json_encode($sqlPageReview);
+
+
+	//echo "IN hydi postVote \n";
 	//die("End of hydi_postVote");
 }
 ?>
