@@ -66,6 +66,7 @@
 	<![endif]-->
 	<?php wp_head(); ?>
 	<?php include_once("analyticstracking.php") ?>
+	<?php include("constants.php") ?>
 	<?php include("hydi-functions.php") ?>
 	<?php include_once("ajaxHandler.php") ?>
 

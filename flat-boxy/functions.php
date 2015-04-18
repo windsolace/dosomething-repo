@@ -130,7 +130,10 @@ function the_breadcrumb() {
     echo '</ul>';
 }
 
-function log($message){
+/*
+* Log a message to front end
+*/
+function consolelog($message){
     $obj = new stdClass();
     $obj -> message = $message;
 

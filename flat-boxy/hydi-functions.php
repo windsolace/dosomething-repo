@@ -11,7 +11,7 @@ function hydi_getActivity( $postID ){
 	global $wpdb;
 
 	//Call ACTIVITY Table
-	$activity_row = $wpdb->get_row("SELECT * FROM ".activity." WHERE object_id = '".$postID."'");
+	$activity_row = $wpdb->get_row("SELECT * FROM ".TABLE_HYDI_ACTIVITY." WHERE object_id = '".$postID."'");
 
 	$activityName = $activity_row->name;
 	$activityDescription = $activity_row->description;
@@ -45,9 +45,9 @@ function hydi_getActivity( $postID ){
 	//call FB_USER_LIKES Table
 	$sqlreviews = $wpdb->get_results("
 		SELECT 
-		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND review = '1') AS 'upvotes',
-		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND review = '0') AS 'downvotes',
-		(SELECT COUNT(*) FROM ".fb_user_likes." WHERE object_id = '".$postID."' AND activity_status = '1') AS 'done'"
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE object_id = '".$postID."' AND review = '1') AS 'upvotes',
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE object_id = '".$postID."' AND review = '0') AS 'downvotes',
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE object_id = '".$postID."' AND activity_status = '1') AS 'done'"
 	);
 	$obj->reviews = $sqlreviews;
 
@@ -60,13 +60,18 @@ function hydi_getActivity( $postID ){
 * @params $postid - id of the post
 *
 */
-function hydi_getVote($postid, $userid){
+function hydi_getReviews($postid, $userid){
 	global $wpdb;
 
-	//TO-DO: Check if user has liked this page before
-	$sqlPageReview = $wpdb->get_row("SELECT * FROM ".fb_user_likes." WHERE object_id = '".$postid."' AND fbuid = '".$userid."'");
+	//GET row by userid && activity id
+	$sqlPageReview = $wpdb->get_row("SELECT * FROM ".TABLE_HYDI_USERLIKES." WHERE object_id = '".$postid."' AND fbuid = '".$userid."'");
 
-	return json_encode($sqlPageReview);
+	//Check if user has liked this page before
+	if($sqlPageReview === null){
+		return null;
+	} else {
+		return json_encode($sqlPageReview);
+	}
 }
 
 /*
@@ -78,43 +83,21 @@ function hydi_getVote($postid, $userid){
 * Requires hydi_getVote($userid, $postid);
 */
 function hydi_postVote($postid, $userid, $review){
-	//echo ../wordpress/wp-load.php();
-	//include(".../wordpress/wp-load.php");
 	global $wpdb;
 
-	$review = 0;
-	$postid = "96";
-	$userid = "12317263743";
 	$auth = "";
 
 	//TO-DO: Check authentication
 
-	$sqlPageReview = hydi_getVote($postid, $userid);
+	$sqlPageReview = hydi_getReviews($postid, $userid);
 
 	//Check if user has liked this page before
-	if($sqlPageReview !=null){
-		//Update database
-		try{
-			$wpdb->update(
-				'fb_user_likes',
-				array(
-					'review'=> $review
-				),
-				array(
-					'fbuid'		=>$userid,
-					'object_id'	=>$postid
-				)
-			);
-			//log("UPDATE success");
-		} catch(Exception $e){
-			log($e->getMessage());
-		}
-	}
-	else {
+	if($sqlPageReview === null){ 
 		//INSERT to database
 		try{
+			//consolelog($postid." INSERT");
 			$wpdb->insert(
-				'fb_user_likes',
+				TABLE_HYDI_USERLIKES,
 				array(
 					'fbuid'				=> $userid,
 					'object_id'			=> $postid,
@@ -125,7 +108,26 @@ function hydi_postVote($postid, $userid, $review){
 			);
 			//log("INSERT success");
 		} catch(Exception $e){
-			log($e->getMessage());
+			consolelog($e->getMessage());
+		}
+	}
+	else { 
+		//Update database
+		try
+			//consolelog($postid." UPDATE");
+			$wpdb->update(
+				TABLE_HYDI_USERLIKES,
+				array(
+					'review'=> $review
+				),
+				array(
+					'fbuid'		=>$userid,
+					'object_id'	=>$postid
+				)
+			);
+			//log("UPDATE success");
+		} catch(Exception $e){
+			consolelog($e->getMessage());
 		}
 	}
 }
