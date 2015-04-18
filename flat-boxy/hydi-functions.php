@@ -54,43 +54,79 @@ function hydi_getActivity( $postID ){
 	return json_encode($obj);
 }
 
-function hydi_postVote($data){
-	//echo ../wordpress/wp-load.php();
-	//include(".../wordpress/wp-load.php");
+/*
+* Get a review object
+* @params $userid - id of the user (may need encryption)
+* @params $postid - id of the post
+*
+*/
+function hydi_getVote($postid, $userid){
 	global $wpdb;
-
-	$postid = "96";
-	$userid = "12317263743";
-	$auth = "";
-
-	//read JSON
 
 	//TO-DO: Check if user has liked this page before
 	$sqlPageReview = $wpdb->get_row("SELECT * FROM ".fb_user_likes." WHERE object_id = '".$postid."' AND fbuid = '".$userid."'");
 
+	return json_encode($sqlPageReview);
+}
+
+/*
+* Post vote for an activity by user
+* @params $userid - id of the user (may need encryption)
+* @params $postid - id of the post
+* @params $review - review (either 1 or 0)
+*
+* Requires hydi_getVote($userid, $postid);
+*/
+function hydi_postVote($postid, $userid, $review){
+	//echo ../wordpress/wp-load.php();
+	//include(".../wordpress/wp-load.php");
+	global $wpdb;
+
+	$review = 0;
+	$postid = "96";
+	$userid = "12317263743";
+	$auth = "";
+
 	//TO-DO: Check authentication
+
+	$sqlPageReview = hydi_getVote($postid, $userid);
+
+	//Check if user has liked this page before
 	if($sqlPageReview !=null){
-		//TO-DO: Update database
-		$wpdb->update(
-			'fb_user_likes',
-			array(
-				'review'=>0
-			),
-			array(
-				'fbuid'=>'12317263743',
-				'object_id'=>'96'
-			)
-		);
-		//echo "updated";
+		//Update database
+		try{
+			$wpdb->update(
+				'fb_user_likes',
+				array(
+					'review'=> $review
+				),
+				array(
+					'fbuid'		=>$userid,
+					'object_id'	=>$postid
+				)
+			);
+			//log("UPDATE success");
+		} catch(Exception $e){
+			log($e->getMessage());
+		}
 	}
 	else {
-		//TO-DO: INSERT to database
-		//INSERT INTO `fb_user_likes`(`fbuid`, `object_id`, `review`, `activity_status`, `is_to_do`) VALUES ('12317263743','96','1','0','0')
+		//INSERT to database
+		try{
+			$wpdb->insert(
+				'fb_user_likes',
+				array(
+					'fbuid'				=> $userid,
+					'object_id'			=> $postid,
+					'review'			=> $review,
+					'activity_status' 	=> 0,
+					'is_to_do' 			=> 0
+				)
+			);
+			//log("INSERT success");
+		} catch(Exception $e){
+			log($e->getMessage());
+		}
 	}
-	//return json_encode($sqlPageReview);
-
-
-	//echo "IN hydi postVote \n";
-	//die("End of hydi_postVote");
 }
 ?>

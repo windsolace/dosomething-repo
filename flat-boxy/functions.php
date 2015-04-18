@@ -129,4 +129,11 @@ function the_breadcrumb() {
     elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
     echo '</ul>';
 }
+
+function log($message){
+    $obj = new stdClass();
+    $obj -> message = $message;
+
+    echo json_encode($obj);
+}
 ?>
