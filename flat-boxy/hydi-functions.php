@@ -113,7 +113,7 @@ function hydi_postVote($postid, $userid, $review){
 	}
 	else { 
 		//Update database
-		try
+		try{
 			//consolelog($postid." UPDATE");
 			$wpdb->update(
 				TABLE_HYDI_USERLIKES,
@@ -130,5 +130,37 @@ function hydi_postVote($postid, $userid, $review){
 			consolelog($e->getMessage());
 		}
 	}
+}
+
+function hydi_getTrends($code){
+	$url = 'http://www.google.com/trends/hottrends/atom/feed?pn=p1';
+	$referrer = 'http://www.google.com';
+	$agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_REFERER, $referer);
+	curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+
+	$result = curl_exec($ch);
+
+	 $trends = new SimpleXmlElement($result);
+
+	 $resultString = "";
+	 $jsonObj = new stdClass();
+	 
+	 foreach($trends->channel->item as $value) { 
+	        $resultString =  $resultString.$value->title."|";
+	 }
+	 if(substr($resultString, (strlen($resultString)-1), strlen($resultString)) == "|"){
+	 	$resultString = substr($resultString, 0, (strlen($resultString)-1));
+	 }
+
+	 $jsonObj->results =(explode('|',$resultString));
+	 return json_encode($jsonObj);
 }
 ?>
