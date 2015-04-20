@@ -132,8 +132,22 @@ function hydi_postVote($postid, $userid, $review){
 	}
 }
 
-function hydi_getTrends($code){
-	$url = 'http://www.google.com/trends/hottrends/atom/feed?pn=p1';
+/*
+* Get Trends by Code
+* @params $code - Code defined by Google Trends
+* url: GET http://hawttrends.appspot.com/api/terms/
+* All regions: 0
+* AU: 8
+* SG: 5
+* MY: 34
+*/
+function hydi_getTrends($countryCode){
+	$trendsParam = 0;
+	$trendsParam = getParamByCountryCode($countryCode);
+
+	//TO-DO: Set default region based on location
+
+	$url = 'http://www.google.com/trends/hottrends/atom/feed?pn=p'.$trendsParam;
 	$referrer = 'http://www.google.com';
 	$agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
 
@@ -148,19 +162,36 @@ function hydi_getTrends($code){
 
 	$result = curl_exec($ch);
 
-	 $trends = new SimpleXmlElement($result);
+	$trends = new SimpleXmlElement($result);
 
-	 $resultString = "";
-	 $jsonObj = new stdClass();
+	$resultString = "";
+	$jsonObj = new stdClass();
 	 
-	 foreach($trends->channel->item as $value) { 
-	        $resultString =  $resultString.$value->title."|";
-	 }
-	 if(substr($resultString, (strlen($resultString)-1), strlen($resultString)) == "|"){
+	foreach($trends->channel->item as $value) { 
+        $resultString =  $resultString.$value->title."|";
+	}
+	if(substr($resultString, (strlen($resultString)-1), strlen($resultString)) == "|"){
 	 	$resultString = substr($resultString, 0, (strlen($resultString)-1));
-	 }
+	}
 
-	 $jsonObj->results =(explode('|',$resultString));
-	 return json_encode($jsonObj);
+	$jsonObj->code = $countryCode;
+	$jsonObj->results =(explode('|',$resultString));
+	return json_encode($jsonObj);
+}
+
+function getParamByCountryCode($countryCode){
+	if($countryCode === "ALL"){
+		return 0;
+	}
+	else if($countryCode === "AU"){
+		return 8;
+	}
+	else if($countryCode === "SG"){
+		return 5;
+	}
+	else if($countryCode === "MY"){
+		return 34;
+	}
+	else return 0;
 }
 ?>
