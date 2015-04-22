@@ -179,6 +179,10 @@ function hydi_getTrends($countryCode){
 	return json_encode($jsonObj);
 }
 
+/*
+* Get Google Trends Code Param by Country Code
+* @params $countryCode
+*/
 function getParamByCountryCode($countryCode){
 	if($countryCode === "ALL"){
 		return 0;

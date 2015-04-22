@@ -139,4 +139,107 @@ function consolelog($message){
 
     echo json_encode($obj);
 }
+
+/************************ AUTHENTICATION SECTION ************************/
+/*
+* Authenticates the user using cookie.sessionID and database user.sessionID
+* @params sessionID - FB's accessToken or genSessionID()
+*/
+function authenticate($userid){
+    $activeSession = getSession($userid);
+    $browserSession = $_COOKIE[HYDI_AUTH_KEY];
+    $isAuthenticated = false;
+
+    if($browserSession === $activeSession->sessionid){
+        $isAuthenticated = true;
+    }
+    
+    return $isAuthenticated;
+}
+
+/*
+* Store sessionID into database (DO NOT USE ON FRONT END)
+* @params sessionID - FB's accessToken or genSessionID()
+*/
+function storeSessionID($userid, $sessionID){
+    global $wpdb;
+
+    //Store into database
+    $wpdb->update(
+        TABLE_HYDI_USERS,
+        array(
+            'sessionid'=> $sessionID
+        ),
+        array(
+            'fbuid'    =>$userid,
+        )
+    );
+};
+
+/*
+* GET session from database (DO NOT USE ON FRONT END)
+* @params userid - currently only support fbuid (22 April 2015)
+* used in authenticate()
+*/
+function getSession($userid){
+    global $wpdb;
+
+    //GET sessionid from database
+    $sessionid = $wpdb->get_row("SELECT sessionid FROM ".TABLE_HYDI_USERS." WHERE fbuid = '".$userid."'");
+
+    return $sessionid;
+};
+
+/*
+* Generate Unique Session ID
+* @params maxLength - determine the length of the sessionID
+*/
+function genSessionID($maxLength = null){
+    $entropy = '';
+
+    // try ssl first
+    if (function_exists('openssl_random_pseudo_bytes')) {
+        $entropy = openssl_random_pseudo_bytes(64, $strong);
+        // skip ssl since it wasn't using the strong algo
+        if($strong !== true) {
+            $entropy = '';
+        }
+    }
+
+    // add some basic mt_rand/uniqid combo
+    $entropy .= uniqid(mt_rand(), true);
+
+    // try to read from the windows RNG
+    if (class_exists('COM')) {
+        try {
+            $com = new COM('CAPICOM.Utilities.1');
+            $entropy .= base64_decode($com->GetRandom(64, 0));
+        } catch (Exception $ex) {
+        }
+    }
+
+    // try to read from the unix RNG
+    if (is_readable('/dev/urandom')) {
+        $h = fopen('/dev/urandom', 'rb');
+        $entropy .= fread($h, 64);
+        fclose($h);
+    }
+
+    $hash = hash('whirlpool', $entropy);
+    if ($maxLength) {
+        return substr($hash, 0, $maxLength);
+    }
+    return $hash;
+}
+
+/************************ END AUTHENTICATION SECTION ************************/
+
+
+/*
+* Remove metatag with wordpress version from head
+* To be used at header.php with in add_filter();
+*/
+function remove_version_from_head() { 
+    return ''; 
+} 
 ?>

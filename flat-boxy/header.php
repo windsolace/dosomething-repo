@@ -21,6 +21,10 @@
 <head>
 	<?php
 		header("Cache-Control: max-age=172800");
+
+		//Remove header with WordPress version
+		add_filter('the_generator', 'remove_version_from_head'); 
+
 	?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,6 +104,7 @@
 					var fbuid = sessionStorage.getItem('fbuid');
 					if(!fbuid){
 						fbuid = FB.getUserID();
+						document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
 						sessionStorage.setItem('fbuid',fbuid);
 					}
 
