@@ -156,6 +156,12 @@ function authenticate($userid){
     
     return $isAuthenticated;
 }
+        add_action('wp_ajax_nopriv_test', 'test');
+add_action('wp_ajax_test', 'test');
+function test(){
+    echo "NOT zero";
+    die();
+}
 
 /*
 * Store sessionID into database (DO NOT USE ON FRONT END)
