@@ -43,6 +43,9 @@ HydiTrends["getCountryByCode"] = function(code){
 		case 8:
 			return "AU";
 			break;
+		case 23: 
+			return "KR";
+			break;
 		case 34: 
 			return "MY";
 			break;

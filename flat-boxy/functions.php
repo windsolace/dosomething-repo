@@ -7,7 +7,7 @@
 * @subpackage Twenty_Fourteen
 * @since Twenty Fourteen 1.0
 */
-
+require("ajaxHandler.php");
 /**
 * Lists child pages
 */
@@ -156,12 +156,6 @@ function authenticate($userid){
     
     return $isAuthenticated;
 }
-        add_action('wp_ajax_nopriv_test', 'test');
-add_action('wp_ajax_test', 'test');
-function test(){
-    echo "NOT zero";
-    die();
-}
 
 /*
 * Store sessionID into database (DO NOT USE ON FRONT END)
@@ -240,6 +234,25 @@ function genSessionID($maxLength = null){
 
 /************************ END AUTHENTICATION SECTION ************************/
 
+/*
+* GET ajax request and pass data to function to be processed
+*/
+add_action('wp_ajax_nopriv_callHydiApi', 'callHydiApi');
+add_action('wp_ajax_callHydiApi', 'callHydiApi');
+function callHydiApi(){
+    if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+        $requestPath = $_GET["requestPath"];
+        $data = $_GET["params"];
+
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $requestPath = $_POST["requestPath"];
+        $data = $_POST["params"];
+    }
+    $data = json_encode($data);
+    routeRequest($requestPath, $data);
+    die();
+}
 
 /*
 * Remove metatag with wordpress version from head

@@ -51,13 +51,18 @@
 		function hydi_scripts(){
 		    wp_deregister_script('jquery'); //Remove WP's default jQuery
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
+		    wp_register_script('hydi-api', get_template_directory_uri() . '/js/hydi-api.js', array('jquery'));
 		    wp_register_script('menu-js', get_template_directory_uri() . '/js/menu-js.js', array('jquery'));
 		    wp_register_script('cells', get_template_directory_uri() . '/js/cells.js', array('jquery'));
 		    wp_register_script('hydi-activity', get_template_directory_uri() . '/js/hydi-activity.js', array('jquery'));
+		    wp_register_script('hydi-trends', get_template_directory_uri() . '/js/hydi-trends.js', array('jquery'));
 
+
+		    wp_enqueue_script('hydi-api');
 		    wp_enqueue_script('menu-js');
 		    wp_enqueue_script('cells');
 		    wp_enqueue_script('hydi-activity');
+		    wp_enqueue_script('hydi-trends');
 		}
 
 		//WP actions (JS/CSS ini)
@@ -83,7 +88,8 @@
 	?>
 
 	<script>
-		var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
+		//var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
+		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 		var home_url = "<?php echo $site_home_url ?>";
 
 		window.fbAsyncInit = function() {

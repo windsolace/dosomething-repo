@@ -3,7 +3,7 @@
 * hydi-functions.php
 *  Contains functions unique to HYDI. 
 */
-
+require('constants.php');
 /*
 * GET activity by object_id
 */
@@ -135,10 +135,12 @@ function hydi_postVote($postid, $userid, $review){
 /*
 * Get Trends by Code
 * @params $code - Code defined by Google Trends
-* url: GET http://hawttrends.appspot.com/api/terms/
+* url: GET http://hawttrends.appspot.com/api/terms/ (deprecated)
+* url: GET http://www.google.com/trends/hottrends/atom/feed?pn=p23
 * All regions: 0
 * AU: 8
 * SG: 5
+* KR: 23
 * MY: 34
 */
 function hydi_getTrends($countryCode){
@@ -179,10 +181,6 @@ function hydi_getTrends($countryCode){
 	return json_encode($jsonObj);
 }
 
-/*
-* Get Google Trends Code Param by Country Code
-* @params $countryCode
-*/
 function getParamByCountryCode($countryCode){
 	if($countryCode === "ALL"){
 		return 0;
@@ -192,6 +190,9 @@ function getParamByCountryCode($countryCode){
 	}
 	else if($countryCode === "SG"){
 		return 5;
+	}
+	else if($countryCode === "KR"){
+		return 23;
 	}
 	else if($countryCode === "MY"){
 		return 34;
