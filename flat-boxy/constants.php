@@ -14,6 +14,7 @@ define("TABLE_HYDI_USERS", "fb_user");
 */
 //API 02
 define("ACTIVITY_DETAILS", "/hydi/api/activity");
+define("ALL_ACTIVITIES", "hydi/api/allactivities");
 //API 01
 define("USER_ACTIVITY_VOTES", "/hydi/api/activity/users");
 ?>

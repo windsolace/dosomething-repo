@@ -3,6 +3,7 @@
 */
 var HydiActivity = function(){
 	this.raw = {};
+	this.id ="";
 	this.name = "";
 	this.description = "";
 	this.country = "";
@@ -33,6 +34,7 @@ HydiActivity['parse'] = function(json){
 	var result = new HydiActivity();
 
 	result.raw = json;
+	result.id = json.id;
 	result.name = json.name;
 	result.description = json.description;
 	result.country = json.country;
@@ -52,9 +54,11 @@ HydiActivity['parse'] = function(json){
 
 	//reviews
 	var rawReviews = json.reviews;
-	result.reviews.upvotes = parseInt(rawReviews[0].upvotes);
-	result.reviews.downvotes = parseInt(rawReviews[0].downvotes);
-	result.reviews.done = parseInt(rawReviews[0].done);
+	if(rawReviews){
+		result.reviews.upvotes = parseInt(rawReviews[0].upvotes);
+		result.reviews.downvotes = parseInt(rawReviews[0].downvotes);
+		result.reviews.done = parseInt(rawReviews[0].done);
+	}
 
 	return result;
 }

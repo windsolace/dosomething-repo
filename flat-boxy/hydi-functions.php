@@ -4,6 +4,20 @@
 *  Contains functions unique to HYDI. 
 */
 require('constants.php');
+
+/*
+* GET all activities
+*/
+function hydi_getAllActivities(){
+	global $wpdb;
+
+	$results = $wpdb->get_results("SELECT * FROM ".TABLE_HYDI_ACTIVITY);
+
+	$results = json_encode($results);
+
+	return $results;
+}
+
 /*
 * GET activity by object_id
 */
@@ -13,6 +27,7 @@ function hydi_getActivity( $postID ){
 	//Call ACTIVITY Table
 	$activity_row = $wpdb->get_row("SELECT * FROM ".TABLE_HYDI_ACTIVITY." WHERE object_id = '".$postID."'");
 
+	$activityID = $activity_row->object_id;
 	$activityName = $activity_row->name;
 	$activityDescription = $activity_row->description;
 	$activityAddress = $activity_row->address;
@@ -28,6 +43,7 @@ function hydi_getActivity( $postID ){
 	$activityTimeRange = $activity_row->time_range;
 
 	$obj = new stdClass();
+	$obj->id = $activityID;
 	$obj->name = $activityName;
 	$obj->description = $activityDescription;
 	$obj->country = $activityCountry;
@@ -181,6 +197,10 @@ function hydi_getTrends($countryCode){
 	return json_encode($jsonObj);
 }
 
+/*
+* Get Google Trend parameter by Country Code
+* @param countryCode
+*/
 function getParamByCountryCode($countryCode){
 	if($countryCode === "ALL"){
 		return 0;
@@ -199,4 +219,20 @@ function getParamByCountryCode($countryCode){
 	}
 	else return 0;
 }
+
+/*
+* Random Function to render 1 activity as result
+* @params $code - 
+*/
+//function randomActivity(noOfPax, Location){
+	/*
+	//create a sql query  (http://www.tizag.com/mysqlTutorial/mysqlfetcharray.php)
+	$sql = mysql_query("SELECT obj_id FROM Activity Table 
+						WHERE noOfPax = 5
+						AND Location = "Orchard"
+						ORDER BY RAND() 
+						LIMIT 5");
+	*/
+	
+//}
 ?>

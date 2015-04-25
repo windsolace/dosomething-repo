@@ -72,6 +72,27 @@ function routeRequest($requestPath, $data){
 		}
 	}
 
+	/*
+	API id: 03
+	* GET all activities
+	*/
+	if($requestPath == ALL_ACTIVITIES){
+		$responseArray = json_decode($data);
+
+		//IF HTTP GET -> Retrieve user reviews from usser_likes table
+		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+			/*foreach($responseArray as $key => $value){
+				if($key == 'objectid') $objectid = $value;
+			}*/
+			$response = hydi_getAllActivities();
+			$jsonObj = new stdClass();
+			$jsonObj = $response;
+
+			echo "API 03: GET Success\n";
+			echo $jsonObj;
+		}
+	}
+
 	//echo "routeRequest done";
 	die();
 
