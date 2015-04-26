@@ -38,7 +38,7 @@ function routeRequest($requestPath, $data){
 				if($key == 'userid') $userid = $value;
 			}
 			$response = hydi_getReviews($objectid,$userid);
-			echo "API 01: GET Success\n";
+			//echo "API 01: GET Success\n";
 			echo $response;
 		}
 
@@ -67,7 +67,7 @@ function routeRequest($requestPath, $data){
 				if($key == 'objectid') $objectid = $value;
 			}
 			$response = hydi_getActivity($objectid);
-			echo "API 02: GET Success\n";
+			//echo "API 02: GET Success\n";
 			echo $response;
 		}
 	}
@@ -88,8 +88,33 @@ function routeRequest($requestPath, $data){
 			$jsonObj = new stdClass();
 			$jsonObj = $response;
 
-			echo "API 03: GET Success\n";
+			//echo "API 03: GET Success\n";
 			echo $jsonObj;
+		}
+	}
+
+	/*
+	API id: 04
+	* GET/POST login status
+	*/
+	if($requestPath == SITE_LOGIN){
+		$responseArray = json_decode($data);
+
+		//IF HTTP GET -> get login status
+		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+			foreach($responseArray as $key => $value){
+				if($key == 'userid') $userid = $value;
+			}
+			//$response = getSession($userid);
+			$response = isAuthenticated($userid);
+			$jsonObj = new stdClass();
+			//$jsonObj->userid = $userid;
+			//$jsonObj->auth = $response;
+
+			$jsonObj = json_encode($response);
+
+			//echo "API 04: GET Success\n";
+			echo $response;
 		}
 	}
 

@@ -2,6 +2,8 @@
 * HYDI API URL definition
 */
 var HYDI_API = {
+	//GET/POST login status
+	'SITE_LOGIN'			: 'hydi/api/login',
 	//GET activity details
 	'ACTIVITY_DETAILS'		: '/hydi/api/activity',
 	//GET all activities

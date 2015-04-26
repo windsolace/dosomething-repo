@@ -145,16 +145,20 @@ function consolelog($message){
 * Authenticates the user using cookie.sessionID and database user.sessionID
 * @params sessionID - FB's accessToken or genSessionID()
 */
-function authenticate($userid){
+function isAuthenticated($userid){
     $activeSession = getSession($userid);
     $browserSession = $_COOKIE[HYDI_AUTH_KEY];
     $isAuthenticated = false;
 
-    if($browserSession === $activeSession->sessionid){
+    if($browserSession === $activeSession){
         $isAuthenticated = true;
     }
+
+    $jsonObj = new stdClass();
+    $jsonObj->userid = $userid;
+    $jsonObj->isLoggedIn = $isAuthenticated;
     
-    return $isAuthenticated;
+    return json_encode($jsonObj);
 }
 
 /*
@@ -179,13 +183,13 @@ function storeSessionID($userid, $sessionID){
 /*
 * GET session from database (DO NOT USE ON FRONT END)
 * @params userid - currently only support fbuid (22 April 2015)
-* used in authenticate()
+* used in isAuthenticated()
 */
 function getSession($userid){
     global $wpdb;
 
     //GET sessionid from database
-    $sessionid = $wpdb->get_row("SELECT sessionid FROM ".TABLE_HYDI_USERS." WHERE fbuid = '".$userid."'");
+    $sessionid = $wpdb->get_var("SELECT sessionid FROM ".TABLE_HYDI_USERS." WHERE fbuid = '".$userid."'");
 
     return $sessionid;
 };

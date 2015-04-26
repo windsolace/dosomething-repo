@@ -12,8 +12,11 @@ define("TABLE_HYDI_USERS", "fb_user");
 /*
 * API URL CONSTANTS (ref hydi-api.js)
 */
+//API 04
+define("SITE_LOGIN", "hydi/api/login");
 //API 02
 define("ACTIVITY_DETAILS", "/hydi/api/activity");
+//API 03
 define("ALL_ACTIVITIES", "hydi/api/allactivities");
 //API 01
 define("USER_ACTIVITY_VOTES", "/hydi/api/activity/users");
