@@ -20,6 +20,15 @@ div.cell-container{
 	overflow:hidden;
 	//transition: ease background-color 0.4s;
 }
+/*
+* Cells for Hydi Trends
+*/
+.trend-cell{ 
+	height:inherit;
+	width:50%;
+	min-width:200px;
+	max-width:300px;
+}
 .cell span:hover{
 	//background-color:gray;
 	opacity:1;
