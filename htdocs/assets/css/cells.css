@@ -29,6 +29,18 @@ div.cell-container{
 	min-width:200px;
 	max-width:300px;
 }
+.trend-cell .subtitle{
+	font-size:13px;
+	opacity:1;
+	color:#9CA6B0; /*0.5 opacity of theme font color*/
+}
+.trend-cell ul,ol{
+	padding:20px 20px;
+}
+.trend-cell ul,ol li{
+	line-height:30px;
+}
+
 .cell span:hover{
 	//background-color:gray;
 	opacity:1;
