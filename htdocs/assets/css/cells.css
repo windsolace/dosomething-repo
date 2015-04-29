@@ -33,6 +33,7 @@ div.cell-container{
 	font-size:13px;
 	opacity:1;
 	color:#9CA6B0; /*0.5 opacity of theme font color*/
+	height:20px;
 }
 .trend-cell ul,ol{
 	padding:20px 20px;

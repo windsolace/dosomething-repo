@@ -137,4 +137,11 @@ get_header(); ?>
 										
 										</div><!-- #main-content -->
 										</section><!-- #main -->
-									<?php get_footer();?>																		
+									<?php get_footer();?>	
+<script>
+$(document).ready(function(){
+	//TO-DO: add condition to detect when its mobile
+	activityDetailMobileFn();
+	activityDetailFn();
+});
+</script>																				
