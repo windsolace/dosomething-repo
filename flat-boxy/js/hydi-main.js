@@ -23,7 +23,6 @@ var hydiInit = function(){
 	//activityDetailFn();
 	//userProfileFn();
 
-	//TO-DO: Get OBJECT-ID
 };
 
 function isLoggedIn(){
@@ -40,8 +39,7 @@ function isLoggedIn(){
 		},
 		success:
 			function(response){
-				console.log("Successful check login status");
-				console.log(response.isLoggedIn);
+				console.log("Successful check login status: isLogin: " + response.isLoggedIn);
 				isLogin = response.isLoggedIn;
 			},
 		error:
@@ -165,3 +163,17 @@ var userProfileFn = function(){
 		$('#transit-up').show().prop('disabled', false);
 	});
 };
+
+/*
+* Trend function for trends template
+*/
+var trendsFn = function(jsonResponse){
+	var trendList = HydiTrends.getTrendList(jsonResponse);
+	var _topSearchesTpl = $('#top-searches-template').html();
+	$("#top-searches").eq(0).append(_.template(_topSearchesTpl, {
+        data: {
+            list: trendList
+        }
+    }));
+	console.log(trendList);
+}

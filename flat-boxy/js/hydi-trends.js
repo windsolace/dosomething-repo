@@ -3,11 +3,13 @@
 */
 
 var HydiTrends = function(){
-	this.country = {
-		code: "",
-		name: ""
+	this.topSearches = {
+		country: {
+			code:"",
+			name:""
+		},
+		trendList:{}
 	};
-	this.trendList = {};
 }
 
 /*
@@ -19,12 +21,50 @@ HydiTrends["getTrendList"] = function(json){
 	var result = new HydiTrends();
 	var countryCode = json.code;
 	var countryName = HydiTrends.getCountryName(countryCode);
+	var trendList = [];
 
-	result.trendList = json.results;
-	result.country.code = countryCode;
-	result.country.name = countryName;
+
+	$.each(json.topSearches, function(key, value){
+		var trendObj = {};
+		var valueArr = value.split("~");
+		trendObj.title = valueArr[0];
+		trendObj.pubDate = valueArr[1];
+		trendObj.link = valueArr[2];
+		trendList.push(trendObj);
+	});
+
+	result.topSearches.trendList = trendList;
+	result.topSearches.country.code = countryCode;
+	result.topSearches.country.name = countryName;
 
 	return result;
+}
+
+/*
+* GET List of Top Searches 
+* @params json - JSON object from backend
+* returns JSON trendList
+*/
+HydiTrends["getTopSearches"] = function(json){
+	var topSearchesObj = {};
+	var countryCode = json.code;
+	var countryName = HydiTrends.getCountryName(countryCode);
+	var trendList = [];
+
+	$.each(json.results, function(key, value){
+		var trendObj = {};
+		var valueArr = value.split("~");
+		trendObj.title = valueArr[0];
+		trendObj.pubDate = valueArr[1];
+		trendObj.link = valueArr[2];
+		trendList.push(trendObj);
+	});
+
+	topSearchesObj.trendList = trendList;
+	topSearchesObj.country.code = countryCode;
+	topSearchesObj.country.name = countryName;
+
+	return topSearchesObj;
 }
 
 /*

@@ -50,7 +50,12 @@
 		//Load scripts
 		function hydi_scripts(){
 		    wp_deregister_script('jquery'); //Remove WP's default jQuery
+
+		    //libs
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
+		    wp_register_script('underscore', get_template_directory_uri() . '/js/libs/underscore.js', array('jquery'));
+
+		    //custom scripts
 		    wp_register_script('hydi-api', get_template_directory_uri() . '/js/hydi-api.js', array('jquery'));
 		    wp_register_script('hydi-main', get_template_directory_uri() . '/js/hydi-main.js', array('jquery'));
 		    wp_register_script('menu-js', get_template_directory_uri() . '/js/menu-js.js', array('jquery'));
@@ -58,6 +63,7 @@
 		    wp_register_script('hydi-activity', get_template_directory_uri() . '/js/hydi-activity.js', array('jquery'));
 		    wp_register_script('hydi-trends', get_template_directory_uri() . '/js/hydi-trends.js', array('jquery'));
 
+		    wp_enqueue_script('underscore');
 		    wp_enqueue_script('hydi-api');
 		    wp_enqueue_script('hydi-main');
 		    wp_enqueue_script('menu-js');
@@ -167,7 +173,7 @@
 						<a href = "./play"><div class= "mobile-menu-button play">Play</div></a>
 					</li>
 					<li>
-						<a href = "./trend"><div class= "mobile-menu-button trend">Trend</div></a>
+						<a href = "./hydi-trends"><div class= "mobile-menu-button trend">Trend</div></a>
 					</li>
 					<li>
 						<a href = "./explore"><div class= "mobile-menu-button explore">Explore</div></a>

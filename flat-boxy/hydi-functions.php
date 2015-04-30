@@ -149,6 +149,7 @@ function hydi_postVote($postid, $userid, $review){
 }
 
 /*
+* Singapore WOEID - 23424948
 * Get Trends by Code
 * @params $code - Code defined by Google Trends
 * url: GET http://hawttrends.appspot.com/api/terms/ (deprecated)
@@ -165,6 +166,7 @@ function hydi_getTrends($countryCode){
 
 	//TO-DO: Set default region based on location
 
+	//Google Search Trends
 	$url = 'http://www.google.com/trends/hottrends/atom/feed?pn=p'.$trendsParam;
 	$referrer = 'http://www.google.com';
 	$agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
@@ -186,14 +188,17 @@ function hydi_getTrends($countryCode){
 	$jsonObj = new stdClass();
 	 
 	foreach($trends->channel->item as $value) { 
-        $resultString =  $resultString.$value->title."|";
+        $resultString =  $resultString.$value->title."~";
+        $resultString = $resultString.$value->pubDate."~";
+        $resultString = $resultString.$value->link."|";
 	}
 	if(substr($resultString, (strlen($resultString)-1), strlen($resultString)) == "|"){
 	 	$resultString = substr($resultString, 0, (strlen($resultString)-1));
 	}
+	//End Google Search Trends
 
 	$jsonObj->code = $countryCode;
-	$jsonObj->results =(explode('|',$resultString));
+	$jsonObj->topSearches =(explode('|',$resultString));
 	return json_encode($jsonObj);
 }
 
