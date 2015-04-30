@@ -42,8 +42,8 @@
 			wp_register_style('googleFont-Oxygen','http://fonts.googleapis.com/css?family=Oxygen');
 			wp_register_style('googleFont-Oregano','http://fonts.googleapis.com/css?family=Oregano');
 
-			wp_enqueue_style('hydi-style', get_stylesheet_directory_uri() . '/style.css');
-			wp_enqueue_style('hydi-cells', get_stylesheet_directory_uri() . '/cells.css');
+			wp_enqueue_style('hydi-style', get_stylesheet_directory_uri() . '/css/styles.css');
+			wp_enqueue_style('hydi-cells', get_stylesheet_directory_uri() . '/css/cells.css');
 			wp_enqueue_style('googleFont-Oxygen');
 			wp_enqueue_style('googleFont-Oregano');
 		} 
