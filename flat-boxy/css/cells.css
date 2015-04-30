@@ -20,6 +20,28 @@ div.cell-container{
 	overflow:hidden;
 	//transition: ease background-color 0.4s;
 }
+/*
+* Cells for Hydi Trends
+*/
+.trend-cell{ 
+	height:inherit;
+	width:50%;
+	min-width:200px;
+	max-width:300px;
+}
+.trend-cell .subtitle{
+	font-size:13px;
+	opacity:1;
+	color:#9CA6B0; /*0.5 opacity of theme font color*/
+	height:20px;
+}
+.trend-cell ul,ol{
+	padding:20px 20px;
+}
+.trend-cell ul,ol li{
+	line-height:30px;
+}
+
 .cell span:hover{
 	//background-color:gray;
 	opacity:1;
@@ -42,7 +64,7 @@ div.cell a, div.cell-container a{ /*removes a dash for a tags*/
 }
 .cell img.cell-img{
 	max-width:120%;
-	max-height:80%;
+	max-height:120%;
 }
 .cell .cell-title{
 	bottom:0px;
@@ -57,10 +79,10 @@ div.cell a, div.cell-container a{ /*removes a dash for a tags*/
 div.homecell{
 	display: inline-block; /*this displays them side by side*/
 	//line-height:100px;
-	height: 150px;
-	width:200px;
+	height: 100px;
+	width:100px;
 	border: 1px solid WHITE;
-	border-radius:0px;
+	border-radius:30px;
 	margin: 10px 10px 10px 10px;
 	position:relative;
 	transition: ease background-color 0.4s;
@@ -78,31 +100,61 @@ div.homecell:active{
 }
 
 div.homecell.eat{
-	background-color:#e74c3c;
+	background-color:#3498db;
+	height: 150px;
 	width:300px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.play{
 	background-color:#1abc9c;
+	height: 150px;
+	width:200px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.trend{
 	background-color:#f1c40f;
+	height: 150px;
+	width:200px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore{
-	background-color:#3498db;
+	background-color:#e74c3c;
+	height: 150px;
 	width:300px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 
 div.homecell.eat:hover{
-	background-color:#c0392b;
+	background-color:#2980b9;
+	height: 150px;
+	width:300px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.play:hover{
 	background-color:#16a085;
+	height: 150px;
+	width:200px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.trend:hover{
 	background-color:#f39c12;
+	height: 150px;
+	width:200px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 div.homecell.explore:hover{
-	background-color:#2980b9;
+	background-color:#c0392b;
+	height: 150px;
+	width:300px;
+	border-radius:0px;
+	margin: 10px 10px 10px 10px;
 }
 
 div.homecell:hover div.cell-content{
