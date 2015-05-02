@@ -4,6 +4,11 @@
 *  Contains functions unique to HYDI. 
 */
 require('constants.php');
+require('Util.php');
+require('install/twitteroauth/autoload.php');
+
+use Abraham\TwitterOAuth\TwitterOAuth;
+
 
 /*
 * GET all activities
@@ -90,11 +95,11 @@ function hydi_getReviews($postid, $userid){
 	}
 }
 
-/*
+/**
 * Post vote for an activity by user
-* @params $userid - id of the user (may need encryption)
-* @params $postid - id of the post
-* @params $review - review (either 1 or 0)
+* @param $userid - id of the user (may need encryption)
+* @param $postid - id of the post
+* @param $review - review (either 1 or 0)
 *
 * Requires hydi_getVote($userid, $postid);
 */
@@ -148,21 +153,61 @@ function hydi_postVote($postid, $userid, $review){
 	}
 }
 
-/*
-* Singapore WOEID - 23424948
-* Get Trends by Code
-* @params $code - Code defined by Google Trends
-* url: GET http://hawttrends.appspot.com/api/terms/ (deprecated)
-* url: GET http://www.google.com/trends/hottrends/atom/feed?pn=p23
-* All regions: 0
-* AU: 8
-* SG: 5
-* KR: 23
-* MY: 34
+/**
+* Get Trends by Country Code
+* @param $countryCode (e.g. SG)
 */
 function hydi_getTrends($countryCode){
+	//GET Google Top Searches
+	$topSearchesString = getGoogleTopSearches($countryCode);
+
+	//GET Twitter Trends
+	$twitterTrends = getTwitterTrends($countryCode);
+
+	$jsonObj = new stdClass();
+	
+	$jsonObj->code = $countryCode;
+	$jsonObj->topSearches =(explode('|',$topSearchesString));
+	$jsonObj->twitterTrends = $twitterTrends;
+
+	return json_encode($jsonObj);
+}
+
+/**
+* GET Twitter Popular Hashtags
+* url: /trends/place (Twitter REST API v1.1)
+* @param woeid - WOEID by Yahoo!
+* Worldwide: 1
+*/
+function getTwitterTrends($countryCode){
+	define("CONSUMER_KEY", "");
+	define("CONSUMER_SECRET", "");
+	$access_token = "";
+	$access_token_secret = "";
+
+	$HydiUtil = new Util();
+	$woeid = $HydiUtil->getWOEIDByCountryCode($countryCode);
+
+	//TO-DO: Input different woeid
+
+	$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+
+	$twitterTrends = $connection->get("trends/place", array("id"=> $woeid));
+
+	return $twitterTrends;
+}
+
+/**
+* GET Google Top Searches
+* @param $countryCode - E.g. SG
+* @return resultString (e.g. title~pubDate~link |)
+* url: GET http://hawttrends.appspot.com/api/terms/ (deprecated)
+* url: GET http://www.google.com/trends/hottrends/atom/feed?pn=p23
+*/
+function getGoogleTopSearches($countryCode){
 	$trendsParam = 0;
-	$trendsParam = getParamByCountryCode($countryCode);
+	$HydiUtil = new Util();
+	$trendsParam = $HydiUtil->getParamByCountryCode($countryCode);
 
 	//TO-DO: Set default region based on location
 
@@ -181,11 +226,8 @@ function hydi_getTrends($countryCode){
 	curl_setopt($ch, CURLOPT_USERAGENT, $agent);
 
 	$result = curl_exec($ch);
-
 	$trends = new SimpleXmlElement($result);
-
 	$resultString = "";
-	$jsonObj = new stdClass();
 	 
 	foreach($trends->channel->item as $value) { 
         $resultString =  $resultString.$value->title."~";
@@ -197,32 +239,8 @@ function hydi_getTrends($countryCode){
 	}
 	//End Google Search Trends
 
-	$jsonObj->code = $countryCode;
-	$jsonObj->topSearches =(explode('|',$resultString));
-	return json_encode($jsonObj);
-}
+	return $resultString;
 
-/*
-* Get Google Trend parameter by Country Code
-* @param countryCode
-*/
-function getParamByCountryCode($countryCode){
-	if($countryCode === "ALL"){
-		return 0;
-	}
-	else if($countryCode === "AU"){
-		return 8;
-	}
-	else if($countryCode === "SG"){
-		return 5;
-	}
-	else if($countryCode === "KR"){
-		return 23;
-	}
-	else if($countryCode === "MY"){
-		return 34;
-	}
-	else return 0;
 }
 
 /*

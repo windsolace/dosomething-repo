@@ -10,6 +10,14 @@ var HydiTrends = function(){
 		},
 		trendList:{}
 	};
+	this.twitterTrends = {
+		timestamp: "",
+		location:{
+			code:"",
+			name:""
+		},
+		trendList:{}
+	};
 }
 
 /*
@@ -33,9 +41,23 @@ HydiTrends["getTrendList"] = function(json){
 		trendList.push(trendObj);
 	});
 
+	//Top Searches
 	result.topSearches.trendList = trendList;
 	result.topSearches.country.code = countryCode;
 	result.topSearches.country.name = countryName;
+
+	//Twitter Trends
+	try{
+		var epochtimestamp = new Date(json.twitterTrends[0].created_at);
+		result.twitterTrends.timestamp = epochtimestamp.getTime()/1000;
+		result.twitterTrends.location.code = json.twitterTrends[0].locations[0].woeid;
+		result.twitterTrends.location.name = json.twitterTrends[0].locations[0].name;
+		result.twitterTrends.trendList = json.twitterTrends[0].trends;
+	}
+	catch(e){
+		console.log(json.twitterTrends.errors[0]);
+	}
+
 
 	return result;
 }
@@ -75,7 +97,7 @@ HydiTrends["getTopSearches"] = function(json){
 HydiTrends["getCountryByCode"] = function(code){
 	switch(code){
 		case 0:
-			return "ALL";
+			return "GLOBAL";
 			break;
 		case 5:
 			return "SG";
@@ -90,7 +112,7 @@ HydiTrends["getCountryByCode"] = function(code){
 			return "MY";
 			break;
 		default:
-			return "ALL";
+			return "GLOBAL";
 			break;
 	}
 }
@@ -101,8 +123,8 @@ HydiTrends["getCountryByCode"] = function(code){
 * returns countryName (default "All regions")
 */
 HydiTrends["getCountryName"] = function(countryCode){
-	if(countryCode == "ALL"){
-		return "All regions";
+	if(countryCode == "GLOBAL"){
+		return "Global";
 	}
 	else if(countryCode == "AU"){
 		return "Australia";
@@ -112,5 +134,8 @@ HydiTrends["getCountryName"] = function(countryCode){
 	}
 	else if(countryCode == "MY"){
 		return "Malaysia";
+	}
+	else if(countryCode == "KR"){
+		return "Korea";
 	}
 }

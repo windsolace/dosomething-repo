@@ -51,13 +51,29 @@ get_header(); ?>
 				<div id = "top-searches" class = "cell trend-cell">
 					<script id = "top-searches-template" type = "text/html">
 						<h3 class = "">Top Searches
-							<span class = "subtitle"><%= data.list.topSearches.country.name %></span>
+							<span class = "subtitle"><%= data.list.country.name %></span>
 						</h3>
 						<ul class = "no-list">
 							<% var count = 0; %>
-							<% _.each(data.list.topSearches.trendList, function(item){ %>
+							<% _.each(data.list.trendList, function(item){ %>
 								<% if(count < 10) { %>
 									<li><a href = "http://www.google.com/#q=<%= item.title %>&tbm=nws" target="_blank"><%= item.title %></a></li>
+								<% count++} %>
+							<% }); %>
+						</ul>
+					</script>
+				</div>
+
+				<div id = "twitter-trends" class = "cell trend-cell">
+					<script id = "twitter-trends-template" type = "text/html">
+						<h3 class = "">Trending on Twitter
+							<span class = "subtitle"><%= data.list.location.name %></span>
+						</h3>
+						<ul class = "no-list">
+							<% var count = 0; %>
+							<% _.each(data.list.trendList, function(item){ %>
+								<% if(count < 10) { %>
+									<li><a href = "<%= item.url %>" target="_blank"><%= item.name %></a></li>
 								<% count++} %>
 							<% }); %>
 						</ul>

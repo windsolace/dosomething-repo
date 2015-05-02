@@ -169,11 +169,22 @@ var userProfileFn = function(){
 */
 var trendsFn = function(jsonResponse){
 	var trendList = HydiTrends.getTrendList(jsonResponse);
+
+	//Top Searches
 	var _topSearchesTpl = $('#top-searches-template').html();
 	$("#top-searches").eq(0).append(_.template(_topSearchesTpl, {
         data: {
-            list: trendList
+            list: trendList.topSearches
         }
     }));
+
+    //Trending on Twitter
+    var _twitterTrendTpl = $('#twitter-trends-template').html();
+	$("#twitter-trends").eq(0).append(_.template(_twitterTrendTpl, {
+        data: {
+            list: trendList.twitterTrends
+        }
+    }));
+
 	console.log(trendList);
 }
