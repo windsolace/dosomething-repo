@@ -243,6 +243,28 @@ function getGoogleTopSearches($countryCode){
 
 }
 
+/**
+* GET user profile info
+* @param $userid
+* @return $jsonObj
+*/
+function hydi_getUserProfile($userid){
+	global $wpdb;
+	//$userRow = $wpdb->get_row("SELECT * FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."'");
+
+	$userReviews = $wpdb->get_results("
+		SELECT 
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND review = '1') AS 'upvotes',
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND review = '0') AS 'downvotes',
+		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND activity_status = '1') AS 'done'"
+	);
+
+	$jsonObj = new stdClass();
+	$jsonObj = json_encode($userReviews);
+	return $jsonObj;
+
+}
+
 /*
 * Random Function to render 1 activity as result
 * @params $code - 

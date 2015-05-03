@@ -130,6 +130,40 @@ var activityDetailMobileFn = function(){
 
 //User Profile related functions
 var userProfileFn = function(){
+	//Get User Info
+	$.ajax({
+		url: ajaxurl,
+		type: 'GET', 
+		dataType:'json',        
+		data: {
+			requestPath: HYDI_API.USER_PROFILE_INFO,
+			params: {
+				userid:12317263743
+				//auth:'53719d8bd5f1179ad7b75d259d8cb9d0'
+			},
+			action: 'callHydiApi'
+		},
+		success:
+			function(response){
+				//console.log("Successful retrieve user info.");
+				console.log(response[0]);
+				var userReviews = response;
+				var _topSearchesTpl = $('#review-count-tpl').html();
+				$("ul.rate-list").eq(0).append(_.template(_topSearchesTpl, {
+			        data: {
+			            reviews: userReviews[0]
+			        }
+			    }));
+
+			},
+		error:
+			function(e){
+				console.log("Failed to get user info");
+				console.log(e);
+			}
+	});
+
+	//Events
 	//Clicked up
 	$('#transit-up').on('click', function(){
 		//hide lower

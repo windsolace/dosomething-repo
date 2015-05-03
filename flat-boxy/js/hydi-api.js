@@ -4,6 +4,8 @@
 var HYDI_API = {
 	//GET/POST login status
 	'SITE_LOGIN'			: 'hydi/api/login',
+	//GET user profile info
+	'USER_PROFILE_INFO'		:  'hydi/api/user',
 	//GET activity details
 	'ACTIVITY_DETAILS'		: '/hydi/api/activity',
 	//GET all activities

@@ -118,6 +118,37 @@ function routeRequest($requestPath, $data){
 		}
 	}
 
+	/*
+	API id: 05
+	* GET user profile info
+	*/
+	if($requestPath == USER_PROFILE_INFO){
+		$responseArray = json_decode($data);
+
+		//IF HTTP GET -> get login status -> get user info
+		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+			foreach($responseArray as $key => $value){
+				if($key == 'userid') $userid = $value;
+				if($key == 'auth') $auth = $value;
+			}
+			//$response = getSession($userid);
+			$authResponse = isAuthenticated($userid);
+
+			$jsonObj = new stdClass();			
+			$jsonObj = json_decode($authResponse, true);
+
+			//Check auth response -> If true, get profile info
+			if($jsonObj['isLoggedIn'] == true){
+				$userProfileObj = hydi_getUserProfile($userid);
+				echo $userProfileObj;
+			}
+
+
+			//echo "API 04: GET Success\n";
+			//echo $jsonObj['isLoggedIn'];
+		}
+	}
+
 	//echo "routeRequest done";
 	die();
 
