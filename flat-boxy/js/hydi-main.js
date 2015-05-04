@@ -146,12 +146,16 @@ var userProfileFn = function(){
 		success:
 			function(response){
 				//console.log("Successful retrieve user info.");
-				console.log(response[0]);
-				var userReviews = response;
+				//console.log(response);
+
+				//User Profile Obj
+				var userProfile = response;
+				console.log(userProfile);
+
 				var _topSearchesTpl = $('#review-count-tpl').html();
 				$("ul.rate-list").eq(0).append(_.template(_topSearchesTpl, {
 			        data: {
-			            reviews: userReviews[0]
+			            userProfile: userProfile
 			        }
 			    }));
 

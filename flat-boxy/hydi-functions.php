@@ -260,8 +260,9 @@ function hydi_getUserProfile($userid){
 	);
 
 	$jsonObj = new stdClass();
-	$jsonObj = json_encode($userReviews);
-	return $jsonObj;
+	$jsonObj->reviews = $userReviews;
+	
+	return json_encode($jsonObj);
 
 }
 

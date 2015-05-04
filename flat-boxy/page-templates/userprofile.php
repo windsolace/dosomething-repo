@@ -26,9 +26,9 @@ get_header(); ?>
 					<div class = "center" id = "upper-content">
 						<ul class="no-list rate-list">
 							<script id = "review-count-tpl" type = "text/html">
-								<li><span class = "icon up-arrow"><span><%= data.reviews.upvotes %></span></span> </li>
-								<li><span class = "icon down-arrow"><span><%= data.reviews.downvotes %></span></span> </li>
-								<li><span class = "icon tick-mark"><span><%= data.reviews.done %></span></span></li>
+								<li><span class = "icon up-arrow"><span><%= data.userProfile.reviews[0].upvotes %></span></span> </li>
+								<li><span class = "icon down-arrow"><span><%= data.userProfile.reviews[0].downvotes %></span></span> </li>
+								<li><span class = "icon tick-mark"><span><%= data.userProfile.reviews[0].done %></span></span></li>
 							</script>
 						</ul>
 					</div>
