@@ -250,7 +250,6 @@ function getGoogleTopSearches($countryCode){
 */
 function hydi_getUserProfile($userid){
 	global $wpdb;
-	//$userRow = $wpdb->get_row("SELECT * FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."'");
 
 	$userReviews = $wpdb->get_results("
 		SELECT 
@@ -258,6 +257,8 @@ function hydi_getUserProfile($userid){
 		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND review = '0') AS 'downvotes',
 		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND activity_status = '1') AS 'done'"
 	);
+
+	//TODO: SELECT name,a.object_id, f.review, f.activity_status FROM activity a,fb_user_likes f WHERE f.object_id = a.object_id
 
 	$jsonObj = new stdClass();
 	$jsonObj->reviews = $userReviews;

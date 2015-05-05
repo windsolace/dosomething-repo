@@ -159,6 +159,7 @@ var userProfileFn = function(){
 			        }
 			    }));
 
+			    events();
 			},
 		error:
 			function(e){
@@ -168,38 +169,40 @@ var userProfileFn = function(){
 	});
 
 	//Events
-	//Clicked up
-	$('#transit-up').on('click', function(){
-		//hide lower
-		$('#past-list').slideUp();
-		//show upper
-		$('#upper-content').slideDown();
-		$('#transit-up').show().prop('disabled', false);
-		$(this).hide().prop('disabled', true);
-	});
+	var events = function(){
+		//Clicked up
+		$('#transit-up').on('click', function(){
+			//hide lower
+			$('#past-list').slideUp();
+			//show upper
+			$('#upper-content').slideDown();
+			$('#transit-up').show().prop('disabled', false);
+			$(this).hide().prop('disabled', true);
+		});
 
-	//Clicked icon
-	$('.icon').on('click', function(){
-		var $this = $(this);
-		var clickedHeader = "";
-		if($this.hasClass('up-arrow')){
-			clickedHeader = "LIKES";
-			$('#past-list h2').removeClass().addClass('icon up-arrow-single');
-		}
-		else if($this.hasClass('down-arrow')){
-			clickedHeader = "DISLIKES";
-			$('#past-list h2').removeClass().addClass('icon down-arrow-single');
-		}
-		else if($this.hasClass('tick-mark')){
-			clickedHeader = "DONE";
-			$('#past-list h2').removeClass().addClass('icon tick-mark-single');
-		}
-		//hide user's past list of activities
-		$('#past-list').slideDown();
+		//Clicked icon
+		$('.icon').on('click', function(){
+			var $this = $(this);
+			var clickedHeader = "";
+			if($this.hasClass('up-arrow')){
+				clickedHeader = "LIKES";
+				$('#past-list h2').removeClass().addClass('icon up-arrow-single');
+			}
+			else if($this.hasClass('down-arrow')){
+				clickedHeader = "DISLIKES";
+				$('#past-list h2').removeClass().addClass('icon down-arrow-single');
+			}
+			else if($this.hasClass('tick-mark')){
+				clickedHeader = "DONE";
+				$('#past-list h2').removeClass().addClass('icon tick-mark-single');
+			}
+			//hide user's past list of activities
+			$('#past-list').slideDown();
 
-		$('#past-list h2').text(clickedHeader);
-		$('#transit-up').show().prop('disabled', false);
-	});
+			$('#past-list h2').text(clickedHeader);
+			$('#transit-up').show().prop('disabled', false);
+		});
+	}
 };
 
 /*
