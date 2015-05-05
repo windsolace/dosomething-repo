@@ -258,10 +258,39 @@ function hydi_getUserProfile($userid){
 		(SELECT COUNT(*) FROM ".TABLE_HYDI_USERLIKES." WHERE fbuid = '".$userid."' AND activity_status = '1') AS 'done'"
 	);
 
-	//TODO: SELECT name,a.object_id, f.review, f.activity_status FROM activity a,fb_user_likes f WHERE f.object_id = a.object_id
+	$userActivities = $wpdb->get_results("
+		SELECT name, a.object_id, f.review, f.activity_status
+		FROM activity a, fb_user_likes f
+		WHERE a.object_id = f.object_id
+	");
 
+	//populate likes/dislikes/done
+	$userLikes = array();
+	$userDislikes = array();
+	$userDone = array();
+	foreach($userActivities as $activity){
+		if($activity->review === "1"){
+			array_push($userLikes, $activity);
+		}
+		else if($activity->review === "0"){
+			array_push($userDislikes, $activity);
+		}
+		if($activity->activity_status === "1"){
+			array_push($userDone, $activity);
+		}
+	}
+
+	//create activities json
+	$activities = new stdClass();
+	$activities->upvotes = $userLikes;
+	$activities->downvotes = $userDislikes;
+	$activities->done = $userDone;
+	$activities->all = $userActivities;
+
+	//create return json response
 	$jsonObj = new stdClass();
 	$jsonObj->reviews = $userReviews;
+	$jsonObj->activities = $activities;
 	
 	return json_encode($jsonObj);
 

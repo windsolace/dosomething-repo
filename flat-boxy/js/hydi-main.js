@@ -152,12 +152,15 @@ var userProfileFn = function(){
 				var userProfile = response;
 				console.log(userProfile);
 
+				//render reviews
 				var _topSearchesTpl = $('#review-count-tpl').html();
 				$("ul.rate-list").eq(0).append(_.template(_topSearchesTpl, {
 			        data: {
 			            userProfile: userProfile
 			        }
 			    }));
+
+			    //TO-DO: render activities reviewed
 
 			    events();
 			},
