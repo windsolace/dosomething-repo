@@ -260,8 +260,9 @@ function hydi_getUserProfile($userid){
 
 	$userActivities = $wpdb->get_results("
 		SELECT name, a.object_id, f.review, f.activity_status
-		FROM activity a, fb_user_likes f
+		FROM ".TABLE_HYDI_ACTIVITY." a, ".TABLE_HYDI_USERLIKES." f
 		WHERE a.object_id = f.object_id
+		AND f.fbuid = '".$userid."'
 	");
 
 	//populate likes/dislikes/done
@@ -289,6 +290,7 @@ function hydi_getUserProfile($userid){
 
 	//create return json response
 	$jsonObj = new stdClass();
+	$jsonObj->userid = $userid;
 	$jsonObj->reviews = $userReviews;
 	$jsonObj->activities = $activities;
 	

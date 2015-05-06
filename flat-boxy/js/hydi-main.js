@@ -131,6 +131,7 @@ var activityDetailMobileFn = function(){
 //User Profile related functions
 var userProfileFn = function(){
 	//Get User Info
+	var userProfile = {};
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -149,8 +150,10 @@ var userProfileFn = function(){
 				//console.log(response);
 
 				//User Profile Obj
-				var userProfile = response;
+				userProfile = response;
 				console.log(userProfile);
+
+				//TODO: Render name and account age
 
 				//render reviews
 				var _topSearchesTpl = $('#review-count-tpl').html();
@@ -160,8 +163,6 @@ var userProfileFn = function(){
 			        }
 			    }));
 
-			    //TO-DO: render activities reviewed
-
 			    events();
 			},
 		error:
@@ -170,6 +171,18 @@ var userProfileFn = function(){
 				console.log(e);
 			}
 	});
+
+	//Display Activities
+	var displayActivities = function(userActivities){
+		//render past activities
+		$('#past-activities').empty();
+		var _pastActivitiesTpl = $('#past-activities-tpl').html();
+		$("#past-activities").eq(0).append(_.template(_pastActivitiesTpl, {
+	        data: {
+	            activities: userActivities
+	        }
+	    }));
+	}
 
 	//Events
 	var events = function(){
@@ -190,14 +203,17 @@ var userProfileFn = function(){
 			if($this.hasClass('up-arrow')){
 				clickedHeader = "LIKES";
 				$('#past-list h2').removeClass().addClass('icon up-arrow-single');
+				displayActivities(userProfile.activities.upvotes);
 			}
 			else if($this.hasClass('down-arrow')){
 				clickedHeader = "DISLIKES";
 				$('#past-list h2').removeClass().addClass('icon down-arrow-single');
+				displayActivities(userProfile.activities.downvotes);
 			}
 			else if($this.hasClass('tick-mark')){
 				clickedHeader = "DONE";
 				$('#past-list h2').removeClass().addClass('icon tick-mark-single');
+				displayActivities(userProfile.activities.done);
 			}
 			//hide user's past list of activities
 			$('#past-list').slideDown();

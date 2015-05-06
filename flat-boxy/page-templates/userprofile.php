@@ -43,29 +43,26 @@ get_header(); ?>
 					<div style="display:none;" id = "past-list">
 						<div><h2 class="tick-mark-single">LIKE</h2></div>
 						<table id = "past-activities">
-							<tbody>
-								<tr>
-									<td>The Minds Cafe</td>
-									<td>2 days ago</td>
-								</tr>
-								<tr>
-									<td>Marche</td>
-									<td>5 days ago</td>
-								</tr>
-								<tr>
-									<td>313 Somerset Cha Cafe @ The Basement</td>
-									<td>10 days ago</td>
-								</tr>
-								<tr>
-									<td>The Fat Boys</td>
-									<td>10 days ago</td>
-								</tr>
-								<tr>
-									<td>Astons Specialities @ Center Point</td>
-									<td>10 days ago</td>
-								</tr>
-							</tbody>
+							
 						</table>
+						<script id = "past-activities-tpl" type = "text/html">
+							<tbody>
+								<% if(data.activities.length > 0) {%>
+
+									<% _.each(data.activities, function(item){ %>
+											<tr>
+												<td><%= item.name %></td>
+												<td>X days ago</td>
+											</tr>
+									<% }); %>
+								<% } else { %>
+									<tr>
+										<td>No activities recorded.</td>
+									</tr>
+								<% } %>
+
+							</tbody>
+						</script>
 					</div>
 				</div>
 			</div>
@@ -73,7 +70,6 @@ get_header(); ?>
 			
 		</div>
 	</section>
-
 
 <?php get_footer();?>	
 <script>
