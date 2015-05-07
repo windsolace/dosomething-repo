@@ -250,6 +250,7 @@ function getGoogleTopSearches($countryCode){
 */
 function hydi_getUserProfile($userid){
 	global $wpdb;
+	$HydiUtil = new Util();
 
 	$userReviews = $wpdb->get_results("
 		SELECT 
@@ -264,6 +265,15 @@ function hydi_getUserProfile($userid){
 		WHERE a.object_id = f.object_id
 		AND f.fbuid = '".$userid."'
 	");
+
+	//Get data difference
+	$dateJoined = $wpdb->get_var("SELECT registered FROM fb_user WHERE fbuid='".$userid."'");
+	$dateNow = time();
+	//$dateNow = $dateNow->format("Y-m-d");
+	$dateThen = strtotime($dateJoined);
+	$datediff = abs($dateNow - $dateThen);
+	$accountAge = $HydiUtil->getAgeFromSeconds($datediff);
+
 
 	//populate likes/dislikes/done
 	$userLikes = array();
@@ -290,6 +300,8 @@ function hydi_getUserProfile($userid){
 
 	//create return json response
 	$jsonObj = new stdClass();
+	$jsonObj->dateJoined = $dateNow;
+	$jsonObj->accountAge = $accountAge;
 	$jsonObj->userid = $userid;
 	$jsonObj->reviews = $userReviews;
 	$jsonObj->activities = $activities;

@@ -59,5 +59,19 @@ class Util{
 		}
 		else return "1";
 	}
+
+	/**
+	* GET account age from seconds
+	* @param $timeInSeconds
+	* @return string $accountAge
+	*/
+	function getAgeFromSeconds($timeInSeconds){
+		$age = floor($timeInSeconds/(60*60*24));
+
+		if($age < 30){
+			return $age." days";
+		}
+		return $age;
+	}
 }
 ?>

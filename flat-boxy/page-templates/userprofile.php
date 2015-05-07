@@ -19,7 +19,7 @@ get_header(); ?>
 							<img class = "circle" src = "wp-content/themes/flat-boxy/img/profilepic1.jpg"/></span>
 						<div>
 							<span id = "profile-name">Guest</span><br/>
-							<span id = "profile-age"></span>
+							<span id = "profile-age"><%= data.userProfile.accountAge %></span>
 						</div>
 					</div>
 				</div>
