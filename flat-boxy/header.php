@@ -116,20 +116,22 @@
 					$('.logout').removeClass('login').text('Log Out');
 					$('.logout').parent('a').attr("href", "#"); 
 
-					var fbuid = sessionStorage.getItem('fbuid');
-					if(!fbuid){
-						fbuid = FB.getUserID();
-						document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
-						sessionStorage.setItem('fbuid',fbuid);
-					}
-
 					FB.api('/me', function(response) {
+						//attempt to find profile-name field (on user profile page)
+						$('#profile-name').text(response.name);
 						first_name = response.first_name;
 		                user_name = response.name; //get user email
 		                $('.login-banner .logout').removeClass('login').text(user_name + ' | Log Out');
 		      			$('#index-greeting').text("Hello " + first_name + "! What do you want to do today?");
 						
 		            });
+
+					var fbuid = sessionStorage.getItem('fbuid');
+					if(!fbuid){
+						fbuid = FB.getUserID();
+						sessionStorage.setItem('fbuid',fbuid);
+						document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
+					}
 				}
 				//if logged out
 				else {

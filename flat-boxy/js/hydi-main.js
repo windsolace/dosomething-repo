@@ -132,6 +132,7 @@ var activityDetailMobileFn = function(){
 var userProfileFn = function(){
 	//Get User Info
 	var userProfile = {};
+
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -148,21 +149,20 @@ var userProfileFn = function(){
 			function(response){
 				//console.log("Successful retrieve user info.");
 				//console.log(response);
-
+				
 				//User Profile Obj
 				userProfile = response;
 				console.log(userProfile);
 
 				//TODO: Render name and account age
 
-				//render reviews
-				var _topSearchesTpl = $('#review-count-tpl').html();
-				$("ul.rate-list").eq(0).append(_.template(_topSearchesTpl, {
+				//render user info
+				var _userProfileTpl = $('#user-profile-tpl').html();
+				$("#profile-info").eq(0).append(_.template(_userProfileTpl, {
 			        data: {
 			            userProfile: userProfile
 			        }
 			    }));
-
 			    events();
 			},
 		error:
@@ -182,6 +182,7 @@ var userProfileFn = function(){
 	            activities: userActivities
 	        }
 	    }));
+
 	}
 
 	//Events

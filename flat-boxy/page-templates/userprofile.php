@@ -11,29 +11,32 @@ get_header(); ?>
 
 	<section id = "main">
 		<div id = "main-content">
-			<div class="row">
-				<div class = "grid-12 center">
-					<span id = "profile-pic">
-						<img class = "circle" src = "wp-content/themes/flat-boxy/img/profilepic1.jpg"/></span>
-					<div>
-						<span id = "profile-name">username</span><br/>
-						<span id = "profile-age">XX months</span>
+			<div id = "profile-info">
+				<script id = "user-profile-tpl" type = "text/html">
+				<div class="row">
+					<div class = "grid-12 center">
+						<span id = "profile-pic">
+							<img class = "circle" src = "wp-content/themes/flat-boxy/img/profilepic1.jpg"/></span>
+						<div>
+							<span id = "profile-name">Guest</span><br/>
+							<span id = "profile-age"></span>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row clear">
-				<div class="grid-12 columns">
-					<div class = "center" id = "upper-content">
-						<ul class="no-list rate-list">
-							<script id = "review-count-tpl" type = "text/html">
-								<li><span class = "icon up-arrow"><span><%= data.userProfile.reviews[0].upvotes %></span></span> </li>
-								<li><span class = "icon down-arrow"><span><%= data.userProfile.reviews[0].downvotes %></span></span> </li>
-								<li><span class = "icon tick-mark"><span><%= data.userProfile.reviews[0].done %></span></span></li>
-							</script>
-						</ul>
+				<div class="row clear">
+					<div class="grid-12 columns">
+						<div class = "center" id = "upper-content">
+							<ul class="no-list rate-list">
+									<li><span class = "icon up-arrow"><span><%= data.userProfile.reviews[0].upvotes %></span></span> </li>
+									<li><span class = "icon down-arrow"><span><%= data.userProfile.reviews[0].downvotes %></span></span> </li>
+									<li><span class = "icon tick-mark"><span><%= data.userProfile.reviews[0].done %></span></span></li>
+							</ul>
+						</div>
 					</div>
 				</div>
+				</script>
 			</div>
+
 			<!-- List content for type of vote --> 
 			<div class="row clear">
 				<div class="grid-12 columns">
@@ -67,7 +70,6 @@ get_header(); ?>
 				</div>
 			</div>
 			<!-- End list content -->
-			
 		</div>
 	</section>
 
