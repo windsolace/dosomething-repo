@@ -266,14 +266,30 @@ function hydi_getUserProfile($userid){
 		AND f.fbuid = '".$userid."'
 	");
 
-	//Get data difference
+	//Get date difference
 	$dateJoined = $wpdb->get_var("SELECT registered FROM fb_user WHERE fbuid='".$userid."'");
 	$dateNow = time();
-	//$dateNow = $dateNow->format("Y-m-d");
 	$dateThen = strtotime($dateJoined);
 	$datediff = abs($dateNow - $dateThen);
-	$accountAge = $HydiUtil->getAgeFromSeconds($datediff);
+	$ageObj = $HydiUtil->getAgeFromSeconds($datediff);
 
+	//Generate age
+	$yearStr = "years";
+	$monthStr = "months";
+	$daysStr = "days";
+	$accountAge = new stdClass();
+	if($ageObj['y'] > 0){
+		if($ageObj['y'] == 1) $yearStr = "year";
+		$accountAge->years = $ageObj['y']." ".$yearStr;
+	}
+	if($ageObj['m'] > 0){
+		if($ageObj['m'] == 1) $monthStr = "month";
+		$accountAge->months = $ageObj['m']." ".$monthStr;
+	}
+	if($ageObj['d'] > 0){
+		if($ageObj['d'] == 1) $dayStr = "day";
+		$accountAge->days = $ageObj['d']." ".$monthStr;
+	}
 
 	//populate likes/dislikes/done
 	$userLikes = array();

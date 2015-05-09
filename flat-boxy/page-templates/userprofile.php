@@ -19,7 +19,14 @@ get_header(); ?>
 							<img class = "circle" src = "wp-content/themes/flat-boxy/img/profilepic1.jpg"/></span>
 						<div>
 							<span id = "profile-name">Guest</span><br/>
-							<span id = "profile-age"><%= data.userProfile.accountAge %></span>
+							
+							<% 
+								var accountAgeStr = "";
+								if(data.userProfile.accountAge.years) accountAgeStr+=data.userProfile.accountAge.years; 
+								if(data.userProfile.accountAge.months) accountAgeStr+=data.userProfile.accountAge.months; 
+								if(data.userProfile.accountAge.days) accountAgeStr+=data.userProfile.accountAge.days; 
+							%>
+							<span id = "profile-age"><%= accountAgeStr %></span>
 						</div>
 					</div>
 				</div>

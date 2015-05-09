@@ -154,8 +154,6 @@ var userProfileFn = function(){
 				userProfile = response;
 				console.log(userProfile);
 
-				//TODO: Render name and account age
-
 				//render user info
 				var _userProfileTpl = $('#user-profile-tpl').html();
 				$("#profile-info").eq(0).append(_.template(_userProfileTpl, {

@@ -67,11 +67,15 @@ class Util{
 	*/
 	function getAgeFromSeconds($timeInSeconds){
 		$age = floor($timeInSeconds/(60*60*24));
+		$yearStr = "years";
+		$monthStr = "months";
+		$daysStr = "days";
 
-		if($age < 30){
-			return $age." days";
-		}
-		return $age;
+		$dtobj = new DateTime();
+		$dtobj->setTImeStamp(time()+$timeInSeconds);
+		$obj = (array)$dtobj->diff(new DateTime());
+
+		return $obj;
 	}
 }
 ?>
