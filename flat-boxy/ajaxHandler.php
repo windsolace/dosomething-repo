@@ -143,8 +143,7 @@ function routeRequest($requestPath, $data){
 				echo $userProfileObj;
 			}
 
-
-			//echo "API 04: GET Success\n";
+			//echo "API 05: GET Success\n";
 			//echo $jsonObj['isLoggedIn'];
 		}
 	}

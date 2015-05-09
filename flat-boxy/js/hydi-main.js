@@ -171,13 +171,14 @@ var userProfileFn = function(){
 	});
 
 	//Display Activities
-	var displayActivities = function(userActivities){
+	var displayActivities = function(userActivities, type){
 		//render past activities
 		$('#past-activities').empty();
 		var _pastActivitiesTpl = $('#past-activities-tpl').html();
 		$("#past-activities").eq(0).append(_.template(_pastActivitiesTpl, {
 	        data: {
-	            activities: userActivities
+	            activities: userActivities,
+	            activityType: type
 	        }
 	    }));
 
@@ -202,17 +203,17 @@ var userProfileFn = function(){
 			if($this.hasClass('up-arrow')){
 				clickedHeader = "LIKES";
 				$('#past-list h2').removeClass().addClass('icon up-arrow-single');
-				displayActivities(userProfile.activities.upvotes);
+				displayActivities(userProfile.activities.upvotes, "upvotes");
 			}
 			else if($this.hasClass('down-arrow')){
 				clickedHeader = "DISLIKES";
 				$('#past-list h2').removeClass().addClass('icon down-arrow-single');
-				displayActivities(userProfile.activities.downvotes);
+				displayActivities(userProfile.activities.downvotes, "downvotes");
 			}
 			else if($this.hasClass('tick-mark')){
 				clickedHeader = "DONE";
 				$('#past-list h2').removeClass().addClass('icon tick-mark-single');
-				displayActivities(userProfile.activities.done);
+				displayActivities(userProfile.activities.done, "done");
 			}
 			//hide user's past list of activities
 			$('#past-list').slideDown();

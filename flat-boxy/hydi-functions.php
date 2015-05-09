@@ -260,14 +260,14 @@ function hydi_getUserProfile($userid){
 	);
 
 	$userActivities = $wpdb->get_results("
-		SELECT name, a.object_id, f.review, f.activity_status
+		SELECT name, a.object_id, f.review, f.activity_status, DATE_FORMAT(f.done_date,'%d %M %Y') as done_date
 		FROM ".TABLE_HYDI_ACTIVITY." a, ".TABLE_HYDI_USERLIKES." f
 		WHERE a.object_id = f.object_id
 		AND f.fbuid = '".$userid."'
 	");
 
 	//Get date difference
-	$dateJoined = $wpdb->get_var("SELECT registered FROM fb_user WHERE fbuid='".$userid."'");
+	$dateJoined = $wpdb->get_var("SELECT DATE_FORMAT(registered,'%d %M %Y') as registered FROM fb_user WHERE fbuid='".$userid."'");
 	$dateNow = time();
 	$dateThen = strtotime($dateJoined);
 	$datediff = abs($dateNow - $dateThen);
@@ -296,6 +296,7 @@ function hydi_getUserProfile($userid){
 	$userDislikes = array();
 	$userDone = array();
 	foreach($userActivities as $activity){
+		$activity->url = get_permalink($activity->object_id);
 		if($activity->review === "1"){
 			array_push($userLikes, $activity);
 		}
@@ -316,7 +317,7 @@ function hydi_getUserProfile($userid){
 
 	//create return json response
 	$jsonObj = new stdClass();
-	$jsonObj->dateJoined = $dateNow;
+	$jsonObj->dateJoined = $dateJoined;
 	$jsonObj->accountAge = $accountAge;
 	$jsonObj->userid = $userid;
 	$jsonObj->reviews = $userReviews;

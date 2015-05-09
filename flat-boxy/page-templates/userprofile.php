@@ -22,9 +22,9 @@ get_header(); ?>
 							
 							<% 
 								var accountAgeStr = "";
-								if(data.userProfile.accountAge.years) accountAgeStr+=data.userProfile.accountAge.years; 
-								if(data.userProfile.accountAge.months) accountAgeStr+=data.userProfile.accountAge.months; 
-								if(data.userProfile.accountAge.days) accountAgeStr+=data.userProfile.accountAge.days; 
+								if(data.userProfile.accountAge.years) accountAgeStr+=data.userProfile.accountAge.years+" "; 
+								if(data.userProfile.accountAge.months) accountAgeStr+=data.userProfile.accountAge.months+" "; 
+								if(data.userProfile.accountAge.days) accountAgeStr+=data.userProfile.accountAge.days+" "; 
 							%>
 							<span id = "profile-age"><%= accountAgeStr %></span>
 						</div>
@@ -58,11 +58,12 @@ get_header(); ?>
 						<script id = "past-activities-tpl" type = "text/html">
 							<tbody>
 								<% if(data.activities.length > 0) {%>
-
 									<% _.each(data.activities, function(item){ %>
 											<tr>
-												<td><%= item.name %></td>
-												<td>X days ago</td>
+												<td><a href = "<%= item.url %>"><%= item.name %></a></td>
+												<% if(data.activityType == "done"){ %>
+													<td><%= item.done_date %></td>
+												<% } %>
 											</tr>
 									<% }); %>
 								<% } else { %>
