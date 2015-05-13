@@ -102,44 +102,49 @@
 
 		window.fbAsyncInit = function() {
 			FB.init({
-			  appId      : '337876719693977',
+			  appId      : '487237444757903',
 			  xfbml      : true,
 			  version    : 'v2.0',
 			});
+			
 
-			//on page load, check if fb logged in
-			FB.getLoginStatus(function(response) {
-				//if logged in
-				if (response.status === 'connected') {
-					isLogin = true;
-					$('.login').addClass('logout');
-					$('.logout').removeClass('login').text('Log Out');
-					$('.logout').parent('a').attr("href", "#"); 
+			//IF isLogin -> get fb info
+			if(isLogin){
+				FB.getLoginStatus(function(response) {
+					//if logged in
+					if (response.status === 'connected') {
+						isLogin = true;
+						$('.login').addClass('logout');
+						$('.logout').removeClass('login').text('Log Out');
+						$('.logout').parent('a').attr("href", "#"); 
 
-					FB.api('/me', function(response) {
-						//attempt to find profile-name field (on user profile page)
-						$('#profile-name').text(response.name);
-						first_name = response.first_name;
-		                user_name = response.name; //get user email
-		                $('.login-banner .logout').removeClass('login').text(user_name + ' | Log Out');
-		      			$('#index-greeting').text("Hello " + first_name + "! What do you want to do today?");
-						
-		            });
+						FB.api('/me', function(response) {
+							//attempt to find profile-name field (on user profile page)
+							$('#profile-name').text(response.name);
+							first_name = response.first_name;
+			                user_name = response.name; //get user email
+			                $('.login-banner .logout').removeClass('login').text(user_name + ' | Log Out');
+			      			$('#index-greeting').text("Hello " + first_name + "! What do you want to do today?");
+							
+			            });
 
-					var fbuid = sessionStorage.getItem('fbuid');
-					if(!fbuid){
-						fbuid = FB.getUserID();
-						sessionStorage.setItem('fbuid',fbuid);
-						document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
+						var fbuid = sessionStorage.getItem('fbuid');
+						if(!fbuid){
+							fbuid = FB.getUserID();
+							sessionStorage.setItem('fbuid',fbuid);
+							document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
+						}
 					}
-				}
-				//if logged out
-				else {
-					isLogin = false;
-					$('.logout').addClass('login');
-					$('.login').removeClass('logout').text('Log In');
-				}
-			});
+					
+				});
+			//if logged out
+			} else {
+				fb_logout();
+				//sessionStorage.removeItem('fbuid');
+				//document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+				$('.logout').addClass('login');
+				$('.login').removeClass('logout').text('Log In');
+			}
 
 
 		};

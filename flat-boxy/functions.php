@@ -146,8 +146,8 @@ function consolelog($message){
 * @params sessionID - FB's accessToken or genSessionID()
 */
 function isAuthenticated($userid){
-    $activeSession = getSession($userid);
-    $browserSession = $_COOKIE[HYDI_AUTH_KEY];
+    $activeSession = trim(getSession($userid));
+    $browserSession = trim($_COOKIE[HYDI_AUTH_KEY]);
     $isAuthenticated = false;
 
     if($browserSession === $activeSession){

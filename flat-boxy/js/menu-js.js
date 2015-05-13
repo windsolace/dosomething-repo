@@ -59,9 +59,16 @@ function fb_login(){
 }
 
 function fb_logout(){
-	console.log("Running logout function");
-	FB.logout(function(response){
-		location.reload();
+	FB.getLoginStatus(function(response) {console.log(response);
+		//if logged in
+		if (response.status === 'connected') {
+			console.log("Running logout function");
+			isLogin = false;
+			sessionStorage.removeItem('fbuid');
+			document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			FB.logout();
+		}
+		
 	});
 }
 

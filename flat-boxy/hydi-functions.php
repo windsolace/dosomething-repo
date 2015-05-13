@@ -288,7 +288,7 @@ function hydi_getUserProfile($userid){
 	}
 	if($ageObj['d'] > 0){
 		if($ageObj['d'] == 1) $dayStr = "day";
-		$accountAge->days = $ageObj['d']." ".$monthStr;
+		$accountAge->days = $ageObj['d']." ".$daysStr;
 	}
 
 	//populate likes/dislikes/done

@@ -20,6 +20,7 @@ window.onload = function() {
         }
     });
 };
+/*
 function fb_login() {
     FB.login(function(response) {
         if (response.authResponse) {
@@ -37,12 +38,8 @@ function fb_login() {
         }
     }, {scope: 'public_profile'});
 }
-function fb_logout() {
-    console.log("Running logout function");
-    FB.logout(function(response) {
-        location.reload();
-    });
-}
+*/
+
 $(document).ready(function() {
     $('a').click(function() {
         if ($(this).find('.logout').length > 0) {

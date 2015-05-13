@@ -22,9 +22,11 @@ get_header(); ?>
 							
 							<% 
 								var accountAgeStr = "";
-								if(data.userProfile.accountAge.years) accountAgeStr+=data.userProfile.accountAge.years+" "; 
-								if(data.userProfile.accountAge.months) accountAgeStr+=data.userProfile.accountAge.months+" "; 
-								if(data.userProfile.accountAge.days) accountAgeStr+=data.userProfile.accountAge.days+" "; 
+								if(data.userProfile){
+									if(data.userProfile.accountAge.years) accountAgeStr+=data.userProfile.accountAge.years+" "; 
+									if(data.userProfile.accountAge.months) accountAgeStr+=data.userProfile.accountAge.months+" "; 
+									if(data.userProfile.accountAge.days) accountAgeStr+=data.userProfile.accountAge.days+" "; 
+								}
 							%>
 							<span id = "profile-age"><%= accountAgeStr %></span>
 						</div>
@@ -33,11 +35,13 @@ get_header(); ?>
 				<div class="row clear">
 					<div class="grid-12 columns">
 						<div class = "center" id = "upper-content">
-							<ul class="no-list rate-list">
+							<% if(data.userProfile){ %>
+								<ul class="no-list rate-list">
 									<li><span class = "icon up-arrow"><span><%= data.userProfile.reviews[0].upvotes %></span></span> </li>
 									<li><span class = "icon down-arrow"><span><%= data.userProfile.reviews[0].downvotes %></span></span> </li>
 									<li><span class = "icon tick-mark"><span><%= data.userProfile.reviews[0].done %></span></span></li>
-							</ul>
+								</ul>
+							<% } %>
 						</div>
 					</div>
 				</div>
