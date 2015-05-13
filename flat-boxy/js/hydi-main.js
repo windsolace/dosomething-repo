@@ -26,6 +26,7 @@ var hydiInit = function(){
 };
 
 function isLoggedIn(){
+	var uid = sessionStorage.getItem('fbuid');
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -33,7 +34,7 @@ function isLoggedIn(){
 		data: {
 			requestPath: HYDI_API.SITE_LOGIN,
 			params: {
-				userid:12317263743
+				userid:uid
 			},
 			action: 'callHydiApi'
 		},
@@ -133,6 +134,8 @@ var userProfileFn = function(){
 	//Get User Info
 	var userProfile = {};
 
+	var uid = sessionStorage.getItem('fbuid');
+
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -140,7 +143,7 @@ var userProfileFn = function(){
 		data: {
 			requestPath: HYDI_API.USER_PROFILE_INFO,
 			params: {
-				userid:12317263743
+				userid:uid //e.g. 12317263743
 				//auth:'53719d8bd5f1179ad7b75d259d8cb9d0'
 			},
 			action: 'callHydiApi'
@@ -166,6 +169,16 @@ var userProfileFn = function(){
 		error:
 			function(e){
 				console.log("Failed to get user info");
+
+				//Show Guest pic and advise to login
+				var _userProfileTpl = $('#user-profile-tpl').html();
+				/*
+				$("#profile-info").eq(0).append(_.template(_userProfileTpl, {
+			        data: {
+			        	userProfile: ""
+			        }
+			    }));
+			    */
 				console.log(e);
 			}
 	});
