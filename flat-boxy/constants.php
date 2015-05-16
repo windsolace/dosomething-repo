@@ -3,6 +3,7 @@
 * Constants.php
 * Define constants
 */
+define("SESSION_ID_LENGTH", 32);
 define("HYDI_AUTH_KEY", "HYDIAUTHKEY");
 
 define("TABLE_HYDI_ACTIVITY", "activity");

@@ -25,8 +25,76 @@ var hydiInit = function(){
 
 };
 
-function isLoggedIn(){
+/**************************Authentication functions**************************/
+
+/**
+* Login function
+*/
+function hydiLogin(){
+	//Check whether is session cookie
+	var browserSession = getCookie('HYDIAUTHKEY');
 	var uid = sessionStorage.getItem('fbuid');
+
+	//If no session, prompt user to login
+	if(!uid || !browserSession){
+		console.log("New login session");
+		fb_login();
+		renewSession(uid);
+	} else{
+		//Verify against backend
+		getLoginStatus(uid, function(status){
+			if(status){
+				console.log("You are already logged in! Renewing your session.");
+			} else {
+				console.log("You are not logged in yet. Please log in.");
+				fb_login();
+			}
+			renewSession(uid);
+		});
+	}
+}
+
+/**
+* Creates or renews sessionID
+* @params uid
+* @return sessionID
+*/
+function renewSession(uid){
+	var auth = getCookie('HYDIAUTHKEY');
+	$.ajax({
+		url: ajaxurl,
+		type: 'POST', 
+		dataType:'json',        
+		data: {
+			requestPath: HYDI_API.SITE_LOGIN,
+			params: {
+				userid:uid,
+				auth: auth
+			},
+			action: 'callHydiApi'
+		},
+		success:
+			function(response){
+				console.log("Session renewed");
+				console.log(response);
+			},
+		error:
+			function(e){
+				console.log("Failed to renew session");
+				console.log(e);
+			}
+	});
+}
+
+/**
+* Get user's login status
+* @params uid
+* @params callback
+* @return uid, isLoggedIn
+*/
+function getLoginStatus(uid, callback){
+	//var uid = sessionStorage.getItem('fbuid');
+	var auth = getCookie('HYDIAUTHKEY');
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -34,7 +102,8 @@ function isLoggedIn(){
 		data: {
 			requestPath: HYDI_API.SITE_LOGIN,
 			params: {
-				userid:uid
+				userid:uid,
+				auth: auth
 			},
 			action: 'callHydiApi'
 		},
@@ -42,6 +111,8 @@ function isLoggedIn(){
 			function(response){
 				console.log("Successful check login status: isLogin: " + response.isLoggedIn);
 				isLogin = response.isLoggedIn;
+				callback(isLogin);
+				//return isLogin;
 			},
 		error:
 			function(e){
@@ -50,6 +121,52 @@ function isLoggedIn(){
 			}
 	});
 }
+
+
+function fb_login(){ 
+
+    FB.login(function(response) {
+        if (response.authResponse) {
+
+            console.log('Welcome!  Fetching your information.... ');
+            //console.log(response); // dump complete info
+            access_token = response.authResponse.accessToken; //get access token
+            user_id = response.authResponse.userID; //get FB UID
+            sessionStorage.setItem('fbuid', user_id);
+
+            FB.api('/me', function(response) {
+                user_name = response.name; //get user email
+                console.log(response);
+      			console.log('Successful login for: ' + user_name );
+            });
+            window.location = home_url;
+
+
+        } else {
+            //user hit cancel button
+            console.log('User cancelled login or did not fully authorize.');
+
+        }
+    }, {
+        scope: 'public_profile'
+    });
+}
+
+function fb_logout(){
+	FB.getLoginStatus(function(response) {console.log(response);
+		//if logged in
+		if (response.status === 'connected') {
+			console.log("Running logout function");
+			isLogin = false;
+			sessionStorage.removeItem('fbuid');
+			document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			FB.logout();
+		}
+		
+	});
+}
+
+/**************************Authentication functions**************************/
 
 //Activity Detail related functions
 var activityDetailFn = function(){
@@ -172,13 +289,13 @@ var userProfileFn = function(){
 
 				//Show Guest pic and advise to login
 				var _userProfileTpl = $('#user-profile-tpl').html();
-				/*
+				
 				$("#profile-info").eq(0).append(_.template(_userProfileTpl, {
 			        data: {
 			        	userProfile: ""
 			        }
 			    }));
-			    */
+			    
 				console.log(e);
 			}
 	});
@@ -260,4 +377,10 @@ var trendsFn = function(jsonResponse){
     }));
 
 	console.log(trendList);
+}
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
 }

@@ -104,9 +104,10 @@ function routeRequest($requestPath, $data){
 		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 			foreach($responseArray as $key => $value){
 				if($key == 'userid') $userid = $value;
+				if($key == 'auth') $sessionID = $value;
 			}
 			//$response = getSession($userid);
-			$response = isAuthenticated($userid);
+			$response = isAuthenticated($userid, $sessionID);
 			$jsonObj = new stdClass();
 			//$jsonObj->userid = $userid;
 			//$jsonObj->auth = $response;
@@ -115,6 +116,43 @@ function routeRequest($requestPath, $data){
 
 			//echo "API 04: GET Success\n";
 			echo $response;
+		}
+
+		//IF HTTP POST -> update/POST login status
+		if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+			foreach($responseArray as $key => $value){
+				if($key == 'userid') $userid = $value;
+				if($key == 'auth') $sessionID = $value;
+			}
+
+			//If have session (already logged in before)
+			if($sessionID){
+				$authResponse = isAuthenticated($userid, $sessionID);
+				$authResponse = json_decode($authResponse);
+				foreach($authResponse as $key => $value){
+					if($key == 'isLoggedIn') $authenticated = $value;
+				}
+
+				if($authenticated){
+					//Generate session key
+					$sessionID = genSessionID(SESSION_ID_LENGTH);
+					$response = storeSessionID($userid, $sessionID);
+				}
+			}
+			//If no session, generate new session
+			else {
+				$sessionID = genSessionID(SESSION_ID_LENGTH);
+				$response = storeSessionID($userid, $sessionID);
+			}
+
+			$jsonObj = new stdClass();
+			$jsonObj->sessionID = $sessionID;
+			//$jsonObj->auth = $response;
+
+			$jsonObj = json_encode($jsonObj);
+
+			//echo "API 04: GET Success\n";
+			echo $jsonObj;
 		}
 	}
 

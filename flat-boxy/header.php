@@ -98,7 +98,7 @@
 		//var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
 		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 		var home_url = "<?php echo $site_home_url ?>";
-		var isLogin = isLoggedIn();
+		var isLogin = "";//getLoginStatus();
 
 		window.fbAsyncInit = function() {
 			FB.init({
@@ -139,9 +139,8 @@
 				});
 			//if logged out
 			} else {
-				fb_logout();
-				//sessionStorage.removeItem('fbuid');
-				//document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+				//fb_logout();
+				
 				$('.logout').addClass('login');
 				$('.login').removeClass('logout').text('Log In');
 			}

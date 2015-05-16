@@ -145,10 +145,13 @@ function consolelog($message){
 * Authenticates the user using cookie.sessionID and database user.sessionID
 * @params sessionID - FB's accessToken or genSessionID()
 */
-function isAuthenticated($userid){
+function isAuthenticated($userid, $sessionID){
     $activeSession = trim(getSession($userid));
-    $browserSession = trim($_COOKIE[HYDI_AUTH_KEY]);
+    //$browserSession = trim($_COOKIE["HYDIAUTHKEY"]);
+    $browserSession = $sessionID;
     $isAuthenticated = false;
+
+    //TODO: Add encryption here
 
     if($browserSession === $activeSession){
         $isAuthenticated = true;
@@ -167,6 +170,12 @@ function isAuthenticated($userid){
 */
 function storeSessionID($userid, $sessionID){
     global $wpdb;
+
+    //Set sessionID cookie (expire in 30 days)
+    setcookie("HYDIAUTHKEY", $sessionID, time() + (86400 * 30),"/");
+
+
+    //TODO: Add encryption here
 
     //Store into database
     $wpdb->update(

@@ -30,50 +30,6 @@ window.onload = function(){
 
 };
 
-function fb_login(){ 
-
-    FB.login(function(response) {
-        if (response.authResponse) {
-
-            console.log('Welcome!  Fetching your information.... ');
-            //console.log(response); // dump complete info
-            access_token = response.authResponse.accessToken; //get access token
-            user_id = response.authResponse.userID; //get FB UID
-
-            FB.api('/me', function(response) {
-                user_name = response.name; //get user email
-                console.log(response);
-      			console.log('Successful login for: ' + user_name );
-            });
-            window.location = home_url;
-
-
-        } else {
-            //user hit cancel button
-            console.log('User cancelled login or did not fully authorize.');
-
-        }
-    }, {
-        scope: 'public_profile'
-    });
-}
-
-function fb_logout(){
-	FB.getLoginStatus(function(response) {console.log(response);
-		//if logged in
-		if (response.status === 'connected') {
-			console.log("Running logout function");
-			isLogin = false;
-			sessionStorage.removeItem('fbuid');
-			document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-			FB.logout();
-		}
-		
-	});
-}
-
-
-
 $(document).ready(function(){
 	
 	/*
