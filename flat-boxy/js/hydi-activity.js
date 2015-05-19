@@ -85,13 +85,17 @@ HydiActivity['vote'] = function(type) {
 		console.log("response from server " + response);
 	});
 	*/
+	var auth = getCookie("HYDIAUTHKEY");
+	var uid = sessionStorage.getItem("fbuid");
 	$.ajax({
 		url: ajaxurl,
 		type: 'POST',
 		data: {
 			requestPath: 'hydi/activity/reviews',
 			data: data,
-			voteType: data
+			voteType: data,
+			userid: uid,
+			auth: auth
 		},
 		success:
 			function(response){

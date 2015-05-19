@@ -48,9 +48,24 @@ function routeRequest($requestPath, $data){
 				if($key == 'objectid') $objectid = $value;
 				if($key == 'userid') $userid = $value;
 				if($key == 'voteType') $voteType = $value;
+				if($key == 'auth') $sessionID = $value;
 			}
-			$response = hydi_postVote($objectid,$userid,$voteType);
-			echo "API 01: POST Success";
+			if($sessionID){
+				$authResponse = isAuthenticated($userid, $sessionID);
+				$authResponse = json_decode($authResponse);
+				foreach($authResponse as $key => $value){
+					if($key == 'isLoggedIn') $authenticated = $value;
+				}
+
+				if($authenticated){
+					$response = hydi_postVote($objectid,$userid,$voteType);
+					echo "API 01: POST Success";
+				} else {
+					consolelog("Unable to POST vote, user failed authentication.");
+				}
+			} else{
+				consolelog("Unable to POST vote, not logged in.");
+			}
 		}
 	}
 
@@ -170,7 +185,7 @@ function routeRequest($requestPath, $data){
 				if($key == 'auth') $auth = $value;
 			}
 			//$response = getSession($userid);
-			$authResponse = isAuthenticated($userid);
+			$authResponse = isAuthenticated($userid, $auth);
 
 			$jsonObj = new stdClass();			
 			$jsonObj = json_decode($authResponse, true);
