@@ -6,6 +6,7 @@ $(document).ready(function(){
 
 	//initialize
 	hydiInit();
+	//$.colorbox({href:"wp-content/themes/flat-boxy/img/profilepic1.jpg"});
 
 	//show all accordion contents that were hidden if width changes to > CONST_MOBILE_WIDTH
 	$(window).resize(function(){
@@ -33,7 +34,8 @@ var hydiInit = function(){
 function hydiLogin(){
 	//Check whether is session cookie
 	var browserSession = getCookie('HYDIAUTHKEY');
-	var uid = sessionStorage.getItem('fbuid');
+	var uid = getCookie('uid');
+	//var uid = sessionStorage.getItem('fbuid');
 
 	//If no session, prompt user to login
 	if(!uid || !browserSession){
@@ -132,7 +134,8 @@ function fb_login(){
             //console.log(response); // dump complete info
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
-            sessionStorage.setItem('fbuid', user_id);
+            document.cookie="uid="+user_id;
+            //sessionStorage.setItem('fbuid', user_id);
 
             FB.api('/me', function(response) {
                 user_name = response.name; //get user email
@@ -158,7 +161,8 @@ function fb_logout(){
 		if (response.status === 'connected') {
 			console.log("Running logout function");
 			isLogin = false;
-			sessionStorage.removeItem('fbuid');
+			//sessionStorage.removeItem('fbuid');
+			document.cookie = 'uid' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 			document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 			FB.logout();
 		}
@@ -251,7 +255,9 @@ var userProfileFn = function(){
 	//Get User Info
 	var userProfile = {};
 
-	var uid = sessionStorage.getItem('fbuid');
+	//var uid = sessionStorage.getItem('fbuid');
+	var uid = getCookie('uid');
+	var auth = getCookie('HYDIAUTHKEY');
 
 	$.ajax({
 		url: ajaxurl,
@@ -260,8 +266,8 @@ var userProfileFn = function(){
 		data: {
 			requestPath: HYDI_API.USER_PROFILE_INFO,
 			params: {
-				userid:uid //e.g. 12317263743
-				//auth:'53719d8bd5f1179ad7b75d259d8cb9d0'
+				userid:uid, //e.g. 12317263743
+				auth:auth
 			},
 			action: 'callHydiApi'
 		},

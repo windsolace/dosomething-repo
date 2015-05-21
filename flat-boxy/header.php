@@ -42,6 +42,7 @@
 			wp_register_style('googleFont-Oxygen','http://fonts.googleapis.com/css?family=Oxygen');
 			wp_register_style('googleFont-Oregano','http://fonts.googleapis.com/css?family=Oregano');
 
+			wp_enqueue_style('colorbox', get_stylesheet_directory_uri() . '/css/libs/colorbox.css');
 			wp_enqueue_style('hydi-style', get_stylesheet_directory_uri() . '/css/styles.css');
 			wp_enqueue_style('hydi-cells', get_stylesheet_directory_uri() . '/css/cells.css');
 			wp_enqueue_style('googleFont-Oxygen');
@@ -54,6 +55,7 @@
 		    //libs
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
 		    wp_register_script('underscore', get_template_directory_uri() . '/js/libs/underscore.js', array('jquery'));
+		    wp_register_script('colorbox', get_template_directory_uri() . '/js/libs/jquery.colorbox-min.js', array('jquery'));
 
 		    //custom scripts
 		    wp_register_script('hydi-api', get_template_directory_uri() . '/js/hydi-api.js', array('jquery'));
@@ -64,6 +66,7 @@
 		    wp_register_script('hydi-trends', get_template_directory_uri() . '/js/hydi-trends.js', array('jquery'));
 
 		    wp_enqueue_script('underscore');
+		    wp_enqueue_script('colorbox');
 		    wp_enqueue_script('hydi-api');
 		    wp_enqueue_script('hydi-main');
 		    wp_enqueue_script('menu-js');
@@ -107,8 +110,8 @@
 			  version    : 'v2.0',
 			});
 			
-
-			//IF isLogin -> get fb info
+			getLoginStatus(getCookie('uid'), function(){
+				//IF isLogin -> get fb info
 			if(isLogin){
 				FB.getLoginStatus(function(response) {
 					//if logged in
@@ -128,11 +131,11 @@
 							
 			            });
 
-						var fbuid = sessionStorage.getItem('fbuid');
+						var fbuid = getCookie('uid');
 						if(!fbuid){
 							fbuid = FB.getUserID();
-							sessionStorage.setItem('fbuid',fbuid);
-							document.cookie('<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken);
+							document.cookie='uid='+fbuid;
+							document.cookie='<?php echo HYDI_AUTH_KEY ?> ='+response.authResponse.accessToken;
 						}
 					}
 					
@@ -144,6 +147,9 @@
 				$('.logout').addClass('login');
 				$('.login').removeClass('logout').text('Log In');
 			}
+
+			});
+			
 
 
 		};
