@@ -80,18 +80,28 @@ get_header(); ?>
 								<span>Ratings</span>
 							</div>
 							<div class = "content">
-								UPVOTE | DOWNVOTE | DONE
+								<ul class="no-list rate-list">
+									<li><span class="icon up-arrow"><span>X</span></span></li>
+									<li><span class="icon down-arrow"><span>Y</span></span></li>
+									<li><span class="icon tick-mark"><span>Z</span></span></li>
+								</ul>
 							</div>
 							<div class = "content">
-								<img src = "../../../wp-content/themes/flat-boxy/img/sprites/phone.png"/>
+								<ul class="no-list">
+									<li><span class="icon-medium phone"><span>65829540</span></span></li>
+									<li><span class="icon-medium clock"><span>11.30-12.30</span></span></li>
+									<li><span class="icon-medium globe"><span>http://www.google.com</span></span></li>
+								</ul>
+								<!--<img src = "wp-content/themes/flat-boxy/img/sprites/phone.png"/>-->
+								<span class = "icon phone"></span>Phone
 								<?php echo $phone; ?>
 							</div>
 							<div class = "content">
-								<img src = "../../../wp-content/themes/flat-boxy/img/sprites/operatinghours.png"/>
+								<img src = "wp-content/themes/flat-boxy/img/sprites/operatinghours.png"/>
 								<?php echo $time_range; ?>
 							</div>
 							<div class = "content">
-								<img src = "../../../wp-content/themes/flat-boxy/img/sprites/website.png"/>
+								<img src = "wp-content/themes/flat-boxy/img/sprites/website.png"/>
 								<a href="<?php echo $website; ?>" target="_blank">Visit Website</a>
 							
 							</div>
