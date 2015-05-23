@@ -24,7 +24,7 @@ get_header(); ?>
 	
 	<section id = "main" class = "full">
 		<div id = "main-banner" class="gray">
-			<img src = "../../../wp-content/themes/flat-boxy/img/cells/burger.jpg"/>
+			<img src = "<?php echo_first_image(get_the_ID()); ?>" alt = ""/>
 		</div>
 		<div id = "main-content">			
 			<?php
@@ -89,9 +89,15 @@ get_header(); ?>
 					</div>
 					<div class = "content">
 						<ul class="no-list">
-							<li><span class="icon-medium phone"><span><?php echo $phone; ?> 65829540</span></span></li>
-							<li><span class="icon-medium clock"><span><?php echo $time_range; ?> 11.30-12.30</span></span></li>
-							<li><span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span></li>
+							<?php if($phone){ ?>
+								<li><span class="icon-medium phone"><span><?php echo $phone; ?></span></span></li>
+							<?php } ?>
+							<?php if($time_range){ ?>
+								<li><span class="icon-medium clock"><span><?php echo $time_range; ?></span></span></li>
+							<?php } ?>
+							<?php if($website){ ?>
+								<li><span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span></li>
+							<?php } ?>
 						</ul>
 					</div>
 				</div>
@@ -121,11 +127,9 @@ get_header(); ?>
 						Location
 					</div>
 					<div class = "content">
-						Address line 1 <br/>
-						Address line 2
-					</div>
-					<div class = "content">
-						<img src = "../../../wp-content/themes/flat-boxy/img/sprites/location.png"/><br><?php echo $address; ?>
+						<?php if($address){ ?>
+							<span class="icon-medium location-marker"><span><?php echo $address; ?></span></span>
+						<?php } ?>
 					</div>
 					<div class = "content">
 						Google maps

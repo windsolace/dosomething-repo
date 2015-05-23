@@ -163,6 +163,9 @@ ul.icon-vote{
 .globe{
 	background: url('../img/sprites/website.png') no-repeat;
 }
+.location-marker{
+	background: url('../img/sprites/location.png') no-repeat;
+}
 /***************** shapes *****************/
 
 /***************** .login *****************/
