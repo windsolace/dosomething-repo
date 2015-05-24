@@ -170,66 +170,116 @@ function fb_logout(){
 	});
 }
 
-/**************************Authentication functions**************************/
+/**************************End Authentication functions**************************/
 
 //Activity Detail related functions
-var activityDetailFn = function(){
-	//Clicked down
-	$('#transit-down').on('click', function(){
-		//hide upper
-		$('#upper-content').slideUp();
+var activityDetailFn = function(objectid){
 
-		$('#lower-content').slideDown();
-		$('#transit-up').show().prop('disabled', false);
-		$(this).hide().prop('disabled', true);
+	//Get activity reviews
+	$.ajax({
+		url: ajaxurl,
+		type: 'GET', 
+		dataType:'json',        
+		data: {
+			requestPath: HYDI_API.ACTIVITY_DETAILS,
+			params: {
+				objectid:objectid
+			},
+			action: 'callHydiApi'
+		},
+		success:
+			function(response){
+				//Activity Details Obj
+
+				var activityDetails = response;console.log("TADA");
+				console.log(activityDetails);
+
+				//render reviews
+				var _activityReviewsTpl = $('#activity-reviews').html();
+				$("#review-content").eq(0).html(_.template(_activityReviewsTpl, {
+			        data: {
+			            reviews: activityDetails.reviews[0]
+			        }
+			    }));			    
+			    events();
+			},
+		error:
+			function(e){
+				console.log("Failed to get activity details");
+				console.log(e);
+			}
 	});
 
-	//Clicked up
-	$('#transit-up').on('click', function(){
-		//hide lower
-		$('#lower-content').slideUp();
-		//show upper
-		$('#upper-content').slideDown();
-		$('#transit-down').show().prop('disabled', false);
-		$(this).hide().prop('disabled', true);
-	});
+	var events = function(){
+		//Clicked down
+		$('#transit-down').on('click', function(){
+			//hide upper
+			$('#upper-content').slideUp();
 
-	//Icon clicked : upvote/downvote/done
-	$('.icon').on('click', function(){
-		var $this = $(this);
-		//upvote
-		if($this.hasClass('up-arrow')){
-			/* TO-DO:
-			* 1) Write to activity (+1)
-			* 2) Write to user -> upvote (+1)
-			* 3) Hide and disable
-			* 4) Show/Enable downvote IF disabled
-			*/
-		}
-		//downvote
-		else if($this.hasClass('down-arrow')){
-			/* TO-DO:
-			* 1) Write to activity (+1)
-			* 2) Write to user -> downvote (+1)
-			* 3) Hide and disable
-			* 4) Show/Enable downvote IF disabled
-			*/
-		}
-		//done
-		else if($this.hasClass('tick-mark')){
-			/* TO-DO:
-			* 1) Write to activity (+1)
-			* 2) Write to user -> Done (+1)
-			* 3) Hide and disable
-			* 4) Show/Enable downvote IF disabled
-			*/
-		}
-	});
+			$('#lower-content').slideDown();
+			$('#transit-up').show().prop('disabled', false);
+			$(this).hide().prop('disabled', true);
+		});
 
-	var writeVote = function(/*string*/ objectid, /*string*/ type){
-		//TO-DO: Write to activity table
+		//Clicked up
+		$('#transit-up').on('click', function(){
+			//hide lower
+			$('#lower-content').slideUp();
+			//show upper
+			$('#upper-content').slideDown();
+			$('#transit-down').show().prop('disabled', false);
+			$(this).hide().prop('disabled', true);
+		});
 
-		//TO-DO: Write to User table
+		//Icon clicked : upvote/downvote/done
+		$('.icon').on('click', function(){
+			var $this = $(this);
+			//upvote
+			if($this.hasClass('up-arrow')){
+				writeVote(objectid, 1, false);
+			}
+			//downvote
+			else if($this.hasClass('down-arrow')){
+				writeVote(objectid, 0, false);
+			}
+			//done
+			else if($this.hasClass('tick-mark')){
+				writeVote(objectid, 1, true);
+			}
+			//$("#review-content").empty();
+			activityDetailFn(objectid);
+
+		});
+	}
+
+	var writeVote = function(/*string*/ objectid, /*string*/ type, /*boolean*/ doneFlag){
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST', 
+			dataType:'',        
+			data: {
+				requestPath: HYDI_API.USER_ACTIVITY_VOTES,
+				params: {
+					objectid:objectid,
+					userid: getCookie("uid"),
+					voteType: type, 
+					doneFlag: doneFlag,
+					auth: getCookie('HYDIAUTHKEY')
+				},
+				action: 'callHydiApi'
+			},
+			success:
+				function(response){
+					//Activity Details Obj
+					var activityDetails = response;
+					console.log(activityDetails);
+				},
+			error:
+				function(e){
+					console.log("Failed to POST review");
+					console.log(e);
+				}
+		});
 	};
 };
 

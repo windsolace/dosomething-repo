@@ -49,22 +49,25 @@ function routeRequest($requestPath, $data){
 				if($key == 'userid') $userid = $value;
 				if($key == 'voteType') $voteType = $value;
 				if($key == 'auth') $sessionID = $value;
+				if($key == 'doneFlag') $updateDoneStatus = $value;
 			}
 			if($sessionID){
 				$authResponse = isAuthenticated($userid, $sessionID);
 				$authResponse = json_decode($authResponse);
+				$authenticated = false;
 				foreach($authResponse as $key => $value){
 					if($key == 'isLoggedIn') $authenticated = $value;
 				}
 
 				if($authenticated){
-					$response = hydi_postVote($objectid,$userid,$voteType);
+					//Check to update Done status or update Upvote/Downvote
+					$response = hydi_postVote($objectid,$userid,$voteType, $updateDoneStatus);
 					echo "API 01: POST Success";
 				} else {
-					consolelog("Unable to POST vote, user failed authentication.");
+					echo "Unable to POST vote, user failed authentication.";
 				}
 			} else{
-				consolelog("Unable to POST vote, not logged in.");
+				 echo "Unable to POST vote, not logged in.";
 			}
 		}
 	}

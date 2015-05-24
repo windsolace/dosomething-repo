@@ -103,53 +103,91 @@ function hydi_getReviews($postid, $userid){
 *
 * Requires hydi_getVote($userid, $postid);
 */
-function hydi_postVote($postid, $userid, $review){
+function hydi_postVote($postid, $userid, $review, $doneFlag){
 	global $wpdb;
-
-	$auth = "";
-
-	//TO-DO: Check authentication
 
 	$sqlPageReview = hydi_getReviews($postid, $userid);
 
 	//Check if user has liked this page before
 	if($sqlPageReview === null){ 
 		//INSERT to database
-		try{
-			//consolelog($postid." INSERT");
-			$wpdb->insert(
-				TABLE_HYDI_USERLIKES,
-				array(
-					'fbuid'				=> $userid,
-					'object_id'			=> $postid,
-					'review'			=> $review,
-					'activity_status' 	=> 0,
-					'is_to_do' 			=> 0
-				)
-			);
-			//log("INSERT success");
-		} catch(Exception $e){
-			consolelog($e->getMessage());
+		if($doneFlag === "true"){
+			//Update activity_status instead
+			try{
+				//consolelog($postid." INSERT");
+				$wpdb->insert(
+					TABLE_HYDI_USERLIKES,
+					array(
+						'fbuid'				=> $userid,
+						'object_id'			=> $postid,
+						'activity_status' 	=> $review,
+						'is_to_do' 			=> 0
+					)
+				);
+				//log("INSERT success");
+			} catch(Exception $e){
+				consolelog($e->getMessage());
+			}
+		} else if($doneFlag === "false"){
+			//Update review instead
+			try{
+				//consolelog($postid." INSERT");
+				$wpdb->insert(
+					TABLE_HYDI_USERLIKES,
+					array(
+						'fbuid'				=> $userid,
+						'object_id'			=> $postid,
+						'review'			=> $review,
+						'activity_status' 	=> 0,
+						'is_to_do' 			=> 0
+					)
+				);
+				//log("INSERT success");
+			} catch(Exception $e){
+				consolelog($e->getMessage());
+			}
 		}
 	}
 	else { 
 		//Update database
-		try{
-			//consolelog($postid." UPDATE");
-			$wpdb->update(
-				TABLE_HYDI_USERLIKES,
-				array(
-					'review'=> $review
-				),
-				array(
-					'fbuid'		=>$userid,
-					'object_id'	=>$postid
-				)
-			);
-			//log("UPDATE success");
-		} catch(Exception $e){
-			consolelog($e->getMessage());
+		if($doneFlag === "true"){
+			//Update activity_status instead
+			try{
+				//consolelog($postid." UPDATE");
+				$wpdb->update(
+					TABLE_HYDI_USERLIKES,
+					array(
+						'activity_status'=> $review
+					),
+					array(
+						'fbuid'		=>$userid,
+						'object_id'	=>$postid
+					)
+				);
+				//log("UPDATE success");
+			} catch(Exception $e){
+				consolelog($e->getMessage());
+			}
+		} else if($doneFlag === "false") {
+			//Update review instead
+			try{
+				//consolelog($postid." UPDATE");
+				$wpdb->update(
+					TABLE_HYDI_USERLIKES,
+					array(
+						'review'=> $review
+					),
+					array(
+						'fbuid'		=>$userid,
+						'object_id'	=>$postid
+					)
+				);
+				//log("UPDATE success");
+			} catch(Exception $e){
+				consolelog($e->getMessage());
+			}
 		}
+		
 	}
 }
 

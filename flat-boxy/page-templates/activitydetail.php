@@ -10,7 +10,6 @@
 get_header(); ?>
 <?php the_breadcrumb(); ?>
 <div id="body-wrapper">
-	
 	<?php
 		if ( is_front_page() && twentyfourteen_has_featured_posts() ) {
 			// Include the featured content template.
@@ -80,13 +79,19 @@ get_header(); ?>
 					<div class = "grid-header">
 						<span>Ratings</span>
 					</div>
-					<div class = "content">
+					
+					<?php //review template ?>
+					<script id = "activity-reviews" type = "text/html">
 						<ul class="no-list rate-list">
-							<li><span class="icon up-arrow"><span>X</span></span></li>
-							<li><span class="icon down-arrow"><span>Y</span></span></li>
-							<li><span class="icon tick-mark"><span>Z</span></span></li>
+							<li><span class="icon up-arrow"><span><%= data.reviews.upvotes %></span></span></li>
+							<li><span class="icon down-arrow"><span><%= data.reviews.downvotes %></span></span></li>
+							<li><span class="icon tick-mark"><span><%= data.reviews.done %></span></span></li>
 						</ul>
+					</script>
+					<div id = "review-content" class = "content">
+						
 					</div>
+
 					<div class = "content">
 						<ul class="no-list">
 							<?php if($phone){ ?>
@@ -151,6 +156,6 @@ get_header(); ?>
 $(document).ready(function(){
 	//TO-DO: add condition to detect when its mobile
 	activityDetailMobileFn();
-	activityDetailFn();
+	activityDetailFn(<?php echo $object_id ?>);
 });
 </script>																				
