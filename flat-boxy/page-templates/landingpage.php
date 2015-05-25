@@ -23,8 +23,13 @@ get_header(); ?>
 	<!-- End of navigation -->
 	
 	<section id = "main" class = "full">
+		<?php if ( function_exists('yoast_breadcrumb') ) {
+			yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+		} ?>
 		<div id = "main-content">
 			<h2><?php echo get_the_title() ?></h2>
+			<p><?php get_search_form() ?></p>
+			
 			<p>
 				<?php
 					//Start the Loop

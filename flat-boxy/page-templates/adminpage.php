@@ -8,7 +8,9 @@
  */
 
 get_header(); ?>
-
+<?php if ( function_exists('yoast_breadcrumb') ) {
+yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+} ?>
 <div id="body-wrapper">
 
 	<?php
@@ -19,7 +21,7 @@ get_header(); ?>
 	?>
 
 	<!-- Start of navigation-->
-	<?php include("/Applications/MAMP/htdocs/web/wordpress/wp-content/themes/flat-boxy/sidenav.php"); ?>
+	<?php include(__DIR__."/../sidenav.php"); ?>
 	<!-- End of navigation -->
 	
 	<section id = "main" class = "full">

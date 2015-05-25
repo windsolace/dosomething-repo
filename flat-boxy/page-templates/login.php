@@ -14,7 +14,7 @@ get_header(); ?>
 
 		<div id = "body-wrapper">
 			<div class = "s-left">
-				<h1>Do Something Now</h1>
+				<h1>H.Y.D.I</h1>
 				<div class = "description">
 					<?php
 						//Start the Loop

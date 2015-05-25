@@ -8,7 +8,9 @@
 	*/
 	
 get_header(); ?>
-<?php the_breadcrumb(); ?>
+<?php if ( function_exists('yoast_breadcrumb') ) {
+	yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+} ?>
 <div id="body-wrapper">
 	<?php
 		if ( is_front_page() && twentyfourteen_has_featured_posts() ) {
