@@ -191,7 +191,7 @@ var activityDetailFn = function(objectid){
 			function(response){
 				//Activity Details Obj
 
-				var activityDetails = response;console.log("TADA");
+				var activityDetails = response;
 				console.log(activityDetails);
 
 				//render reviews
