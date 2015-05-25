@@ -26,12 +26,9 @@ window.onload = function(){
 		}
 		
 	});
-
-
 };
 
 $(document).ready(function(){
-	
 	/*
 	*Sets when Log Out is clicked
 	*/

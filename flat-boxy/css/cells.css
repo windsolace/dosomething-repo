@@ -105,7 +105,6 @@ div.homecell.eat{
 	width:300px;
 	border-radius:0px;
 	margin: 10px 10px 10px 10px;
-	-webkit-animation: cellclick 2s;
 }
 div.homecell.play{
 	background-color:#1abc9c;
