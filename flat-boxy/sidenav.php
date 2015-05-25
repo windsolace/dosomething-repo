@@ -30,25 +30,25 @@
 				<a href = "<?php echo esc_url( home_url( '/' ) ); ?>"><div class= "menu-button">Home</div></a>
 			</li>
 			<li>
-				<a href = "./eat"><div class= "menu-button eat">Eat</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'eat' ); ?>"><div class= "menu-button eat">Eat</div></a>
 			</li>
 			<li>
-				<a href = "./play"><div class= "menu-button play">Play</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'play' ); ?>"><div class= "menu-button play">Play</div></a>
 			</li>
 			<li>
-				<a href = "./trend"><div class= "menu-button trend">Trend</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'trend' ); ?>"><div class= "menu-button trend">Trend</div></a>
 			</li>
 			<li>
-				<a href = "./explore"><div class= "menu-button explore">Explore</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'explore' ); ?>"><div class= "menu-button explore">Explore</div></a>
 			</li>
 			<li>
-				<a href = "./about"><div class= "menu-button">About</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'about' ); ?>"><div class= "menu-button">About</div></a>
 			</li>
 			<li>
-				<a href = "./contact"><div class= "menu-button">Contact</div></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'contact' ); ?>"><div class= "menu-button">Contact</div></a>
 			</li>
 			<li>
-				<a href = "#"><span class= "menu-button login">Log In</span></a>
+				<a href = "<?php echo esc_url( home_url( '/' ).'login' ); ?>"><span class= "menu-button login">Log In</span></a>
 			</li>
 		</ul>
 	</div>

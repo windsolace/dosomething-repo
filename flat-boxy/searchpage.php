@@ -13,7 +13,12 @@ get_search_form();
 global $query_string;
 
 $query_args = explode("&", $query_string);
-$search_query = array();
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$search_query = array(
+	'post_type' => page,
+	'posts_per_page' => -1,
+	'paged' => $paged
+	);
 
 foreach($query_args as $key => $string) {
 	$query_split = explode("=", $string);
@@ -28,35 +33,20 @@ $search = new WP_Query($search_query);
 
 		<div id = "body-wrapper">
 
-			<section id = "index-main">
-				<div id="index-menu">
-					<h2 id = "index-greeting">Search</h2>
-					
-					<div class = "cell-container">
-						
-						<a href = "<?php echo $site_home_url."/eat" ?>">
-							<div class = "homecell eat">
-								<div class = "cell-content">Eat</div>
-							</div>
-						</a>
-						<a href = "<?php echo $site_home_url."/play"?>">
-							<div class = "homecell play">
-								<div class = "cell-content">Play</div>
-							</div>
-						</a>
-						<a href = "<?php echo $site_home_url."/trend"?>">
-							<div class = "homecell trend">
-								<div class = "cell-content">Trend</div>
-							</div>
-						</a>
-						<a href = "<?php echo $site_home_url."/explore"?>">
-							<div class = "homecell explore">
-								<div class = "cell-content">Explore</div>
-							</div>
-						</a>
-					</div>
-				</div>	<!--#index-menu -->
-			</section>
+			<section id = "main" class = "full">
+				<div id = "main-content">
+					<h2><?php echo get_the_title() ?></h2>
+					<p><?php get_search_form() ?></p>
+						<?php
+							//Start the Loop
+							while(have_posts()) : the_post();
+								//Include the content from editor
+								the_content();
+							endwhile
+						?>
+
+				</div><!-- #main-content -->
+			</section><!-- #main -->
 
 			<?php get_footer(); ?>
 

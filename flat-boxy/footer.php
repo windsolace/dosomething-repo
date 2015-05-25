@@ -6,12 +6,12 @@
  *
  * @package WordPress
  * @subpackage Flat_Boxy
- * @since Flat_Boxy v1
+ * @since Flat_Boxy v1.2
  */
 ?>
 		<section class = "footer">
 			
-			<footer>&copy; Copyright 2014 hydi.voqux.com </footer>
+			<footer>&copy; Copyright 2015 hydi.voqux.com | <a href = "<?php $site_home_url?>/privacy-policy">Privacy Policy</a> </footer>
 		</section>	
 
 	

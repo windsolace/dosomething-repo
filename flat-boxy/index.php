@@ -28,23 +28,24 @@ $login_page= get_page_link(68);
 					<h2 id = "index-greeting">What do you want to do today?</h2>
 					
 					<div class = "cell-container">
+						<p><?php get_search_form() ?></p>
 						
-						<a href = "<?php echo get_page_permalink("eat")?>">
+						<a href = "<?php echo $site_home_url."/eat" ?>">
 							<div class = "homecell eat">
 								<div class = "cell-content">Eat</div>
 							</div>
 						</a>
-						<a href = "<?php echo get_page_permalink("play")?>">
+						<a href = "<?php echo $site_home_url."/play" ?>">
 							<div class = "homecell play">
 								<div class = "cell-content">Play</div>
 							</div>
 						</a>
-						<a href = "<?php echo get_page_permalink("trend")?>">
+						<a href = "<?php echo $site_home_url."/trend" ?>">
 							<div class = "homecell trend">
 								<div class = "cell-content">Trend</div>
 							</div>
 						</a>
-						<a href = "<?php echo get_page_permalink("explore")?>">
+						<a href = "<?php echo $site_home_url."/explore" ?>">
 							<div class = "homecell explore">
 								<div class = "cell-content">Explore</div>
 							</div>
