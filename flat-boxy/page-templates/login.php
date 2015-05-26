@@ -30,7 +30,7 @@ get_header(); ?>
 				<h1><?php echo get_the_title() ?></h1>
 				<ul class = "login-btn-group">
 					<li><a href = "#" class = "btn-col">
-						<div class = "btn-block"><span class = "fb-icon"></span><span class = "login"></span></div>
+						<div class = "btn-block"><span class = "fb-icon"></span><span class = "login">Log In</span></div>
 					</a></li>
 				</ul>
 			</div>	

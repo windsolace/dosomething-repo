@@ -123,7 +123,7 @@ get_header(); ?>
 						</p>
 					</div>
 					<div id = "lower-content">
-						<p>Some image here</p>
+						<p>No image available.</p>
 					</div>
 					<button id = "transit-down" class="btn-transit light-gray">
 						<span class="down">Down To Comments and Pictures</span>
