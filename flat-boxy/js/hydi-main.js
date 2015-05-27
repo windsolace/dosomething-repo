@@ -8,6 +8,27 @@ $(document).ready(function(){
 	hydiInit();
 	//$.colorbox({href:"wp-content/themes/flat-boxy/img/profilepic1.jpg"});
 
+	/*
+	*Sets when Log Out is clicked
+	*/
+	$('a').click(function(){		
+		//Logout
+		if($(this).find('.logout').length > 0){
+			fb_logout();
+		}
+		else if($(this).find('.login').length > 0){
+			//Do login only if the login page login button is clicked
+			if($(this).children('.btn-block').length > 0){
+				hydiLogin();
+			}
+			//Else redirect to login page
+			else{
+				window.location.replace(".../log-in")
+			}
+			
+		}
+	});
+
 	//show all accordion contents that were hidden if width changes to > CONST_MOBILE_WIDTH
 	$(window).resize(function(){
 		if($(document).width() < CONST_MOBILE_WIDTH){

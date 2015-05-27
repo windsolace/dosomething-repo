@@ -27,32 +27,3 @@ window.onload = function(){
 		
 	});
 };
-
-$(document).ready(function(){
-	/*
-	*Sets when Log Out is clicked
-	*/
-	$('a').click(function(){		
-		//Logout
-		if($(this).find('.logout').length > 0){
-			fb_logout();
-		}
-		else if($(this).find('.login').length > 0){
-			//Do login only if the login page login button is clicked
-			if($(this).children('.btn-block').length > 0){
-				fb_login();
-			}
-			//Else redirect to login page
-			else{
-				window.location.replace(".../log-in")
-			}
-			
-		}
-	});
-
-})
-
-
-
-
-
