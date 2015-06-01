@@ -143,7 +143,7 @@ function routeRequest($requestPath, $data){
 				if($key == 'auth') $sessionID = $value;
 			}
 
-			//If have session (already logged in before)
+			//If have session and userid (already logged in before)
 			if($sessionID){
 				$authResponse = isAuthenticated($userid, $sessionID);
 				$authResponse = json_decode($authResponse);
@@ -151,14 +151,27 @@ function routeRequest($requestPath, $data){
 					if($key == 'isLoggedIn') $authenticated = $value;
 				}
 
+				//session tokens match
 				if($authenticated){
 					//Generate session key
 					$sessionID = genSessionID(SESSION_ID_LENGTH);
 					$response = storeSessionID($userid, $sessionID);
 				}
+				//1/6/2015: Added check for new user
+				//no match of session tokens (might be new user)
+				else{
+					if($userid){
+						registerNewUser($userid);
+						$sessionID = genSessionID(SESSION_ID_LENGTH);
+						$response = storeSessionID($userid, $sessionID);
+					}
+					else{
+						consolelog("No userid detected.");
+					}
+				}
 			}
 			//If no session, generate new session
-			else {
+			else{
 				$sessionID = genSessionID(SESSION_ID_LENGTH);
 				$response = storeSessionID($userid, $sessionID);
 			}

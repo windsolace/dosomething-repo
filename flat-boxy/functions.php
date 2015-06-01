@@ -141,17 +141,15 @@ function consolelog($message){
 }
 
 /************************ AUTHENTICATION SECTION ************************/
-/*
+/**
 * Authenticates the user using cookie.sessionID and database user.sessionID
-* @params sessionID - FB's accessToken or genSessionID()
+* @param sessionID - FB's accessToken or genSessionID()
 */
 function isAuthenticated($userid, $sessionID){
     $activeSession = trim(getSession($userid));
     //$browserSession = trim($_COOKIE["HYDIAUTHKEY"]);
     $browserSession = $sessionID;
     $isAuthenticated = false;
-
-    //TODO: Add encryption here
 
     if($browserSession === $activeSession){
         $isAuthenticated = true;
@@ -164,18 +162,38 @@ function isAuthenticated($userid, $sessionID){
     return json_encode($jsonObj);
 }
 
-/*
+/**
+* New user flow
+* @param userid
+* @return void 
+*/
+function registerNewUser($userid){
+   global $wpdb;
+   try{
+        //consolelog($postid." INSERT");
+        $wpdb->insert(
+            TABLE_HYDI_USERS,
+            array(
+                'fbuid'             => $userid,
+                'registered'        => current_time('Y-m-d',1)
+
+            )
+        );
+        //log("INSERT success");
+    } catch(Exception $e){
+        consolelog($e->getMessage());
+    } 
+}
+
+/**
 * Store sessionID into database (DO NOT USE ON FRONT END)
-* @params sessionID - FB's accessToken or genSessionID()
+* @param sessionID - FB's accessToken or genSessionID()
 */
 function storeSessionID($userid, $sessionID){
     global $wpdb;
 
     //Set sessionID cookie (expire in 30 days)
     setcookie("HYDIAUTHKEY", $sessionID, time() + (86400 * 30),"/");
-
-
-    //TODO: Add encryption here
 
     //Store into database
     $wpdb->update(
