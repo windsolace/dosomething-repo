@@ -645,6 +645,9 @@ input[type=submit]:hover{
 	text-align:center;
 	line-height:45px;
 	width:100%;
+	border:0;
+	border-radius:8px;
+	cursor:pointer;
 }
 .row .btn-transit:hover{
 	background-color:#b8c6bf;

@@ -195,7 +195,7 @@ function fb_logout(){
 
 //Activity Detail related functions
 var activityDetailFn = function(objectid){
-
+	$('#lower-content').hide();
 	//Get activity reviews
 	$.ajax({
 		url: ajaxurl,
