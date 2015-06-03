@@ -156,7 +156,7 @@ function fb_login(){
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
             renewSession(user_id);
-            document.cookie="uid="+user_id;
+            document.cookie="uid="+user_id+';path=/;';
 
             FB.api('/me', function(response) {
                 user_name = response.name; //get user email
