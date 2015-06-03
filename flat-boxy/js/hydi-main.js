@@ -62,17 +62,17 @@ function hydiLogin(){
 	if(!uid || !browserSession){
 		console.log("New login session");
 		fb_login();
-		renewSession(uid);
+		//renewSession(uid);
 	} else{
 		//Verify against backend
 		getLoginStatus(uid, function(status){
 			if(status){
 				console.log("You are already logged in! Renewing your session.");
+				renewSession(uid);
 			} else {
 				console.log("You are not logged in yet. Please log in.");
 				fb_login();
 			}
-			renewSession(uid);
 		});
 	}
 }
@@ -103,7 +103,7 @@ function renewSession(uid){
 			},
 		error:
 			function(e){
-				console.log("Failed to renew session");
+				console.log("[Error]: Failed to renew session");
 				console.log(e);
 			}
 	});
@@ -155,8 +155,8 @@ function fb_login(){
             //console.log(response); // dump complete info
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
+            renewSession(user_id);
             document.cookie="uid="+user_id;
-            //sessionStorage.setItem('fbuid', user_id);
 
             FB.api('/me', function(response) {
                 user_name = response.name; //get user email
