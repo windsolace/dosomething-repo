@@ -156,7 +156,7 @@ function fb_login(){
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
             renewSession(user_id);
-            document.cookie="uid="+user_id;
+            document.cookie="uid="+user_id+';path=/;';
 
             FB.api('/me', function(response) {
                 user_name = response.name; //get user email
@@ -460,4 +460,16 @@ function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+var HydiUtil = {
+	CONST_TRENDTILE_STRING_MAX_LENGTH : 25,
+
+	truncateString :function(string){
+		if(string.length > HydiUtil.CONST_TRENDTILE_STRING_MAX_LENGTH){
+			var string = string.substr(0,25) + "...";
+		}
+		return string;
+	}
+
 }
