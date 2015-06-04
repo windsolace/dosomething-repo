@@ -461,3 +461,15 @@ function getCookie(name) {
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
+
+var HydiUtil = {
+	CONST_TRENDTILE_STRING_MAX_LENGTH : 25,
+
+	truncateString :function(string){
+		if(string.length > HydiUtil.CONST_TRENDTILE_STRING_MAX_LENGTH){
+			var string = string.substr(0,25) + "...";
+		}
+		return string;
+	}
+
+}
