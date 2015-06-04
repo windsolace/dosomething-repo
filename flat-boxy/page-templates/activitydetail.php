@@ -121,6 +121,9 @@ get_header(); ?>
 							<?php the_content(); ?>
 							<?php echo $description;?>
 						</p>
+						<p>
+							<?php the_modified_date($d,"Last updated: ","",true); ?> 
+						</p>
 					</div>
 					<div id = "lower-content">
 						<p>No image available.</p>
