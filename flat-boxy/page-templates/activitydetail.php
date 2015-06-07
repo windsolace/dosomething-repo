@@ -94,25 +94,25 @@ get_header(); ?>
 						
 					</div>
 
-					<div class = "content">
-						<?php if($phone){ ?>
-							<span class="icon-medium phone float-left"></span>
-							<span class = "float-left detail-content-width"><?php echo $phone; ?></span>
-						<?php } ?>
-					</div>
+					<?php if($phone){ ?>
+						<div class = "content">
+								<span class="icon-medium phone float-left"></span>
+								<span class = "float-left detail-content-width"><?php echo $phone; ?></span>
+						</div>
+					<?php } ?>
 
-					<div class = "content">
-						<?php if($time_range){ ?>
-							<span class="icon-medium clock float-left"></span>
-							<span class = "float-left detail-content-width"><?php echo $time_range; ?></span>
-						<?php } ?>
-					</div>
+					<?php if($time_range){ ?>
+						<div class = "content">
+								<span class="icon-medium clock float-left"></span>
+								<span class = "float-left detail-content-width"><?php echo $time_range; ?></span>
+						</div>
+					<?php } ?>
 
-					<div class = "content">
-						<?php if($website){ ?>
-							<span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span>
-						<?php } ?>
-					</div>
+					<?php if($website){ ?>
+						<div class = "content">
+								<span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span>
+						</div>
+					<?php } ?>
 				</div>
 				<div class="grid-6 columns">
 					<div class = "grid-header">
