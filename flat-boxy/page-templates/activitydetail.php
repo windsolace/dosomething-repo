@@ -95,17 +95,23 @@ get_header(); ?>
 					</div>
 
 					<div class = "content">
-						<ul class="no-list">
-							<?php if($phone){ ?>
-								<li><span class="icon-medium phone"><span><?php echo $phone; ?></span></span></li>
-							<?php } ?>
-							<?php if($time_range){ ?>
-								<li><span class="icon-medium clock"><span><?php echo $time_range; ?></span></span></li>
-							<?php } ?>
-							<?php if($website){ ?>
-								<li><span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span></li>
-							<?php } ?>
-						</ul>
+						<?php if($phone){ ?>
+							<span class="icon-medium phone float-left"></span>
+							<span class = "float-left detail-content-width"><?php echo $phone; ?></span>
+						<?php } ?>
+					</div>
+
+					<div class = "content">
+						<?php if($time_range){ ?>
+							<span class="icon-medium clock float-left"></span>
+							<span class = "float-left detail-content-width"><?php echo $time_range; ?></span>
+						<?php } ?>
+					</div>
+
+					<div class = "content">
+						<?php if($website){ ?>
+							<span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="grid-6 columns">
@@ -136,13 +142,18 @@ get_header(); ?>
 					<div class = "grid-header">
 						Location
 					</div>
-					<div class = "content">
-						<?php if($address){ ?>
-							<span class="icon-medium location-marker"><span><?php echo $address; ?></span></span>
-						<?php } ?>
+
+					<script id = "activity-address" type = "text/html">
+						<span class="icon-medium location-marker float-left"></span>
+						<span class = "float-left detail-content-width" title = "<%= data.address %>">
+						 <%= data.address %>
+						</span>
+					</script>
+					<div id = "address-content" class = "content">
 					</div>
-					<div class = "content">
-						Google maps
+
+					<div id = "activity-gmap" class = "content">
+						
 					</div>
 				</div>
 			</div>

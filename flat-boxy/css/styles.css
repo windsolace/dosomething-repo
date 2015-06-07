@@ -96,6 +96,7 @@ span.icon{
 }
 span.icon-medium{
 	height:50px;
+	width:50px;
 	display:block;
 }
 span.up-arrow{
@@ -123,28 +124,6 @@ ul.icon-vote{
 	margin-right:25px;
 }
 
-/**********************End Icons***************************/
-.clear:after{
-	clear:both;
-	content:"";
-	display:table;
-}
-/***************** End Generic classes *****************/
-
-/***************** Colours *****************/
-.light-gray{
-	background-color:#cddcd5;
-}
-.gray{
-	background-color:#d3d3d3;
-}
-/***************** Colours *****************/
-
-
-/***************** Shapes *****************/
-.circle{
-	border-radius:50%;
-}
 .up-arrow-single{
 	background: url('../img/sprites/icon_up_single.png') no-repeat;
 }
@@ -165,6 +144,31 @@ ul.icon-vote{
 }
 .location-marker{
 	background: url('../img/sprites/location.png') no-repeat;
+}
+/**********************End Icons***************************/
+.clear:after{
+	clear:both;
+	content:"";
+	display:table;
+}
+.float-left{
+	float:left;
+}
+/***************** End Generic classes *****************/
+
+/***************** Colours *****************/
+.light-gray{
+	background-color:#cddcd5;
+}
+.gray{
+	background-color:#d3d3d3;
+}
+/***************** Colours *****************/
+
+
+/***************** Shapes *****************/
+.circle{
+	border-radius:50%;
 }
 /***************** shapes *****************/
 
@@ -322,6 +326,9 @@ table td a{
 	margin-left:auto;
 	margin-right:auto;
 	width:25%;
+}
+.detail-content-width{
+	width:65%;
 }
 
 /***************** End Tables *****************/
@@ -640,6 +647,11 @@ input[type=submit]:hover{
 }
 .row .content{
 	padding-left:15px;
+	height:50px;
+	line-height:35px;
+}
+.row .content#review-content{
+	height:100px;
 }
 .row .btn-transit{
 	text-align:center;
@@ -708,7 +720,7 @@ footer{
 /***************** End #footer *****************/
 
 /*************** Start media Queries ****************/
-@media only screen and (max-width:760px){
+@media only screen and (max-width:900px){
 	.columns{
 		float:none;
 		width:100%;

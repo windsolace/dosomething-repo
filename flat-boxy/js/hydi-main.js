@@ -221,6 +221,14 @@ var activityDetailFn = function(objectid){
 			        data: {
 			            reviews: activityDetails.reviews[0]
 			        }
+			    }));
+
+			    //render reviews
+				var _activityAddressTpl = $('#activity-address').html();
+				$("#address-content").eq(0).html(_.template(_activityAddressTpl, {
+			        data: {
+			            address: activityDetails.address
+			        }
 			    }));			    
 			    events();
 			},
@@ -463,11 +471,15 @@ function getCookie(name) {
 }
 
 var HydiUtil = {
+	BROWSER_WIDTH: window.innerWidth || document.body.clientWidth,
 	CONST_TRENDTILE_STRING_MAX_LENGTH : 25,
 
-	truncateString :function(string){
-		if(string.length > HydiUtil.CONST_TRENDTILE_STRING_MAX_LENGTH){
-			var string = string.substr(0,25) + "...";
+	truncateString :function(string, maxlength){
+		if(!maxlength){
+			maxlength = HydiUtil.CONST_TRENDTILE_STRING_MAX_LENGTH
+		}
+		if(string.length > maxlength){
+			var string = string.substr(0,maxlength) + "...";
 		}
 		return string;
 	}
