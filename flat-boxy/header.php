@@ -94,7 +94,7 @@
 <body <?php body_class(); ?>>
 	<?php 
 
-		$site_home_url = get_blogaddress_by_id(get_current_blog_id()); 
+		$site_home_url = "http://hydi.voqux.com/";//get_blogaddress_by_id(get_current_blog_id()); 
 	?>
 
 	<script>
