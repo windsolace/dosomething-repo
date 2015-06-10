@@ -68,6 +68,47 @@ function echo_first_image( $postID ) {
 }
 
 /**
+* Get attachment description
+* @param postID
+* @param field - alt, caption, description
+*/
+function get_attachment_metadata( $postID, $field ) {
+    $args = array( 
+        'post_type' => 'attachment', 
+        'order' => 'ASC', 
+        'post_mime_type' => 'image' ,
+        'post_status' => null, 
+        'numberposts' => 1, 
+        'post_parent' => $postID
+    );
+
+$attachments = get_children( $args );
+    //$attachments = get_posts($args);
+    if ($attachments) {
+        foreach ( $attachments as $attachment ) {
+            $alt = get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
+            $image_title = $attachment->post_title;
+            $caption = $attachment->post_excerpt;
+            $description = $attachment->post_content;
+        }
+    }
+
+    if($field === "description"){
+        echo $description;
+    }
+    else if ($field === "caption"){
+        echo $caption;
+    }
+    else if ($field === "alt"){
+        echo $alt;
+    }
+    else if($field === "imagetitle"){
+        echo $image_title;
+    }
+    else echo $caption;
+}
+
+/**
 *Get the parent page title
 **/
 function get_parent_title($post) {
