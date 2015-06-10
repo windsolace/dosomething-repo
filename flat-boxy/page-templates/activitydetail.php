@@ -27,7 +27,6 @@ get_header(); ?>
 		<div id = "main-banner" class="gray">
 			<img src = "<?php echo_first_image(get_the_ID()); ?>" alt = ""/>
 		</div>
-		<span>Source: <?php get_attachment_metadata(get_the_ID(), "description"); ?></span>
 		<div id = "main-content">			
 			<?php
 				//Start the Loop
