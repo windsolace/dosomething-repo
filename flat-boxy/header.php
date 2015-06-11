@@ -56,6 +56,7 @@
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
 		    wp_register_script('underscore', get_template_directory_uri() . '/js/libs/underscore.js', array('jquery'));
 		    wp_register_script('colorbox', get_template_directory_uri() . '/js/libs/jquery.colorbox-min.js', array('jquery'));
+		    wp_register_script('googlemaps','//maps.googleapis.com/maps/api/js', false,null,false);
 
 		    //custom scripts
 		    wp_register_script('hydi-api', get_template_directory_uri() . '/js/hydi-api.js', array('jquery'));
@@ -67,6 +68,7 @@
 
 		    wp_enqueue_script('underscore');
 		    wp_enqueue_script('colorbox');
+		    wp_enqueue_script('googlemaps');
 		    wp_enqueue_script('hydi-api');
 		    wp_enqueue_script('hydi-main');
 		    wp_enqueue_script('menu-js');

@@ -170,6 +170,11 @@ ul.icon-vote{
 .circle{
 	border-radius:50%;
 }
+#activity-gmap{
+	width: 100%;
+    height: 400px;
+    background-color: #CCC;
+}
 /***************** shapes *****************/
 
 /***************** .login *****************/
