@@ -94,18 +94,18 @@ $attachments = get_children( $args );
     }
 
     if($field === "description"){
-        echo $description;
+        return $description;
     }
     else if ($field === "caption"){
-        echo $caption;
+        return $caption;
     }
     else if ($field === "alt"){
-        echo $alt;
+        return $alt;
     }
     else if($field === "imagetitle"){
-        echo $image_title;
+        return $image_title;
     }
-    else echo $caption;
+    else return $caption;
 }
 
 /**

@@ -639,6 +639,10 @@ input[type=submit]:hover{
 	font-weight:bold;
 	font-size:1.5em;
 }
+span#img-credit{
+	font-size:12px;
+	padding-left: 10px;
+}
 /***************** End #main *****************/
 
 /***************** Start .row *****************/
