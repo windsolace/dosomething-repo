@@ -220,7 +220,7 @@ var activityDetailFn = function(objectid){
 				var longitude = activityDetails.longitude;
 				if(latitude && longitude){
 					$("#activity-gmap").show();
-					getActivityMap(45, 102);
+					getActivityMap(latitude, longitude);
 				}
 
 				//render reviews
