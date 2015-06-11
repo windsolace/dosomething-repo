@@ -160,7 +160,7 @@ get_header(); ?>
 					<div id = "address-content" class = "content">
 					</div>
 
-					<div id = "activity-gmap" class = "content">
+					<div id = "activity-gmap" class = "content" style="display:none">
 						
 					</div>
 				</div>
