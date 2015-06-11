@@ -118,7 +118,7 @@ get_header(); ?>
 
 					<?php if($website){ ?>
 						<div class = "content">
-								<span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Visit Website</a></span></span>
+								<span class="icon-medium globe"><span><a href = "<?php echo $website; ?>">Website</a></span></span>
 						</div>
 					<?php } ?>
 				</div>
