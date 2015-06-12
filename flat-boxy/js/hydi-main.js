@@ -321,12 +321,18 @@ var activityDetailFn = function(objectid){
 
 	var getActivityMap = function(latitude, longitude){
 		var mapCanvas = $('#activity-gmap')[0];
+		var activityMapMarker = new google.maps.LatLng(latitude, longitude)
 		var mapOptions = {
-	      center: new google.maps.LatLng(latitude, longitude),
-	      zoom: 8,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    	center: activityMapMarker,
+			zoom: 18,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
 	    }
 	    var map = new google.maps.Map(mapCanvas, mapOptions);
+
+	    var marker = new google.maps.Marker({
+	    	position: activityMapMarker,
+	    	map:map
+	    });
 	}
 };
 
