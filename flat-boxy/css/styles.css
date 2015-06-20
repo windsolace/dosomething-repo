@@ -4,7 +4,6 @@ Description: Custom WP Theme for DoSmth
 Version: 1;
 Author: windsolace;
 */
-
 /***************** Generic classes *****************/
 html, body{
 	font-family: 'Oxygen', serif;
@@ -648,6 +647,12 @@ span#img-credit{
 	font-size:12px;
 	padding-left: 10px;
 }
+
+/**
+* Fix for fb comments data-width issue
+*/
+.fb_iframe_widget_fluid span, iframe.fb_ltr { padding-left: 10px; width: 95% !important; }
+
 /***************** End #main *****************/
 
 /***************** Start .row *****************/
