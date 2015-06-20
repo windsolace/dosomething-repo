@@ -284,7 +284,7 @@ var activityDetailFn = function(objectid){
 				writeVote(objectid, 1, true);
 			}
 			//$("#review-content").empty();
-			activityDetailFn(objectid);
+			
 
 		});
 	}
@@ -310,6 +310,7 @@ var activityDetailFn = function(objectid){
 					//Activity Details Obj
 					var activityDetails = response;
 					console.log(activityDetails);
+					activityDetailFn(objectid);
 				},
 			error:
 				function(e){
@@ -508,4 +509,10 @@ var HydiUtil = {
 		return string;
 	}
 
+}
+
+function throwError(message){
+	$.colorbox({
+		html:"<p>"+message+"</p>"
+	});
 }

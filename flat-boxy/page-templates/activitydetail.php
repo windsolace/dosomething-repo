@@ -135,12 +135,14 @@ get_header(); ?>
 							<?php the_content(); ?>
 							<?php echo $description;?>
 						</p>
+						<div class="fb-share-button" data-href="<?php echo get_permalink($post->ID); ?>" data-layout="button_count"></div>
 						<p>
 							<?php the_modified_date($d,"Last updated: ","",true); ?> 
 						</p>
 					</div>
 					<div id = "lower-content">
 						<p>No image available.</p>
+						<div class="fb-comments" data-href="<?php echo get_permalink($post->ID); ?>" data-numposts="5" data-width="100%"></div>
 					</div>
 					<button id = "transit-down" class="btn-transit light-gray">
 						<span class="down">Down To Comments and Pictures</span>
