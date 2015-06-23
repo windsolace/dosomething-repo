@@ -113,39 +113,48 @@ function renewSession(uid){
 * Get user's login status
 * @params uid
 * @params callback
-* @return uid, isLoggedIn
+* @return uid, isLogin
 */
 function getLoginStatus(uid, callback){
 	//var uid = sessionStorage.getItem('fbuid');
 	var auth = getCookie('HYDIAUTHKEY');
-	$.ajax({
-		url: ajaxurl,
-		type: 'GET', 
-		dataType:'json',        
-		data: {
-			requestPath: HYDI_API.SITE_LOGIN,
-			params: {
-				userid:uid,
-				auth: auth
+	if(auth){
+		$.ajax({
+			url: ajaxurl,
+			type: 'GET', 
+			dataType:'json',        
+			data: {
+				requestPath: HYDI_API.SITE_LOGIN,
+				params: {
+					userid:uid,
+					auth: auth
+				},
+				action: 'callHydiApi'
 			},
-			action: 'callHydiApi'
-		},
-		success:
-			function(response){
-				console.log("Successful check login status: isLogin: " + response.isLoggedIn);
-				isLogin = response.isLoggedIn;
-				callback(isLogin);
-				//return isLogin;
-			},
-		error:
-			function(e){
-				console.log("Failed to check login status");
-				console.log(e);
-			}
-	});
+			success:
+				function(response){
+					console.log("Successful check login status: isLogin: " + response.isLoggedIn);
+					isLogin = response.isLoggedIn;
+					callback(isLogin);
+					//return isLogin;
+				},
+			error:
+				function(e){
+					console.log("Failed to check login status");
+					console.log(e);
+				}
+		});
+	}
+	else{
+		isLogin = false;
+	}
 }
 
-
+/**
+* Do a facebook login
+* - Sets uid cookie
+* - Redirect user to home_url after done
+*/
 function fb_login(){ 
 
     FB.login(function(response) {
@@ -176,6 +185,11 @@ function fb_login(){
     });
 }
 
+/**
+* Does a facebook logout
+* - Clears uid cookie
+* - Expires session cookie
+*/
 function fb_logout(){
 	FB.getLoginStatus(function(response) {console.log(response);
 		//if logged in
@@ -183,8 +197,8 @@ function fb_logout(){
 			console.log("Running logout function");
 			isLogin = false;
 			//sessionStorage.removeItem('fbuid');
-			document.cookie = 'uid' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-			document.cookie = '<?php echo HYDI_AUTH_KEY ?>' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			deleteCookie('uid', '/');
+			deleteCookie('HYDIAUTHKEY', '/');
 			FB.logout();
 		}
 		
@@ -490,9 +504,17 @@ var trendsFn = function(jsonResponse){
 }
 
 function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length == 2) return parts.pop().split(";").shift();
+	var value = "; " + document.cookie;
+	var parts = value.split("; " + name + "=");
+	if (parts.length == 2) return parts.pop().split(";").shift();
+}
+function deleteCookie( name, path, domain ) {
+	if( getCookie( name ) ) {
+		document.cookie = name + "=" +
+		((path) ? ";path="+path:"")+
+		((domain)?";domain="+domain:"") +
+		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	}
 }
 
 var HydiUtil = {

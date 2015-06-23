@@ -18,7 +18,9 @@ get_header(); ?>
 $login_page= get_page_link(68);
 ?>
 		<div class = "login-banner">
-	    		<a href = "<?php echo $login_page?>"><span class = "login">Log In</span></a>
+    		<a href = "<?php echo $login_page?>"><span class = "login">Log In</span></a>
+    		<a style="display:none">&nbsp|&nbsp</a>
+    		<a id="login-name" href = ""><span></span></a>
 	    </div>
 
 		<div id = "body-wrapper">

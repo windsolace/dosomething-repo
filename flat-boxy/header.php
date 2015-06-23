@@ -138,7 +138,13 @@
 								$('#profile-name').text(response.name);
 								first_name = response.first_name;
 				                user_name = response.name; //get user email
-				                $('.login-banner .logout').removeClass('login').text(user_name + ' | Log Out');
+				                $('.login-banner .logout').removeClass('login').text('Log Out');
+
+				                //populate name in login banner and add user profile link
+				      			$('#login-name').text(user_name).attr('href', 'http://www.google.com');
+				      			$('.login-banner a').eq(1).show(); //show the pipe separator
+
+				      			//Do greeting in index page
 				      			$('#index-greeting').text("Hello " + first_name + "! What do you want to do today?");
 								
 				            });
@@ -155,7 +161,7 @@
 				//if logged out
 				} else {
 					//fb_logout();
-					
+					$('.login-banner a').eq(1).hide(); //hide the pipe separator
 					$('.logout').addClass('login');
 					$('.login').removeClass('logout').text('Log In');
 				}
