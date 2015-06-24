@@ -16,16 +16,17 @@
 <html class="ie ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8) ]><!-->
+<?php
+	//header("Cache-Control: max-age=172800");
+
+	//Remove header with WordPress version
+	add_filter('the_generator', 'remove_version_from_head'); 
+
+?>
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
-	<?php
-		header("Cache-Control: max-age=172800");
-
-		//Remove header with WordPress version
-		add_filter('the_generator', 'remove_version_from_head'); 
-
-	?>
+	
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -155,6 +156,16 @@
 								document.cookie='uid='+fbuid;
 								document.cookie=<?php echo HYDI_AUTH_KEY ?>+' ='+response.authResponse.accessToken;
 							}
+
+							//get profile pic
+							FB.api(
+							    "/" + fbuid + "/picture?width=110",
+							    function (response) {
+									if (response && !response.error) {
+										$('#profile-pic img').attr('src', response.data.url);
+									}
+							    }
+							);
 						}
 						
 					});

@@ -16,7 +16,7 @@ get_header(); ?>
 				<div class="row">
 					<div class = "grid-12 center">
 						<span id = "profile-pic">
-							<img class = "circle" src = "wp-content/themes/flat-boxy/img/profilepic1.jpg"/></span>
+							<img class = "circle" src = ""/></span>
 						<div>
 							<span id = "profile-name">Guest</span><br/>
 							
