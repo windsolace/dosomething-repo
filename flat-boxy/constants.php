@@ -16,7 +16,7 @@ define("TABLE_HYDI_USERS", "fb_user");
 //API 04
 define("SITE_LOGIN", "/hydi/api/login");
 //API 05
-define("USER_PROFILE_INFO", "hydi/api/user");
+define("USER_PROFILE_INFO", "/hydi/api/user");
 //API 02
 define("ACTIVITY_DETAILS", "/hydi/api/activity");
 //API 03
