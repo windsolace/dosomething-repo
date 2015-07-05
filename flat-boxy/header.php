@@ -114,6 +114,7 @@
 		//var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
 		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 		var home_url = "<?php echo $site_home_url ?>";
+		var HYDI_PATHTOPROFILE = home_url+"/user-profile";
 		var isLogin = "";//getLoginStatus();
 
 		window.fbAsyncInit = function() {
@@ -142,7 +143,7 @@
 				                $('.login-banner .logout').removeClass('login').text('Log Out');
 
 				                //populate name in login banner and add user profile link
-				      			$('#login-name').text(user_name).attr('href', 'http://www.google.com');
+				      			$('#login-name').text(user_name).attr('href', HYDI_PATHTOPROFILE);
 				      			$('.login-banner a').eq(1).show(); //show the pipe separator
 
 				      			//Do greeting in index page
