@@ -6,6 +6,9 @@
 define("SESSION_ID_LENGTH", 32);
 define("HYDI_AUTH_KEY", "HYDIAUTHKEY");
 
+define("HYDI_INSTA_ID", "");
+define("HYDI_INSTA_SECRET", "");
+
 define("TABLE_HYDI_ACTIVITY", "activity");
 define("TABLE_HYDI_USERLIKES", "fb_user_likes");
 define("TABLE_HYDI_USERS", "fb_user");

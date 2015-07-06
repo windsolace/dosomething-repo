@@ -365,6 +365,58 @@ function hydi_getUserProfile($userid){
 
 }
 
+/**
+* GET Instagram images by Hashtag
+* @param $countryCode - E.g. SG
+* @return resultString (e.g. title~pubDate~link |)
+* url: GET http://hawttrends.appspot.com/api/terms/ (deprecated)
+* url: GET http://www.google.com/trends/hottrends/atom/feed?pn=p23
+*/
+function getImagesByHashtag($hashtag){
+	$HydiUtil = new Util();
+
+	//Google Search Trends
+	$userid = "USER-ID-GOES-HERE";
+	$accessToken = "ACCES-TOKEN-GOES-HERE";
+	$url = "https://api.instagram.com/v1/tags/".$hashtag."/media/recent?client_id=".HYDI_INSTA_ID;
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+	$result = curl_exec($ch);
+	curl_close($ch); 
+	$result = json_decode($result);
+	//$agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
+
+	/*
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_REFERER, $referer);
+	curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+	*/
+	/*
+	$result = curl_exec($ch);
+	$trends = new SimpleXmlElement($result);
+	$resultString = "";
+	 
+	foreach($trends->channel->item as $value) { 
+        $resultString =  $resultString.$value->title."~";
+        $resultString = $resultString.$value->pubDate."~";
+        $resultString = $resultString.$value->link."|";
+	}
+	if(substr($resultString, (strlen($resultString)-1), strlen($resultString)) == "|"){
+	 	$resultString = substr($resultString, 0, (strlen($resultString)-1));
+	}
+	*/
+
+	return $result;
+
+}
+
 /*
 * Random Function to render 1 activity as result
 * @params $code - 
