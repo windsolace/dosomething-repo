@@ -217,6 +217,26 @@ function routeRequest($requestPath, $data){
 		}
 	}
 
+	/*
+	API id: 06
+	* GET images by hashtag
+	*/
+	if($requestPath == ACTIVITY_IMAGES){
+		$responseArray = json_decode($data);
+
+		//IF HTTP GET -> get images by hashtag
+		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+			foreach($responseArray as $key => $value){
+				if($key == 'hashtag') $hashtag = $value;
+			}
+
+			$imagesResponse = getImagesByHashtag($hashtag);
+			echo $imagesResponse;
+			//echo "API 06: GET Success\n";
+		}
+	}
+
+
 	//echo "routeRequest done";
 	die();
 

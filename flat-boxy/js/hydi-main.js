@@ -251,7 +251,10 @@ var activityDetailFn = function(objectid){
 			        data: {
 			            address: activityDetails.address
 			        }
-			    }));			    
+			    }));
+
+				getActivityImages("instagram");
+			    
 			    events();
 			},
 		error:
@@ -260,6 +263,43 @@ var activityDetailFn = function(objectid){
 				console.log(e);
 			}
 	});
+
+	//Call API to get images
+	var getActivityImages = function(hashtag){
+		//GET user profile info
+		$.ajax({
+			url: ajaxurl,
+			type: 'GET', 
+			dataType:'json',        
+			data: {
+				requestPath: HYDI_API.ACTIVITY_IMAGES,
+				params: {
+					hashtag: hashtag //without #
+				},
+				action: 'callHydiApi'
+			},
+			success:
+				function(response){
+					console.log(response);
+
+					//render user info
+					/*
+					var _userProfileTpl = $('#user-profile-tpl').html();
+					$("#profile-info").eq(0).append(_.template(_userProfileTpl, {
+				        data: {
+				            userProfile: userProfile
+				        }
+				    }));
+				    events();
+				    */
+				},
+			error:
+				function(e){
+					console.log("Failed to get images");
+					console.log(e);
+				}
+		});
+	}
 
 	var events = function(){
 		//Clicked down
@@ -377,6 +417,7 @@ var userProfileFn = function(){
 	var uid = getCookie('uid');
 	var auth = getCookie('HYDIAUTHKEY');
 
+	//GET user profile info
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -429,6 +470,7 @@ var userProfileFn = function(){
 		//render past activities
 		$('#past-activities').empty();
 		var _pastActivitiesTpl = $('#past-activities-tpl').html();
+		console.log(userActivities);
 		$("#past-activities").eq(0).append(_.template(_pastActivitiesTpl, {
 	        data: {
 	            activities: userActivities,
