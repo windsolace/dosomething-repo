@@ -4,7 +4,6 @@ Description: Custom WP Theme for DoSmth
 Version: 1;
 Author: windsolace;
 */
-
 /***************** Generic classes *****************/
 html, body{
 	font-family: 'Oxygen', serif;
@@ -96,6 +95,7 @@ span.icon{
 }
 span.icon-medium{
 	height:50px;
+	width:50px;
 	display:block;
 }
 span.up-arrow{
@@ -123,28 +123,6 @@ ul.icon-vote{
 	margin-right:25px;
 }
 
-/**********************End Icons***************************/
-.clear:after{
-	clear:both;
-	content:"";
-	display:table;
-}
-/***************** End Generic classes *****************/
-
-/***************** Colours *****************/
-.light-gray{
-	background-color:#cddcd5;
-}
-.gray{
-	background-color:#d3d3d3;
-}
-/***************** Colours *****************/
-
-
-/***************** Shapes *****************/
-.circle{
-	border-radius:50%;
-}
 .up-arrow-single{
 	background: url('../img/sprites/icon_up_single.png') no-repeat;
 }
@@ -165,6 +143,36 @@ ul.icon-vote{
 }
 .location-marker{
 	background: url('../img/sprites/location.png') no-repeat;
+}
+/**********************End Icons***************************/
+.clear:after{
+	clear:both;
+	content:"";
+	display:table;
+}
+.float-left{
+	float:left;
+}
+/***************** End Generic classes *****************/
+
+/***************** Colours *****************/
+.light-gray{
+	background-color:#cddcd5;
+}
+.gray{
+	background-color:#d3d3d3;
+}
+/***************** Colours *****************/
+
+
+/***************** Shapes *****************/
+.circle{
+	border-radius:50%;
+}
+#activity-gmap{
+	width: 100%;
+    height: 400px;
+    background-color: #CCC;
 }
 /***************** shapes *****************/
 
@@ -322,6 +330,9 @@ table td a{
 	margin-left:auto;
 	margin-right:auto;
 	width:25%;
+}
+.detail-content-width{
+	width:65%;
 }
 
 /***************** End Tables *****************/
@@ -632,6 +643,16 @@ input[type=submit]:hover{
 	font-weight:bold;
 	font-size:1.5em;
 }
+span#img-credit{
+	font-size:12px;
+	padding-left: 10px;
+}
+
+/**
+* Fix for fb comments data-width issue
+*/
+.fb_iframe_widget_fluid span, iframe.fb_ltr { padding-left: 10px; width: 95% !important; }
+
 /***************** End #main *****************/
 
 /***************** Start .row *****************/
@@ -640,11 +661,19 @@ input[type=submit]:hover{
 }
 .row .content{
 	padding-left:15px;
+	height:50px;
+	line-height:35px;
+}
+.row .content#review-content{
+	height:100px;
 }
 .row .btn-transit{
 	text-align:center;
 	line-height:45px;
 	width:100%;
+	border:0;
+	border-radius:8px;
+	cursor:pointer;
 }
 .row .btn-transit:hover{
 	background-color:#b8c6bf;
@@ -705,7 +734,7 @@ footer{
 /***************** End #footer *****************/
 
 /*************** Start media Queries ****************/
-@media only screen and (max-width:760px){
+@media only screen and (max-width:900px){
 	.columns{
 		float:none;
 		width:100%;
