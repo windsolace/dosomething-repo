@@ -141,7 +141,16 @@ get_header(); ?>
 						</p>
 					</div>
 					<div id = "lower-content">
-						<p>No image available.</p>
+						<p id = "image-gallery">
+							<script id = "activity-images" type = "text/html">
+								<% _.each(data.images, function(item){ %>
+									<a class = "group1 cboxElement" title = "<%= item.caption.text %>" href = "<%= item.images.low_resolution.url %>" style = "height:150;width:150px">
+										<img src = "<%= item.images.low_resolution.url %>" style = "height:150;width:150px"/>
+									</a> 
+								<% });%>
+							</script>
+						</p>
+						
 						<div class="fb-comments" data-href="<?php echo get_permalink($post->ID); ?>" data-numposts="5" data-width="100%"></div>
 					</div>
 					<button id = "transit-down" class="btn-transit light-gray">

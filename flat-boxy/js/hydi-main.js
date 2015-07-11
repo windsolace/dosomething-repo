@@ -253,7 +253,7 @@ var activityDetailFn = function(objectid){
 			        }
 			    }));
 
-				getActivityImages("instagram");
+				getActivityImages(activityDetails.name.replace(/ /g,''));
 			    
 			    events();
 			},
@@ -281,17 +281,15 @@ var activityDetailFn = function(objectid){
 			success:
 				function(response){
 					console.log(response);
-
 					//render user info
-					/*
-					var _userProfileTpl = $('#user-profile-tpl').html();
-					$("#profile-info").eq(0).append(_.template(_userProfileTpl, {
+					
+					var _imageParTpl = $('#activity-images').html();
+					$("#image-gallery").eq(0).append(_.template(_imageParTpl, {
 				        data: {
-				            userProfile: userProfile
+				            images: response
 				        }
 				    }));
 				    events();
-				    */
 				},
 			error:
 				function(e){
@@ -302,6 +300,7 @@ var activityDetailFn = function(objectid){
 	}
 
 	var events = function(){
+		$(".group1").colorbox({rel:'group1',width:"75%", height:"75%"});
 		//Clicked down
 		$('#transit-down').on('click', function(){
 			//hide upper
