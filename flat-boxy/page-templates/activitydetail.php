@@ -143,8 +143,12 @@ get_header(); ?>
 					<div id = "lower-content">
 						<p id = "image-gallery">
 							<script id = "activity-images" type = "text/html">
+								<% var imageCaption = ""; %>
 								<% _.each(data.images, function(item){ %>
-									<a class = "group1 cboxElement" title = "<%= item.caption.text %>" href = "<%= item.images.low_resolution.url %>" style = "height:150;width:150px">
+									<% if(item.caption){ %>
+										<% imageCaption = item.caption.text; %>
+									<% } %>
+									<a class = "group1 cboxElement" title = "<% imageCaption %>" href = "<%= item.images.low_resolution.url %>" style = "height:150;width:150px">
 										<img src = "<%= item.images.low_resolution.url %>" style = "height:150;width:150px"/>
 									</a> 
 								<% });%>
