@@ -21,23 +21,23 @@ Form Fields:
 - Opening hours 
 ========================================*/
 ?>
-<form action="functions.php" method="POST">
+<form action="<?php echo plugins_url('hydi-admin/new-activity-handler.php') ?>" method="POST">
 	<table>
 		<tr>
 			<td>Post ID *</td>
-			<td><input type="text" name="postid"/></td>
+			<td><input type="text" name="postid" required/></td>
 		</tr>
 		<tr>
 			<td>Category</td>
 			<td>
-				<input type="checkbox" name="category" value="Eat" />Eat
-				<input type="checkbox" name="category" value="Play" />Play
-				<input type="checkbox" name="category" value="Explore" />Explore
+				<input type="checkbox" name="category[]" value="Eat" />Eat
+				<input type="checkbox" name="category[]" value="Play" />Play
+				<input type="checkbox" name="category[]" value="Explore" />Explore
 			</td>
 		</tr>
 		<tr>
 			<td>Name *</td>
-			<td><input type="text" name="name"></td>
+			<td><input type="text" name="name" required></td>
 		</tr>
 		<tr>
 			<td>Description</td>
@@ -45,12 +45,12 @@ Form Fields:
 		</tr>
 		<tr>
 			<td>Address *</td>
-			<td><textarea rows="4" cols="50" maxlength="50" name="address"></textarea></td>
+			<td><textarea rows="4" cols="50" maxlength="50" name="address" required></textarea></td>
 		</tr>
 		<tr>
 			<td>Region</td>
 			<td>
-				<select>
+				<select name = "region">
 					<option value="North">North</option>
 					<option value="South">South</option>
 					<option value="East">East</option>
@@ -61,7 +61,7 @@ Form Fields:
 		<tr>
 			<td>Country</td>
 			<td>
-				<select>
+				<select name = "country">
 					<option value="Singapore">Singapore</option>
 				</select>
 			</td>
@@ -77,7 +77,7 @@ Form Fields:
 		<tr>
 		<td>Suitable for how many number of person</td>
 		<td>
-			<select>
+			<select name = "pax">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -126,6 +126,15 @@ Form Fields:
 </form>
 <script>
 	jQuery( document ).ready(function() {
+		events();
+	});
+	
+	/**
+	* events
+	* 	event-1. Disable operating hours if 24-hrs is checked
+	*/
+	var events = function(){
+		//event-1
 		jQuery('#chkBox_opHrs').change(function(){
 			if (jQuery('#chkBox_opHrs').is(':checked')) {
 				document.getElementById("fromTime").disabled=true;
@@ -138,6 +147,11 @@ Form Fields:
 		});
 		jQuery('#fromTime').timepicker();
 		jQuery('#toTime').timepicker();
-	});
-	
+	};
+
+	//validation
+	var form_validation = function(callback){
+		if(callback)
+			callback();
+	};
 </script>
