@@ -123,7 +123,7 @@ ul.icon-vote{
 	margin-right:25px;
 }
 
-.up-arrow-single{
+.up-arrow-single{me
 	background: url('../img/sprites/icon_up_single.png') no-repeat;
 }
 .down-arrow-single{
@@ -460,9 +460,9 @@ span#menu-icon{
 	z-index:2;
 	/*border: 3px solid black;*/
 }
-#menu-icon img{
+#menu-icon{
 	z-index:1;
-	content:url("../img/sprites/menu.png");
+	background:url("../img/sprites/menu.png");
 }
 #menu-icon:hover img{
 	-webkit-transform: translate(-50px, 0);

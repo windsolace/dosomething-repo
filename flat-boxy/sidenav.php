@@ -22,7 +22,7 @@
 <section id = "navigation" class = "closed">
 	<div class = "nav-wrap">
 		<a href="javascript:void(0)" alt = "Pull out menu">
-		  <span id = "menu-icon"><img class = "menu" alt = "menu"/></span>
+		  <span id = "menu-icon"><img class = "menu"></span>
 		</a>
 		<ul class = "nav-list">
 			
