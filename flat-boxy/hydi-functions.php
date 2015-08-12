@@ -218,10 +218,8 @@ function hydi_getTrends($countryCode){
 * Worldwide: 1
 */
 function getTwitterTrends($countryCode){
-	define("CONSUMER_KEY", "");
-	define("CONSUMER_SECRET", "");
-	$access_token = "";
-	$access_token_secret = "";
+	define("CONSUMER_KEY", HYDI_TWIT_KEY);
+	define("CONSUMER_SECRET", HYDI_TWIT_SECRET);
 
 	$HydiUtil = new Util();
 	$woeid = $HydiUtil->getWOEIDByCountryCode($countryCode);

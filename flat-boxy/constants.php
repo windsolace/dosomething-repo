@@ -8,6 +8,8 @@ define("HYDI_AUTH_KEY", "HYDIAUTHKEY");
 
 define("HYDI_INSTA_ID", "");
 define("HYDI_INSTA_SECRET", "");
+define("HYDI_TWIT_KEY", "");
+define("HYDI_TWIT_SECRET", "");
 
 define("TABLE_HYDI_ACTIVITY", "activity");
 define("TABLE_HYDI_USERLIKES", "fb_user_likes");
@@ -39,5 +41,5 @@ define("USER_ACTIVITY_VOTES", "/hydi/api/activity/users");
 /**
 * API 06 - GET images for an activity by hashtag
 */
-define("ACTIVITY_IMAGES", "/hydi/api/activity/images")
+define("ACTIVITY_IMAGES", "/hydi/api/activity/images");
 ?>
