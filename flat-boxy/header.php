@@ -43,6 +43,7 @@
 			wp_register_style('googleFont-Oxygen','http://fonts.googleapis.com/css?family=Oxygen');
 			wp_register_style('googleFont-Oregano','http://fonts.googleapis.com/css?family=Oregano');
 
+			wp_enqueue_style('timepicker', get_stylesheet_directory_uri() . '/css/libs/timepicker.css');
 			wp_enqueue_style('colorbox', get_stylesheet_directory_uri() . '/css/libs/colorbox.css');
 			wp_enqueue_style('hydi-style', get_stylesheet_directory_uri() . '/css/styles.css');
 			wp_enqueue_style('hydi-cells', get_stylesheet_directory_uri() . '/css/cells.css');
@@ -56,6 +57,7 @@
 		    //libs
 		    wp_register_script('jquery','//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', false,null,false);
 		    wp_register_script('underscore', get_template_directory_uri() . '/js/libs/underscore.js', array('jquery'));
+			wp_register_script('timepicker', get_template_directory_uri() . '/js/libs/timepicker.js', array('jquery'));
 		    wp_register_script('colorbox', get_template_directory_uri() . '/js/libs/jquery.colorbox-min.js', array('jquery'));
 		    wp_register_script('googlemaps','//maps.googleapis.com/maps/api/js', false,null,false);
 
@@ -70,6 +72,7 @@
 		    wp_enqueue_script('underscore');
 		    wp_enqueue_script('colorbox');
 		    wp_enqueue_script('googlemaps');
+			wp_enqueue_script('timepicker');
 		    wp_enqueue_script('hydi-api');
 		    wp_enqueue_script('hydi-main');
 		    wp_enqueue_script('menu-js');
