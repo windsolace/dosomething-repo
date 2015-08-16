@@ -30,7 +30,7 @@ Form Fields:
 		<tr>
 			<td>Category</td>
 			<td>
-				<input type="checkbox" name="category[]" value="Eat" />Eat
+				<input type="checkbox" name="category[]" value="Eat" required/>Eat
 				<input type="checkbox" name="category[]" value="Play" />Play
 				<input type="checkbox" name="category[]" value="Explore" />Explore
 			</td>
@@ -77,7 +77,7 @@ Form Fields:
 		<tr>
 		<td>Suitable for how many number of person</td>
 		<td>
-			<select name = "pax">
+			<select name = "pax1">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -90,7 +90,7 @@ Form Fields:
 				<option value="10">10</option>
 			</select>
 			&nbsp;-&nbsp;
-			<select>
+			<select name = "pax2">
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
