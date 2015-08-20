@@ -27,29 +27,51 @@ require_once("../../../wp-config.php");
 
 define("TABLE_HYDI_ACTIVITY", "activity");
 
-$postid = processInputs($_POST["postid"]);
-$category = processInputs($_POST["category"]);
-$name = processInputs($_POST["name"]);
-$description = processInputs($_POST["description"]);
-$address = processInputs($_POST["address"]);
-$region = processInputs($_POST["region"]);
-$country = processInputs($_POST["country"]);
-$phone = processInputs($_POST["phone"]);
-$website = processInputs($_POST["website"]);
-$pax1 = processInputs($_POST["pax1"]);
-$pax2 = processInputs($_POST["pax2"]);
-$price = processInputs($_POST["price"]);
-echo $postid;
 main();
 
 function main(){
 	//processInputs();
+	getPostData();
 	writeToDatabase();
+}
+
+function getPostData(){
+	$postid = processInputs($_POST["postid"]);
+	$category = processInputs($_POST["category"]);
+	$name = processInputs($_POST["name"]);
+	$description = processInputs($_POST["description"]);
+	$address = processInputs($_POST["address"]);
+	$region = processInputs($_POST["region"]);
+	$country = processInputs($_POST["country"]);
+	$phone = processInputs($_POST["phone"]);
+	$website = processInputs($_POST["website"]);
+	$pax1 = processInputs($_POST["pax1"]);
+	$pax2 = processInputs($_POST["pax2"]);
+	$price = processInputs($_POST["price"]);
+
+	//new json object
+	$jsonPostData = new stdClass();
+	$jsonPostData->postid = $postid;
+	$jsonPostData->category = $category;
+	$jsonPostData->name = $name;
+	$jsonPostData->description = $description;
+	$jsonPostData->address = $address;
+	$jsonPostData->region = $region;
+	$jsonPostData->country = $country;
+	$jsonPostData->phone = $phone;
+	$jsonPostData->website = $website;
+	$jsonPostData->pax = array(
+		"minPax" => $pax1,
+		"maxPax" => $pax2
+		);
+	$jsonPostData->price = $price;
+
+	$jsonPostData = json_encode($jsonPostData);
+	return $jsonPostData;
 }
 
 function processInputs($value){
 	return $value;
-
 }
 
 function writeToDatabase(){
@@ -74,7 +96,7 @@ function writeToDatabase(){
 			'average_price' 	=> $price,
 			//'time_range' 		=> 0,
 			//'submitted_date' 	=> 0,
-			'approval_date' 	=> null
+			'approval_id' 	=> null
 		)
 	);
 
