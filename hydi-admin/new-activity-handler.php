@@ -31,8 +31,8 @@ main();
 
 function main(){
 	//processInputs();
-	getPostData();
-	writeToDatabase();
+	$formData = getPostData();
+	writeToDatabase($formData);
 }
 
 function getPostData(){
@@ -74,26 +74,29 @@ function processInputs($value){
 	return $value;
 }
 
-function writeToDatabase(){
+function writeToDatabase(/*json*/ $formData){
 	global $wpdb;
+
+	$jsonFormData = json_decode($formData, true);
 
 	//write inputs to activity table
 	$wpdb->insert(
 		TABLE_HYDI_ACTIVITY,
 		array(
-			'object_id'			=> $postid,
-			'name'				=> $name,
-			'description'		=> $description,
-			'address' 			=> $address,
+			'object_id'			=> $jsonFormData['postid'],
+			'name'				=> $jsonFormData['name'],
+			//'category'		=> $jsonFormData->category
+			'description'		=> $jsonFormData['description'],
+			'address' 			=> $jsonFormData['address'],
 			//'longitude' 		=> 0,
 			//'latitude' 			=> 0,
-			'region' 			=> $region,
-			'country' 			=> $country,
-			'phone' 			=> $phone,
-			'website' 			=> $website,
-			'min_pax' 			=> $pax1,
-			'max_pax' 			=> $pax2,
-			'average_price' 	=> $price,
+			'region' 			=> $jsonFormData['region'],
+			'country' 			=> $jsonFormData['country'],
+			'phone' 			=> $jsonFormData['phone'],
+			'website' 			=> $jsonFormData['website'],
+			'min_pax' 			=> $jsonFormData['pax']['minPax'],
+			'max_pax' 			=> $jsonFormData['pax']['maxPax'],
+			'average_price' 	=> $jsonFormData['price'],
 			//'time_range' 		=> 0,
 			//'submitted_date' 	=> 0,
 			'approval_id' 	=> null
