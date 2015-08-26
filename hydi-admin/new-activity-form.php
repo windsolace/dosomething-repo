@@ -21,7 +21,7 @@ Form Fields:
 - Opening hours 
 ========================================*/
 ?>
-<form action="<?php echo plugins_url('hydi-admin/new-activity-handler.php') ?>" method="POST">
+<form action="<?php echo plugins_url('hydi-admin/new-activity-handler.php') ?>" method="POST" onsubmit = "return form_validation();">
 	<table>
 		<tr>
 			<td>Post ID *</td>
@@ -30,7 +30,7 @@ Form Fields:
 		<tr>
 			<td>Category</td>
 			<td>
-				<input type="checkbox" name="category[]" value="Eat" required/>Eat
+				<input type="checkbox" name="category[]" value="Eat"/>Eat
 				<input type="checkbox" name="category[]" value="Play" />Play
 				<input type="checkbox" name="category[]" value="Explore" />Explore
 			</td>
@@ -150,8 +150,16 @@ Form Fields:
 	};
 
 	//validation
-	var form_validation = function(callback){
+	var form_validation = function(){
+		validationPassed = true;
+		if(jquery('input[name="category"]').length <= 0){
+			validationPassed = false;
+			console.log("Category checkboxes not checked!");
+		}
+		return validationPassed;
+		/*
 		if(callback)
 			callback();
+		*/
 	};
 </script>

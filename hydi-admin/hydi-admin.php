@@ -62,14 +62,14 @@
         // action function for above hook
         function mt_add_pages() {
             // Add a new top-level menu:
-            add_menu_page(__('Hydi Admin','menu-test'), __('HYDI','menu-test'), 'manage_options', 'hydi-admin', null );
+            add_menu_page(__('Hydi Admin',''), __('HYDI',''), 'manage_options', 'hydi-admin', 'hydi_admin_page' );
 
             // Add a submenu to the custom top-level menu:
-            add_submenu_page('hydi-admin', __('Add an Activity','menu-test'), __('Add Activity','menu-test'), 'manage_options', 'hydi-admin', 'hydi_add_activity_page');
+            add_submenu_page('hydi-admin', __('Add an Activity',''), __('Add Activity',''), 'manage_options', 'add', 'hydi_add_activity_page');
 
             // Add a second submenu to the custom top-level menu:
-            add_submenu_page('hydi-admin', __('Update an Activity','menu-test'), __('Update Activity','menu-test'), 'manage_options', 'update', 'hydi_update_activity_page');
-            add_submenu_page('hydi-admin', __('Pending Requests','menu-test'), __('Pending Activities','menu-test'), 'manage_options', 'pending', 'hydi_pending_activities_page');
+            add_submenu_page('hydi-admin', __('Update an Activity',''), __('Update Activity',''), 'manage_options', 'update', 'hydi_update_activity_page');
+            add_submenu_page('hydi-admin', __('Pending Requests',''), __('Pending Activities',''), 'manage_options', 'pending', 'hydi_pending_activities_page');
 
             // Add a new submenu under Settings:
             //add_options_page(__('Test Settings','menu-test'), __('Test Settings','menu-test'), 'manage_options', 'testsettings', 'mt_settings_page');
@@ -78,23 +78,29 @@
             //add_management_page( __('Test Tools','menu-test'), __('Test Tools','menu-test'), 'manage_options', 'testtools', 'mt_tools_page');
         }
 
+        // hydi_admin_page() displays the main hydi admin page
+        function hydi_admin_page() {
+            echo "<h2>" . __( 'Hydi Admin', '' ) . "</h2>";
+            include 'main-page.php';
+        }
+
         // hydi_add_activity_page() displays the page content for the first submenu
         // of the custom Test Toplevel menu
         function hydi_add_activity_page() {
-            echo "<h2>" . __( 'Add an Activity', 'menu-test' ) . "</h2>";
+            echo "<h2>" . __( 'Add an Activity', '' ) . "</h2>";
             include 'new-activity-form.php';
         }
 
-         // mt_sublevel_page2() displays the page content for the second submenu
+         // hydi_update_activity_page() displays the page content for the second submenu
         // of the custom Test Toplevel menu
         function hydi_update_activity_page() {
-            echo "<h2>" . __( 'Update an Activity', 'menu-test' ) . "</h2>";
+            echo "<h2>" . __( 'Update an Activity', '' ) . "</h2>";
         }
 
-        // mt_sublevel_page2() displays the page content for the second submenu
+        // hydi_pending_activities_page() displays the page content for the second submenu
         // of the custom Test Toplevel menu
         function hydi_pending_activities_page() {
-            echo "<h2>" . __( 'Pending Activities', 'menu-test' ) . "</h2>";
+            echo "<h2>" . __( 'Pending Activities', '' ) . "</h2>";
         }
 
         /*
