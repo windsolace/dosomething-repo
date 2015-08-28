@@ -1,7 +1,7 @@
 <?php
 /**
 * New activity form
-* Adds a new activity into database
+* Adds a new activity into activity table
 */
 
 /*========================================
@@ -21,6 +21,7 @@ Form Fields:
 - Opening hours 
 ========================================*/
 ?>
+<h4>Inserts a new activity into activity table</h4>
 <form action="<?php echo plugins_url('hydi-admin/new-activity-handler.php') ?>" method="POST" onsubmit = "return form_validation();">
 	<table>
 		<tr>
@@ -44,6 +45,18 @@ Form Fields:
 			<td><textarea rows="4" cols="50" maxlength="50" name="description"></textarea></td>
 		</tr>
 		<tr>
+			<td>Country</td>
+			<td>
+				<select name = "country">
+					<option value="Singapore">Singapore</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Postal Code</td>
+			<td><input type="text" name="postalcode" maxlength="6"></td>
+		</tr>
+		<tr>
 			<td>Address *</td>
 			<td><textarea rows="4" cols="50" maxlength="50" name="address" required></textarea></td>
 		</tr>
@@ -55,14 +68,6 @@ Form Fields:
 					<option value="South">South</option>
 					<option value="East">East</option>
 					<option value="West">West</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>Country</td>
-			<td>
-				<select name = "country">
-					<option value="Singapore">Singapore</option>
 				</select>
 			</td>
 		</tr>
@@ -124,14 +129,23 @@ Form Fields:
 	<br><br>
 	<input type="submit" value="Submit">
 </form>
+<script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
 <script>
+	gothere.load("maps");
 	jQuery( document ).ready(function() {
+		init();
 		events();
 	});
+
+	var init = function(){
+		setPostalMaxLength(jQuery('select[name="country"]').val());
+	}
 	
 	/**
 	* events
 	* 	event-1. Disable operating hours if 24-hrs is checked
+	*	event-2. Populate address by postal code (Countries: SG)
+	*	event-3. Change postalcode maxlength based on country select
 	*/
 	var events = function(){
 		//event-1
@@ -147,7 +161,40 @@ Form Fields:
 		});
 		jQuery('#fromTime').timepicker();
 		jQuery('#toTime').timepicker();
+
+		//event-2
+		jQuery('input[name="postalcode"]').blur(function(){
+			//use gothere.sg geo API if country selected is singapore
+			if(jQuery('select[name="country"]').val().toLowerCase() === "singapore"){
+				var postalCode = jQuery('input[name="postalcode"]').val();
+				var geocoder = new GClientGeocoder(); 
+				geocoder.getLatLng(postalCode, function(response){
+					geocoder.getLocations(response, function(place){
+						var apiAddress = place.Placemark[0].address;
+						console.log(place.Placemark[0].address);
+						jQuery('textarea[name="address"]').text(apiAddress);
+					});
+				});
+			}
+		});
+
+		//event-3
+		jQuery('select[name="country"]').change(function(){
+			setPostalMaxLength(jQuery(this).val());
+		});
 	};
+
+	/**
+	* Sets postal code input field max length based on country selected
+	*/
+	var setPostalMaxLength = function(){
+		if("Singapore" === "singapore"){
+			jQuery('input[name="postal"]').show().prop('disabled', false);
+			jQuery('input[name="postal"]').attr('maxlength', '6');
+		} else {
+			jQuery('input[name="postal"]').hide().prop('disabled', true);
+		}
+	}
 
 	//validation
 	var form_validation = function(){

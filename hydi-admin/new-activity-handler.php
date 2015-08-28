@@ -6,6 +6,15 @@
 * - Write to database
 */
 
+/*==============================================/
+Contents
+Form Fields
+DevID-01. Main
+DevID-02. getPostData()
+DevID-03. processInputs($value)
+DevID-04. writeToDatabase($formData,$tableName)
+===============================================*/
+
 /*========================================
 Form Fields:
 (*) - mandatory
@@ -26,15 +35,25 @@ Form Fields:
 require_once("../../../wp-config.php");
 
 define("TABLE_HYDI_ACTIVITY", "activity");
+define("TABLE_HYDI_PENDING_ACTIVITY", "pending_activity");
 
 main();
 
+
+/**
+* DevID-01
+*/
 function main(){
 	//processInputs();
 	$formData = getPostData();
-	writeToDatabase($formData);
+	writeToDatabase($formData, TABLE_HYDI_ACTIVITY);
 }
 
+/**
+* DevID-02
+* Get POST data from "Add activity form"
+* @return JSON jsonPostData
+*/
 function getPostData(){
 	$postid = processInputs($_POST["postid"]);
 	$category = processInputs($_POST["category"]);
@@ -47,6 +66,13 @@ function getPostData(){
 	$website = processInputs($_POST["website"]);
 	$pax1 = processInputs($_POST["pax1"]);
 	$pax2 = processInputs($_POST["pax2"]);
+
+	//CONDITION: pax1 < pax2
+	//Make pax2 = pax1 assuming max1 is the most accurate
+	if($pax1 > $pax2){
+		$pax2 = $pax1
+	}
+	
 	$price = processInputs($_POST["price"]);
 
 	//new json object
@@ -70,18 +96,32 @@ function getPostData(){
 	return $jsonPostData;
 }
 
+/**
+* DevID-03: WIP
+* Processes form input data
+* @param value
+* @return value
+*
+* - pax1
+*/
 function processInputs($value){
 	return $value;
 }
 
-function writeToDatabase(/*json*/ $formData){
+/**
+* DevID-04
+* Do a INSERT into database using processed form data
+* @param JSON formData
+* @param String tablename
+*/
+function writeToDatabase(/*json*/ $formData, $tableName){
 	global $wpdb;
 
 	$jsonFormData = json_decode($formData, true);
 
 	//write inputs to activity table
 	$wpdb->insert(
-		TABLE_HYDI_ACTIVITY,
+		$tableName,
 		array(
 			'object_id'			=> $jsonFormData['postid'],
 			'name'				=> $jsonFormData['name'],
@@ -103,8 +143,7 @@ function writeToDatabase(/*json*/ $formData){
 		)
 	);
 
-	
-	/*
+	/* For debugging
 	$userReviews = $wpdb->get_results("
 		SELECT name FROM ".TABLE_HYDI_ACTIVITY." WHERE object_id = '95'
 	");
