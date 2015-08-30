@@ -61,6 +61,14 @@ Form Fields:
 			<td><textarea rows="4" cols="50" maxlength="50" name="address" required></textarea></td>
 		</tr>
 		<tr>
+			<td>Longitude</td>
+			<td><input type = "text" name="longitude"></td>
+		</tr>
+		<tr>
+			<td>Latitude</td>
+			<td><input type = "text" name="latitude"></td>
+		</tr>
+		<tr>
 			<td>Region</td>
 			<td>
 				<select name = "region">
@@ -73,7 +81,7 @@ Form Fields:
 		</tr>
 		<tr>
 			<td>Phone number</td>
-			<td><input type="text" name="phone"></td>
+			<td><input type="text" name="phone" maxlength = "10"></td>
 		</tr>
 		<tr>
 			<td>Website</td>
@@ -138,7 +146,7 @@ Form Fields:
 	});
 
 	var init = function(){
-		setPostalMaxLength(jQuery('select[name="country"]').val());
+		setFieldMaxLength(jQuery('select[name="country"]').val());
 	}
 	
 	/**
@@ -169,10 +177,21 @@ Form Fields:
 				var postalCode = jQuery('input[name="postalcode"]').val();
 				var geocoder = new GClientGeocoder(); 
 				geocoder.getLatLng(postalCode, function(response){
-					geocoder.getLocations(response, function(place){
-						var apiAddress = place.Placemark[0].address;
-						console.log(place.Placemark[0].address);
-						jQuery('textarea[name="address"]').text(apiAddress);
+					geocoder.getLocations(response, function(places){
+						var apiResponse = places.Placemark;
+
+						//loop thorugh Placemark array and match postalcode entered
+						jQuery.each(apiResponse, function(i, placeMark){
+							var tempArr = placeMark.address.split(',');
+
+							//loop thru tempArr to find postalCode
+							jQuery.each(tempArr, function(j, addressObj){
+								if(addressObj.indexOf(postalCode)> -1){
+									var apiAddress = placeMark.address;
+									jQuery('textarea[name="address"]').text(apiAddress);
+								}								
+							});
+						});
 					});
 				});
 			}
@@ -180,17 +199,22 @@ Form Fields:
 
 		//event-3
 		jQuery('select[name="country"]').change(function(){
-			setPostalMaxLength(jQuery(this).val());
+			setFieldMaxLength(jQuery(this).val());
 		});
 	};
 
 	/**
 	* Sets postal code input field max length based on country selected
+	* @param inputCountry - Country from select field
+	* Singapore
+	*	PostalCode: 6
+	*	Phone: 8 
 	*/
-	var setPostalMaxLength = function(){
-		if("Singapore" === "singapore"){
+	var setFieldMaxLength = function(/*string*/ inputCountry){
+		if(inputCountry.toLowerCase() === "singapore"){
 			jQuery('input[name="postal"]').show().prop('disabled', false);
 			jQuery('input[name="postal"]').attr('maxlength', '6');
+			jQuery('input[name="phone"]').attr('maxlength', '8');
 		} else {
 			jQuery('input[name="postal"]').hide().prop('disabled', true);
 		}

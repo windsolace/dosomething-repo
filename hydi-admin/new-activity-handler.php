@@ -13,6 +13,7 @@ DevID-01. Main
 DevID-02. getPostData()
 DevID-03. processInputs($value)
 DevID-04. writeToDatabase($formData,$tableName)
+DevID-05. createPage($pagename)
 ===============================================*/
 
 /*========================================
@@ -23,6 +24,8 @@ Form Fields:
 - Name(*)		//textfield	
 - Description 	//textarea
 - Address(*) 	//textarea
+- longitude 	//textfield
+- latitude 		//textfield
 - Region 		//dropdown
 - Country 		//dropdown
 - Phone Number 	//textfield
@@ -44,9 +47,8 @@ main();
 * DevID-01
 */
 function main(){
-	//processInputs();
 	$formData = getPostData();
-	writeToDatabase($formData, TABLE_HYDI_ACTIVITY);
+	//writeToDatabase($formData, TABLE_HYDI_ACTIVITY);
 }
 
 /**
@@ -55,25 +57,34 @@ function main(){
 * @return JSON jsonPostData
 */
 function getPostData(){
-	$postid = processInputs($_POST["postid"]);
-	$category = processInputs($_POST["category"]);
-	$name = processInputs($_POST["name"]);
-	$description = processInputs($_POST["description"]);
-	$address = processInputs($_POST["address"]);
-	$region = processInputs($_POST["region"]);
-	$country = processInputs($_POST["country"]);
-	$phone = processInputs($_POST["phone"]);
-	$website = processInputs($_POST["website"]);
-	$pax1 = processInputs($_POST["pax1"]);
-	$pax2 = processInputs($_POST["pax2"]);
+	$postid = processInputs($_POST["postid"], "");
+	$category = processInputs($_POST["category"], "");
+	$name = processInputs($_POST["name"], "");
+	$description = processInputs($_POST["description"], "");
+	$address = processInputs($_POST["address"], "");
+	$longitude = processInputs($_POST["longitude"], "");
+	$latitude = processInputs($_POST["latitude"], "");
+	$region = processInputs($_POST["region"], "");
+	$country = processInputs($_POST["country"], "");
+	$phone = processInputs($_POST["phone"], "phone");
+	$website = processInputs($_POST["website"], "");
+	$pax1 = processInputs($_POST["pax1"], "");
+	$pax2 = processInputs($_POST["pax2"], "");
 
 	//CONDITION: pax1 < pax2
 	//Make pax2 = pax1 assuming max1 is the most accurate
 	if($pax1 > $pax2){
-		$pax2 = $pax1
+		$pax2 = $pax1;
 	}
 	
-	$price = processInputs($_POST["price"]);
+	$price = processInputs($_POST["price"], "");
+
+	//create a new page and return postid
+	$postid = createPage($name);
+	$posttemplateoption = get_option('newtemplateid');
+	if ( $postid && ! is_wp_error( $postid ) ){
+        update_post_meta( $postid, '_wp_page_template', 'page-templates/activitydetail.php');
+    }
 
 	//new json object
 	$jsonPostData = new stdClass();
@@ -81,8 +92,12 @@ function getPostData(){
 	$jsonPostData->category = $category;
 	$jsonPostData->name = $name;
 	$jsonPostData->description = $description;
-	$jsonPostData->address = $address;
-	$jsonPostData->region = $region;
+	$jsonPostData->location = array(
+			"address" 	=> $address,
+			"longitude" => $longitude,
+			"latitude" 	=> $latitude,
+			"region" 	=> $region
+		);
 	$jsonPostData->country = $country;
 	$jsonPostData->phone = $phone;
 	$jsonPostData->website = $website;
@@ -100,11 +115,15 @@ function getPostData(){
 * DevID-03: WIP
 * Processes form input data
 * @param value
+* @param type - the type of input
 * @return value
 *
-* - pax1
+* - areacode + phone
 */
-function processInputs($value){
+function processInputs($value, $type){
+	if($type == "phone"){
+
+	}
 	return $value;
 }
 
@@ -127,10 +146,10 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 			'name'				=> $jsonFormData['name'],
 			//'category'		=> $jsonFormData->category
 			'description'		=> $jsonFormData['description'],
-			'address' 			=> $jsonFormData['address'],
-			//'longitude' 		=> 0,
-			//'latitude' 			=> 0,
-			'region' 			=> $jsonFormData['region'],
+			'address' 			=> $jsonFormData['location']['address'],
+			'longitude' 		=> $jsonFormData['location']['longitude'],
+			'latitude' 			=> $jsonFormData['location']['latitude'],
+			'region' 			=> $jsonFormData['location']['region'],
 			'country' 			=> $jsonFormData['country'],
 			'phone' 			=> $jsonFormData['phone'],
 			'website' 			=> $jsonFormData['website'],
@@ -139,7 +158,7 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 			'average_price' 	=> $jsonFormData['price'],
 			//'time_range' 		=> 0,
 			//'submitted_date' 	=> 0,
-			'approval_id' 	=> null
+			'approval_id' 		=> wp_get_current_user()->display_name
 		)
 	);
 
@@ -153,12 +172,33 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 	*/
 }
 
+/**
+* DevID-05
+* @param pagename
+* @return postid
+*/
+function createPage($pagename){
+	$post = array(
+		'post_content'	=> "",
+		'post_name' 	=> $pagename,
+		'post_title'	=> $pagename,
+		'post_type'		=> 'page',
+		'post_status'	=> 'publish',
+		'page_template'	=> 'activitydetail.php'
+		);
+
+	$newpostid = wp_insert_post($post, $wp_error);
+
+	return $newpostid;
+}
+
 
 
 ?>
 
 <html>
 	<body>
+		<h2>Successfully added activity: </h2>
 		<p>Post ID: <?php echo $_POST["postid"]; ?></p>
 		<?php 
 			if(isset($_POST['category'])){
@@ -178,6 +218,8 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 		<p>Name: <?php echo $_POST["name"]; ?></p>
 		<p>Description: <?php echo $_POST["description"]; ?></p>
 		<p>Address: <?php echo $_POST["address"]; ?></p>
+		<p>Address: <?php echo $_POST["longitude"]; ?></p>
+		<p>Address: <?php echo $_POST["latitude"]; ?></p>
 		<p>Region: <?php echo $_POST["region"]; ?></p>
 		<p>Country: <?php echo $_POST["country"]; ?></p>
 		<p>Phone: <?php echo $_POST["phone"]; ?></p>
