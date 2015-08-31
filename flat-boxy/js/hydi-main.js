@@ -79,7 +79,7 @@ function hydiLogin(){
 
 /**
 * Creates or renews sessionID
-* @params uid
+* @param uid
 * @return sessionID
 */
 function renewSession(uid){
@@ -412,11 +412,15 @@ var userProfileFn = function(){
 	//Get User Info
 	var userProfile = {};
 
+	//Try to get uid from query param
+	var uid = getParameterByName('uid');
+	if(!uid){
+		uid = getCookie('uid');
+	} 
+
 	//var uid = sessionStorage.getItem('fbuid');
-	var uid = getCookie('uid');
 	var auth = getCookie('HYDIAUTHKEY');
 
-	//GET user profile info
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -556,6 +560,17 @@ function deleteCookie( name, path, domain ) {
 		((domain)?";domain="+domain:"") +
 		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
 	}
+
+/**
+* Search url for query param
+* @param name - String to search for
+* @return results
+*/
+function getParameterByName(name){
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 var HydiUtil = {

@@ -190,6 +190,8 @@ function routeRequest($requestPath, $data){
 	/*
 	API id: 05
 	* GET user profile info
+	* 31/8/2015: Removed authentication needed for retrieving user profile info
+	*	- To enable catering for getting user info by query param
 	*/
 	if($requestPath == USER_PROFILE_INFO){
 		$responseArray = json_decode($data);
@@ -198,19 +200,19 @@ function routeRequest($requestPath, $data){
 		if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 			foreach($responseArray as $key => $value){
 				if($key == 'userid') $userid = $value;
-				if($key == 'auth') $auth = $value;
+				//if($key == 'auth') $auth = $value;
 			}
 			//$response = getSession($userid);
-			$authResponse = isAuthenticated($userid, $auth);
+			//$authResponse = isAuthenticated($userid, $auth);
 
-			$jsonObj = new stdClass();			
-			$jsonObj = json_decode($authResponse, true);
+			//$jsonObj = new stdClass();			
+			//$jsonObj = json_decode($authResponse, true);
 
 			//Check auth response -> If true, get profile info
-			if($jsonObj['isLoggedIn'] == true){
+			//if($jsonObj['isLoggedIn'] == true){
 				$userProfileObj = hydi_getUserProfile($userid);
 				echo $userProfileObj;
-			}
+			//}
 
 			//echo "API 05: GET Success\n";
 			//echo $jsonObj['isLoggedIn'];
