@@ -412,6 +412,7 @@ var userProfileFn = function(){
 	//Get User Info
 	var userProfile = {};
 
+	//get fbid from query param, else use log in user else show guest
 	//Try to get uid from query param
 	var uid = getParameterByName('uid');
 	if(!uid){
@@ -421,6 +422,7 @@ var userProfileFn = function(){
 	//var uid = sessionStorage.getItem('fbuid');
 	var auth = getCookie('HYDIAUTHKEY');
 
+	//GET user profile info
 	$.ajax({
 		url: ajaxurl,
 		type: 'GET', 
@@ -560,6 +562,7 @@ function deleteCookie( name, path, domain ) {
 		((domain)?";domain="+domain:"") +
 		";expires=Thu, 01 Jan 1970 00:00:01 GMT";
 	}
+}
 
 /**
 * Search url for query param

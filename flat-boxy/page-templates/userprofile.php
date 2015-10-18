@@ -18,7 +18,7 @@ get_header(); ?>
 						<span id = "profile-pic">
 							<img class = "circle" src = ""/></span>
 						<div>
-							<span id = "profile-name">Guest</span><br/>
+							<span id = "profile-name"><%= data.userProfile.displayName%></span><br/>
 							
 							<% 
 								var accountAgeStr = "";

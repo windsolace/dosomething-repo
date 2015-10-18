@@ -304,6 +304,7 @@ function hydi_getUserProfile($userid){
 
 	//Get date difference
 	$dateJoined = $wpdb->get_var("SELECT DATE_FORMAT(registered,'%d %M %Y') as registered FROM fb_user WHERE fbuid='".$userid."'");
+	$displayName = $wpdb->get_var("SELECT displayName FROM fb_user WHERE fbuid='".$userid."'");
 	$dateNow = time();
 	$dateThen = strtotime($dateJoined);
 	$datediff = abs($dateNow - $dateThen);
@@ -356,6 +357,7 @@ function hydi_getUserProfile($userid){
 	$jsonObj->dateJoined = $dateJoined;
 	$jsonObj->accountAge = $accountAge;
 	$jsonObj->userid = $userid;
+	$jsonObj->displayName = $displayName;
 	$jsonObj->reviews = $userReviews;
 	$jsonObj->activities = $activities;
 	

@@ -216,6 +216,12 @@ function routeRequest($requestPath, $data){
 
 			//echo "API 05: GET Success\n";
 			//echo $jsonObj['isLoggedIn'];
+		} 
+		else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+			foreach($responseArray as $key => $value){
+				if($key == 'userid') $userid = $value;
+				else if($key == 'displayName') $displayName = $value;
+			}
 		}
 	}
 
