@@ -94,6 +94,7 @@
 	<?php wp_head(); ?>
 	<?php include_once("analyticstracking.php") ?>
 	<?php include("constants.php") ?>
+	<?php include("config.php") ?>
 	<?php include("hydi-functions.php") ?>
 	<?php include_once("ajaxHandler.php") ?>
 
@@ -102,18 +103,8 @@
 <body <?php body_class(); ?>>
 	<?php 
 
-		$site_home_url = "http://hydi.voqux.com/";//get_blogaddress_by_id(get_current_blog_id()); 
+		$site_home_url = hydiHomeUrl;
 	?>
-
-	<!-- Google Tag Manager -->
-	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KBQK3H"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-KBQK3H');</script>
-	<!-- End Google Tag Manager -->
 
 	<script>
 		//var ajaxurl = "<?php echo get_template_directory_uri().'/ajaxHandler.php'; ?>";
@@ -124,7 +115,7 @@
 
 		window.fbAsyncInit = function() {
 			FB.init({
-			  appId      : '337876719693977',
+			  appId      : <?php echo hydiFBAppId ?>,
 			  xfbml      : true,
 			  version    : 'v2.0',
 			});
@@ -184,9 +175,6 @@
 				}
 
 			});
-			
-
-
 		};
 
 		(function(d, s, id){

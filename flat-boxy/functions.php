@@ -217,7 +217,6 @@ function registerNewUser($userid){
             array(
                 'fbuid'             => $userid,
                 'registered'        => current_time('Y-m-d',1)
-
             )
         );
         //log("INSERT success");

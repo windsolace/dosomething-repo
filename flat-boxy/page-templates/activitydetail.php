@@ -50,12 +50,14 @@ get_header(); ?>
 			</div>
 
 			<?php
-				$con = mysql_connect("localhost","root","");
+				//$con = mysql_connect("localhost","root","");
+				$con = mysql_connect(hydiDBHost,hydiDBUser,hydiDBPass);
 				if (!$con)
 				{
 					die('Could not connect: ' . mysql_error());
 				}
-				mysql_select_db("hydi", $con);
+				//mysql_select_db("hydi", $con);
+				mysql_select_db(hydiDBName, $con);
 				$object_id = get_the_ID();
 				if( ! is_numeric($object_id) )
 				die('invalid object id');

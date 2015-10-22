@@ -21,7 +21,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 	?>
 
 	<!-- Start of navigation-->
-	<?php include(__DIR__."/../sidenav.php"); ?>
+	<?php include(hydiThemePath."/sidenav.php"); ?>
 	<!-- End of navigation -->
 	
 	<section id = "main" class = "full">
