@@ -1,10 +1,9 @@
 <?php
 	/*
-		* Template Name: New Activity Template
-		*
-		* @package WordPress
-		* @subpackage Flat_Boxy
-		* @since Flat_Boxy v1
+	* Template Name: New Activity Template
+	* @package WordPress
+	* @subpackage Flat_Boxy
+	* @since Flat_Boxy v1
 	*/
 	
 get_header(); ?>
@@ -20,9 +19,9 @@ get_header(); ?>
 					<tr>
 						<td>Category</td>
 						<td>
-							<input type="checkbox" name="category" value="Eat" />Eat
-							<input type="checkbox" name="category" value="Play" />Play
-							<input type="checkbox" name="category" value="Explore" />Explore
+							<input type="checkbox" name="category[]" value="Eat"/>Eat
+							<input type="checkbox" name="category[]" value="Play" />Play
+							<input type="checkbox" name="category[]" value="Explore" />Explore
 						</td>
 					</tr>
 					<tr>
@@ -34,8 +33,28 @@ get_header(); ?>
 						<td><textarea rows="4" cols="50" maxlength="50" name="description"></textarea></td>
 					</tr>
 					<tr>
+						<td>Country</td>
+						<td>
+							<select name = "country">
+								<option value="Singapore">Singapore</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Postal Code</td>
+						<td><input type="text" name="postalcode" maxlength="6"></td>
+					</tr>
+					<tr>
 						<td>Address</td>
 						<td><textarea rows="4" cols="50" maxlength="50" name="address"></textarea></td>
+					</tr>
+					<tr>
+						<td>Longitude</td>
+						<td><input type = "text" name="longitude"></td>
+					</tr>
+					<tr>
+						<td>Latitude</td>
+						<td><input type = "text" name="latitude"></td>
 					</tr>
 					<tr>
 						<td>Region</td>
@@ -45,14 +64,6 @@ get_header(); ?>
 								<option value="South">South</option>
 								<option value="East">East</option>
 								<option value="West">West</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Country</td>
-						<td>
-							<select>
-								<option value="Singapore">Singapore</option>
 							</select>
 						</td>
 					</tr>
@@ -119,24 +130,14 @@ get_header(); ?>
 	<?php get_footer();?>
 </div>
 
-	
-
-
+<script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
 <script>
+
+	gothere.load("maps");
 	$( document ).ready(function() {
-		$('#chkBox_opHrs').change(function(){
-			if ($('#chkBox_opHrs').is(':checked')) {
-				document.getElementById("fromTime").disabled=true;
-				document.getElementById("toTime").disabled=true;
-			}
-			else{
-				document.getElementById("fromTime").disabled=false;
-				document.getElementById("toTime").disabled=false;
-			}
+			newActivityFormFn();
 		});
-		$('#fromTime').timepicker();
-		$('#toTime').timepicker();
-		});
+	
 		
 		</script>
 	</body>

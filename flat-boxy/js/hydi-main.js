@@ -525,7 +525,7 @@ var userProfileFn = function(){
 	}
 };
 
-/*
+/**
 * Trend function for trends template
 */
 var trendsFn = function(jsonResponse){
@@ -548,6 +548,104 @@ var trendsFn = function(jsonResponse){
     }));
 
 	console.log(trendList);
+}
+
+/**
+ * New activity form
+ */
+var newActivityFormFn = function(){	
+	var init = function(){
+		events();
+	}
+
+	/**
+	* events
+	* 	event-1. Disable operating hours if 24-hrs is checked
+	*	event-2. Populate address by postal code (Countries: SG)
+	*	event-3. Change postalcode maxlength based on country select
+	*/
+	var events = function(){
+		//event 1
+		$('#chkBox_opHrs').change(function(){
+			if ($('#chkBox_opHrs').is(':checked')) {
+				document.getElementById("fromTime").disabled=true;
+				document.getElementById("toTime").disabled=true;
+			}
+			else{
+				document.getElementById("fromTime").disabled=false;
+				document.getElementById("toTime").disabled=false;
+			}
+		});
+		$('#fromTime').timepicker();
+		$('#toTime').timepicker();
+		
+		//event-2
+		$('input[name="postalcode"]').blur(function(){
+			//use gothere.sg geo API if country selected is singapore
+			if($('select[name="country"]').val().toLowerCase() === "singapore"){
+				var postalCode = jQuery('input[name="postalcode"]').val();
+				var geocoder = new GClientGeocoder(); 
+				geocoder.getLatLng(postalCode, function(response){
+					geocoder.getLocations(response, function(places){
+						var apiResponse = places.Placemark;
+
+						//loop thorugh Placemark array and match postalcode entered
+						$.each(apiResponse, function(i, placeMark){
+							var tempArr = placeMark.address.split(',');
+
+							//loop thru tempArr to find postalCode
+							$.each(tempArr, function(j, addressObj){
+								if(addressObj.indexOf(postalCode)> -1){
+									var apiAddress = placeMark.address;
+									jQuery('textarea[name="address"]').text(apiAddress);
+								}								
+							});
+						});
+					});
+				});
+			}
+		});
+		
+		//event-3
+		$('select[name="country"]').change(function(){
+			setFieldMaxLength($(this).val());
+		});
+		
+		
+	}
+	
+	/**
+	* Sets postal code input field max length based on country selected
+	* @param inputCountry - Country from select field
+	* Singapore
+	*	PostalCode: 6
+	*	Phone: 8 
+	*/
+	var setFieldMaxLength = function(/*string*/ inputCountry){
+		if(inputCountry.toLowerCase() === "singapore"){
+			jQuery('input[name="postal"]').show().prop('disabled', false);
+			jQuery('input[name="postal"]').attr('maxlength', '6');
+			jQuery('input[name="phone"]').attr('maxlength', '8');
+		} else {
+			jQuery('input[name="postal"]').hide().prop('disabled', true);
+		}
+	}
+
+	//validation
+	var form_validation = function(){
+		validationPassed = true;
+		if(jquery('input[name="category"]').length <= 0){
+			validationPassed = false;
+			console.log("Category checkboxes not checked!");
+		}
+		return validationPassed;
+		/*
+		if(callback)
+			callback();
+		*/
+	};
+	
+	init();
 }
 
 function getCookie(name) {
