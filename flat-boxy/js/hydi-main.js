@@ -563,6 +563,7 @@ var newActivityFormFn = function(){
 	* 	event-1. Disable operating hours if 24-hrs is checked
 	*	event-2. Populate address by postal code (Countries: SG)
 	*	event-3. Change postalcode maxlength based on country select
+	*	event-4. Custom form submit
 	*/
 	var events = function(){
 		//event 1
@@ -583,7 +584,7 @@ var newActivityFormFn = function(){
 		$('input[name="postalcode"]').blur(function(){
 			//use gothere.sg geo API if country selected is singapore
 			if($('select[name="country"]').val().toLowerCase() === "singapore"){
-				var postalCode = jQuery('input[name="postalcode"]').val();
+				var postalCode = $('input[name="postalcode"]').val();
 				var geocoder = new GClientGeocoder(); 
 				geocoder.getLatLng(postalCode, function(response){
 					geocoder.getLocations(response, function(places){
@@ -597,7 +598,7 @@ var newActivityFormFn = function(){
 							$.each(tempArr, function(j, addressObj){
 								if(addressObj.indexOf(postalCode)> -1){
 									var apiAddress = placeMark.address;
-									jQuery('textarea[name="address"]').text(apiAddress);
+									$('textarea[name="address"]').text(apiAddress);
 								}								
 							});
 						});
@@ -611,7 +612,34 @@ var newActivityFormFn = function(){
 			setFieldMaxLength($(this).val());
 		});
 		
-		
+		//event-4
+		$('input[type="submit"]').on('click', function(e){
+			e.preventDefault();
+			console.log("submit clicked");
+			$.ajax({
+				url: ajaxurl,
+				type: 'POST', 
+				dataType:'json',        
+				data: {
+					requestPath: HYDI_API.NEW_ACTIVITY,
+					params: {
+						formData: $('#new-activities-form').serialize().replace(/\+/g,'%20')
+					},
+					action: 'callHydiApi'
+				},
+				success:
+					function(response){
+						//console.log("Successful retrieve user info.");
+						console.log("success");
+						console.log(response);
+					},
+				error:
+					function(e){
+						console.log("Error: Failed to POST new activity");				    
+						console.log(e);
+					}
+			});
+		});
 	}
 	
 	/**
@@ -623,18 +651,18 @@ var newActivityFormFn = function(){
 	*/
 	var setFieldMaxLength = function(/*string*/ inputCountry){
 		if(inputCountry.toLowerCase() === "singapore"){
-			jQuery('input[name="postal"]').show().prop('disabled', false);
-			jQuery('input[name="postal"]').attr('maxlength', '6');
-			jQuery('input[name="phone"]').attr('maxlength', '8');
+			$('input[name="postal"]').show().prop('disabled', false);
+			$('input[name="postal"]').attr('maxlength', '6');
+			$('input[name="phone"]').attr('maxlength', '8');
 		} else {
-			jQuery('input[name="postal"]').hide().prop('disabled', true);
+			$('input[name="postal"]').hide().prop('disabled', true);
 		}
 	}
 
 	//validation
 	var form_validation = function(){
 		validationPassed = true;
-		if(jquery('input[name="category"]').length <= 0){
+		if($('input[name="category"]').length <= 0){
 			validationPassed = false;
 			console.log("Category checkboxes not checked!");
 		}

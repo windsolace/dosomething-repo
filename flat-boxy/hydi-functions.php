@@ -393,6 +393,106 @@ function getImagesByHashtag($hashtag){
 	return json_encode($respDataArr);
 }
 
+/**
+ * POST new activity
+ * @param formData
+ * category%5B%5D=Play&name=New+activyity&description=desc&country=Singapore&postalcode=510119&address=119+Pasir+Ris+Street+11%2C+Singapore+510119&longitude=123&latitude=345&phone=81023504&website=&price=
+ */
+function postNewActivity($formData){
+	global $wpdb;
+	$success = false;
+	$pendingTable = TABLE_HYDI_PENDING_ACTIVITY;
+	$formInputArray = explode("&", $formData);
+	//$page_id = $formInputArray[0];
+	
+	$jsonFormData = new stdClass();
+	$jsonFormData->name = $value;
+	$catStr = "";
+	foreach($formInputArray as $formInput){
+		$keyValueArray = explode("=", $formInput);
+		$key = rawurldecode($keyValueArray[0]);
+		$value = $keyValueArray[1];
+		//echo $key." --- ".$value;
+		switch($key){
+			case "name": 
+				$jsonFormData->name = rawurldecode($value); 
+				break;
+			case "category[]":
+				if(strlen($catStr) > 0)
+					$catStr = $catStr.",".$value;
+				else $catStr = $catStr.$value;
+				break;
+			case "description":
+				$jsonFormData->description = rawurldecode($value);
+				break;
+			case "country":
+				$jsonFormData->country = rawurldecode($value);
+				break;
+			case "address":
+				$jsonFormData->location["address"] = rawurldecode($value);
+				break;
+			case "longitude":
+				$jsonFormData->location["longitude"] = rawurldecode($value);
+				break;	
+			case "latitude":
+				$jsonFormData->location["latitude"] = rawurldecode($value);
+				break;
+			case "region":
+				$jsonFormData->location["region"] = rawurldecode($value);
+				break;
+			case "phone":
+				$jsonFormData->phone = rawurldecode($value);
+				break;
+			case "website":
+				$jsonFormData->website = $value;
+				break;
+			case "min_pax":
+				$jsonFormData->pax["minPax"] = rawurldecode($value);
+				break;
+			case "max_pax":
+				$jsonFormData->pax["maxPax"] = rawurldecode($value);
+				break;
+			case "average_price":
+				$jsonFormData->averagePrice = rawurldecode($value);
+				break;
+			case "fromTime":
+				$fromTime = rawurldecode($value);
+				break;
+			case "toTime":
+				$toTime = rawurldecode($value);
+				break;
+		}
+		
+	} 
+	$jsonFormData->category = $catStr;
+	$jsonFormData->timeRange = $fromTime." - ".$toTime;
+	$jsonFormData = json_encode($jsonFormData);	
+	$jsonArrData = json_decode($jsonFormData, true);
+	//write inputs to activity table
+	$wpdb->insert(
+		$pendingTable,
+		array(
+			'name'				=> $jsonArrData['name'],
+			'category'			=> $jsonArrData['category'],
+			'description'		=> $jsonArrData['description'],
+			'address' 			=> $jsonArrData['location']['address'],
+			'longitude' 		=> $jsonArrData['location']['longitude'],
+			'latitude' 			=> $jsonArrData['location']['latitude'],
+			'region' 			=> $jsonArrData['location']['region'],
+			'country' 			=> $jsonArrData['country'],
+			'phone' 			=> $jsonArrData['phone'],
+			'website' 			=> $jsonArrData['website'],
+			'min_pax' 			=> $jsonArrData['pax']['minPax'],
+			'max_pax' 			=> $jsonArrData['pax']['maxPax'],
+			'average_price' 	=> $jsonArrData['averagePrice'],
+			'time_range' 		=> $jsonArrData['timeRange']
+			//'submitted_date' 	=> 0,
+			//'approval_id' 		=> wp_get_current_user()->display_name*/
+		)
+	);
+	echo $jsonFormData;
+	return $success;
+}
 /*
 * Random Function to render 1 activity as result
 * @params $code - 

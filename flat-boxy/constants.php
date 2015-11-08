@@ -9,6 +9,7 @@ define("HYDI_AUTH_KEY", "HYDIAUTHKEY");
 define("TABLE_HYDI_ACTIVITY", "activity");
 define("TABLE_HYDI_USERLIKES", "fb_user_likes");
 define("TABLE_HYDI_USERS", "fb_user");
+define("TABLE_HYDI_PENDING_ACTIVITY", "pending_activity");
 
 /*
 * API URL CONSTANTS (ref hydi-api.js)
@@ -25,6 +26,10 @@ define("USER_PROFILE_INFO", "/hydi/api/user");
 * API 02 - GET activity details
 */
 define("ACTIVITY_DETAILS", "/hydi/api/activity");
+/**
+ * API 07 - POST new activity
+ */
+define("NEW_ACTIVITY", "/hydi/api/activity/newactivity");
 /**
 * API 03 - GET all activities
 */

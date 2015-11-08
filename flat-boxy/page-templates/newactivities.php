@@ -14,7 +14,7 @@ get_header(); ?>
 
 		<div id="main-content">
 			
-			<form action="functions.php" method="POST">
+			<form id = "new-activities-form" action="" method="">
 				<table>
 					<tr>
 						<td>Category</td>
@@ -59,7 +59,7 @@ get_header(); ?>
 					<tr>
 						<td>Region</td>
 						<td>
-							<select>
+							<select name = "region">
 								<option value="North">North</option>
 								<option value="South">South</option>
 								<option value="East">East</option>
@@ -78,7 +78,7 @@ get_header(); ?>
 					<tr>
 						<td>Suitable for how many number of person</td>
 						<td>
-							<select>
+							<select name = "min_pax">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -91,7 +91,7 @@ get_header(); ?>
 								<option value="10">10</option>
 							</select>
 							&nbsp;-&nbsp;
-							<select>
+							<select name = "max_pax">
 								<option value="2">2</option>
 								<option value="3">3</option>
 								<option value="4">4</option>
@@ -106,7 +106,7 @@ get_header(); ?>
 					</tr>
 					<tr>
 						<td>Average price</td>
-						<td><input type="text" name="price"></td>
+						<td><input type="text" name="average_price"></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -115,9 +115,9 @@ get_header(); ?>
 						<td>Opening hours</td>
 						<td>
 							<input type="checkbox" id="chkBox_opHrs" value="24 Hours">24 Hours<br>
-							<input id="fromTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
+							<input id="fromTime" value = "" name="fromTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
 							&nbsp;-&nbsp;
-							<input id="toTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
+							<input id="toTime" value = "" name = "toTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
 						</td>
 					</tr>
 				</table>

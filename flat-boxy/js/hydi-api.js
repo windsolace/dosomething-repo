@@ -13,5 +13,7 @@ var HYDI_API = {
 	//API 01 - GET/POST user activity votes
 	'USER_ACTIVITY_VOTES' 	: '/hydi/api/activity/users',
 	//API 06 - GET images by hashtag
-	'ACTIVITY_IMAGES'		: '/hydi/api/activity/images'
+	'ACTIVITY_IMAGES'		: '/hydi/api/activity/images',
+	//API 07 - POST new activity
+	'NEW_ACTIVITY'		: '/hydi/api/activity/newactivity'
 }

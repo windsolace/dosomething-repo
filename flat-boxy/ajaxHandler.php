@@ -243,6 +243,25 @@ function routeRequest($requestPath, $data){
 			//echo "API 06: GET Success\n";
 		}
 	}
+	
+	/*
+	 API id: 07
+	 * POST new activity from form
+	 */
+	if($requestPath == NEW_ACTIVITY){
+		$responseArray = json_decode($data);
+	
+		//IF HTTP GET -> get images by hashtag
+		if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+			foreach($responseArray as $key => $value){
+				if($key == 'formData') $formData = $value;
+			}
+	
+			$postResponse = postNewActivity($formData);
+			echo $postResponse;
+			//echo "API 07: POST Success\n";
+		}
+	}
 
 
 	//echo "routeRequest done";
