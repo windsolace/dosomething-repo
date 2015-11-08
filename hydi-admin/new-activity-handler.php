@@ -38,6 +38,7 @@ Form Fields:
 require_once("../../../wp-config.php");
 
 define("TABLE_HYDI_ACTIVITY", "activity");
+define("TABLE_ACTIVITY_CATEGORY", "activity_category");
 define("TABLE_HYDI_PENDING_ACTIVITY", "pending_activity");
 
 main();
@@ -48,7 +49,7 @@ main();
 */
 function main(){
 	$formData = getPostData();
-	//writeToDatabase($formData, TABLE_HYDI_ACTIVITY);
+	writeToDatabase($formData, TABLE_HYDI_ACTIVITY);
 }
 
 /**
@@ -57,8 +58,39 @@ function main(){
 * @return JSON jsonPostData
 */
 function getPostData(){
+	
 	$postid = processInputs($_POST["postid"], "");
-	$category = processInputs($_POST["category"], "");
+	$category = "";
+	$timeRange = "";
+	//concat categories, timeRange
+	if(isset($_POST['category'])){
+		if (is_array($_POST['category'])) {
+			foreach($_POST['category'] as $value){
+				if(strlen($category) > 0)
+					$category = $category.",".$value;
+				else $category = $category.$value;
+			}
+		} else {
+			$category = $_POST['category'];
+		}
+	}
+	foreach($_POST as $key => $value){
+		if($key == "category"){
+			$value = processInputs($value, "");
+			
+			
+			
+		}
+		
+		if($key == "fromTime"){
+			$fromTime = $value;
+		} 
+		if($key == "toTime"){
+			$toTime = $value;
+		}
+	}
+	
+	$timeRange = $fromTime." - ".$toTime;
 	$name = processInputs($_POST["name"], "");
 	$description = processInputs($_POST["description"], "");
 	$address = processInputs($_POST["address"], "");
@@ -81,6 +113,7 @@ function getPostData(){
 
 	//create a new page and return postid
 	$postid = createPage($name);
+	echo "Page created with Post ID: ".$postid;
 	$posttemplateoption = get_option('newtemplateid');
 	if ( $postid && ! is_wp_error( $postid ) ){
         update_post_meta( $postid, '_wp_page_template', 'page-templates/activitydetail.php');
@@ -106,6 +139,7 @@ function getPostData(){
 		"maxPax" => $pax2
 		);
 	$jsonPostData->price = $price;
+	$jsonPostData->timeRange = $timeRange;
 
 	$jsonPostData = json_encode($jsonPostData);
 	return $jsonPostData;
@@ -144,7 +178,7 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 		array(
 			'object_id'			=> $jsonFormData['postid'],
 			'name'				=> $jsonFormData['name'],
-			//'category'		=> $jsonFormData->category
+			//'category'			=> $jsonFormData->category, category inserted into another table
 			'description'		=> $jsonFormData['description'],
 			'address' 			=> $jsonFormData['location']['address'],
 			'longitude' 		=> $jsonFormData['location']['longitude'],
@@ -156,11 +190,22 @@ function writeToDatabase(/*json*/ $formData, $tableName){
 			'min_pax' 			=> $jsonFormData['pax']['minPax'],
 			'max_pax' 			=> $jsonFormData['pax']['maxPax'],
 			'average_price' 	=> $jsonFormData['price'],
-			//'time_range' 		=> 0,
+			'time_range' 		=> $jsonFormData['timeRange'],
 			//'submitted_date' 	=> 0,
 			'approval_id' 		=> wp_get_current_user()->display_name
 		)
 	);
+	
+	$catArr = explode(",",$jsonFormData['category']);
+	foreach($catArr as $category){
+		$wpdb->insert(
+			TABLE_ACTIVITY_CATEGORY,
+			array(
+				'object_id'		=> $jsonFormData['postid'],
+				'category'		=> $category
+			)
+		);
+	}
 
 	/* For debugging
 	$userReviews = $wpdb->get_results("
@@ -191,25 +236,23 @@ function createPage($pagename){
 
 	return $newpostid;
 }
-
-
-
 ?>
 
 <html>
 	<body>
 		<h2>Successfully added activity: </h2>
-		<p>Post ID: <?php echo $_POST["postid"]; ?></p>
 		<?php 
 			if(isset($_POST['category'])){
 				if (is_array($_POST['category'])) {
-					$categoryStr = "";
-				    foreach($_POST['category'] as $value){
-					 	$categoryStr = $categoryStr.$value.",";
-				    }
-				    echo '<p>Category: '.$categoryStr;
+					$category = "";
+					foreach($_POST['category'] as $value){
+						if(strlen($category) > 0)
+							$category = $category.",".$value;
+						else $category = $category.$value;
+					}
+				    echo '<p>Category: '.$category;
 				} else {
-				    $value = $_POST['category'];
+				    $value = $_POST['category']; 
 				    echo '<p>Category:'.$value.'</p>';
 				}
 			}

@@ -1,0 +1,9 @@
+table#pending-activities, #pending-activities th, #pending-activities td {
+   border: 1px solid black;
+   text-align:center;
+}
+
+table#pending-activities td.text-left{
+	text-align:left;
+	padding: 5px 20px 5px 20px;
+}

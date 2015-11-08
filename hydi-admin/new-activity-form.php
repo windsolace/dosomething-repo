@@ -24,10 +24,10 @@ Form Fields:
 <h4>Inserts a new activity into activity table</h4>
 <form action="<?php echo plugins_url('hydi-admin/new-activity-handler.php') ?>" method="POST" onsubmit = "return form_validation();">
 	<table>
-		<tr>
+		<!-- Removed because page creation can generate pageid automatically tr>
 			<td>Post ID *</td>
 			<td><input type="text" name="postid" required/></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td>Category</td>
 			<td>
@@ -127,9 +127,9 @@ Form Fields:
 				<td>Opening hours</td>
 				<td>
 					<input type="checkbox" id="chkBox_opHrs" value="24 Hours">24 Hours<br>
-					<input id="fromTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
+					<input id="fromTime" name = "fromTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
 					&nbsp;-&nbsp;
-					<input id="toTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
+					<input id="toTime" name = "toTime" type="text" class="time ui-timepicker-input" data-scroll-default="6:00am" autocomplete="off">
 				</select>
 			</td>
 		</tr>

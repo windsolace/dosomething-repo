@@ -42,7 +42,7 @@
     * HA-01a. Enqueue custom CSS
     */
     function hydi_admin_theme_style() {
-	    wp_enqueue_style('hydi-admin-theme', plugins_url('wp-admin.css', __FILE__));
+	    wp_enqueue_style('hydi-admin-theme', plugins_url('hydi-admin.css', __FILE__));
 
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-timepicker',  
@@ -101,6 +101,7 @@
         // of the custom Test Toplevel menu
         function hydi_pending_activities_page() {
             echo "<h2>" . __( 'Pending Activities', '' ) . "</h2>";
+            include 'pending-activities.php';
         }
 
         /*
